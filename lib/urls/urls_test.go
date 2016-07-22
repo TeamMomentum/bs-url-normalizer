@@ -1,0 +1,184 @@
+package urls
+
+import (
+	"net/url"
+	"testing"
+)
+
+// 不要なパラメータを除去できているかのtest
+func TestRemoveQueryParameters(t *testing.T) {
+	var (
+		ul *url.URL
+		nu string
+	)
+
+	ul = mustURL("http://blog.example.jp/tihoukoumu?utm_source=yahoo&utm_medium=cpc&utm_campaign=momentum&key=value")
+	nu = FirstNormalizeURL(ul)
+	stringCheck(t, "URL", "http://blog.example.jp/tihoukoumu/?key=value", nu)
+}
+
+/*
+Query parameterの順序保証が保たれているかのtest
+*元URL
+http://example.com/tihoukoumu?d=1&a=2&c=3&b=4
+
+*正規化後URL
+http://example.com/tihoukoumu?a=2&b=4&c=3&d=1
+*/
+func TestQueryOrder(t *testing.T) {
+	testURL := "http://example.com/tihoukoumu?d=1&a=2&c=3&b=4"
+	results := make(map[string]bool)
+	for i := 0; i < 100; i++ {
+		nu := FirstNormalizeURL(mustURL(testURL))
+		results[nu] = true
+	}
+	if len(results) != 1 {
+		t.Error("URL query order should be stable.")
+	}
+	testURL = "http://example.com/tihoukoumu?a=2&c=3&b=4&d=1&utm_query=1"
+	for i := 0; i < 100; i++ {
+		nu := FirstNormalizeURL(mustURL(testURL))
+		results[nu] = true
+	}
+	if len(results) != 1 {
+		t.Error("URL query order should be stable.")
+	}
+}
+
+/* http/https プロトコルをhttpに統一するtest
+* プロトコル正規化
+https://example.com/ => http://example.com/
+
+* パス末尾の正規化
+http://example.com => http://example.com/
+*/
+func TestFirstNormalization(t *testing.T) {
+	var (
+		ul *url.URL
+		nu string
+	)
+
+	// プロトコル正規化
+	ul = mustURL("https://example.com/")
+	nu = FirstNormalizeURL(mustURL("https://example.com/"))
+
+	if nu == ul.String() {
+		t.Errorf("%v != %v", nu, ul.String())
+	}
+
+	// パス正規化
+	ul = mustURL("http://example.com")
+	nu = FirstNormalizeURL(mustURL("http://example.com"))
+
+	if nu == ul.String() {
+		t.Errorf("%v should not be %v", nu, ul.String())
+	}
+	if nu != "http://example.com/" {
+		t.Errorf("%v should be %v", nu, "http://example.com/")
+	}
+}
+
+/*
+* パスの正規化
+http://blog.livedoor.jp/tihoukoumu/sub/test => http://blog.livedoor.jp/tihoukoumu
+*/
+func TestSecondNormalization(t *testing.T) {
+	var (
+		ul *url.URL
+	)
+
+	ul = mustURL("http://example.com/tihoukoumu?d=1&a=2&c=3&b=4")
+	if sul := SecondNormalizeURL(ul); sul != "http://example.com" {
+		t.Errorf("URL should not be %v", sul)
+	}
+
+	ul = mustURL("http://example.com:8000/tihoukoumu?d=1&a=2&c=3&b=4")
+	if sul := SecondNormalizeURL(ul); sul != "http://example.com:8000" {
+		t.Errorf("URL should not be %v", sul)
+	}
+
+	ul = mustURL("https://example.com:8000//tihoukoumu?d=1&a=2&c=3&b=4")
+	if sul := SecondNormalizeURL(ul); sul != "http://example.com:8000" {
+		t.Errorf("URL should not be %v", sul)
+	}
+
+	ul = mustURL("http://blog.livedoor.jp/tihoukoumu/sub/test?d=1&a=2&c=3&b=4")
+	if sul := SecondNormalizeURL(ul); sul != "http://blog.livedoor.jp/tihoukoumu" {
+		t.Errorf("URL should not be %v", sul)
+	}
+
+	ul = mustURL("http://bannch.com/a/b/c/d?d=1&a=2&c=3&b=4")
+	if sul := SecondNormalizeURL(ul); sul != "http://bannch.com/a/b/c" {
+		t.Errorf("URL should not be %v", sul)
+	}
+}
+
+// パス階層分割関数のtest
+func TestSplitNDomainPath(t *testing.T) {
+	ul := mustURL("http://example.com/a/b/c/")
+	if splitNDomainPath(ul, 2) != "example.com/a/b" {
+		t.Errorf("%v != %v", splitNDomainPath(ul, 2), "example.com/a/b")
+	}
+}
+
+/*
+パス階層レベルでの正規化のテスト
+*/
+func TestNormalizePathMap(t *testing.T) {
+	var (
+		ul         *url.URL
+		normalized bool
+	)
+
+	ul = mustURL("http://bannch.com/bs/bbs/798793/sub/index.html?test=123")
+	normalized = normalizePath(ul)
+	if !normalized {
+		t.Errorf("%v should be normalized", ul.String())
+		return
+	}
+
+	if ul.String() != "http://bannch.com/bs/bbs/798793" {
+		t.Errorf("%v should be %v", ul.String(), "http://bannch.com/bs/bbs/798793")
+		return
+	}
+
+	ul = mustURL("http://bbs.mottoki.com/index?bbs=kinyuu&thread=&page=2")
+	normalized = normalizePath(ul)
+	if !normalized {
+		t.Errorf("%v should be normalized", ul.String())
+		return
+	}
+
+	if ul.String() != "http://bbs.mottoki.com/index?bbs=kinyuu" {
+		t.Errorf("%v should be %v", ul.String(), "http://bbs.mottoki.com/index?bbs=kinyuu")
+		return
+	}
+}
+
+func TestNormalizeMobileApp(t *testing.T) {
+	var ul *url.URL
+	ul = mustURL("https://itunes.apple.com/jp/app/minkara/id346528801?mt=8")
+
+	if u := FirstNormalizeURL(ul); u != "http://itunes.apple.com/app/id346528801/" {
+		t.Errorf("%v != %v", u, "http://itunes.apple.com/app/id346528801/")
+	}
+
+	ul = mustURL("https://itunes.apple.com/app/id346528801")
+	if u := FirstNormalizeURL(ul); u != "http://itunes.apple.com/app/id346528801/" {
+		t.Errorf("%v != %v", u, "http://itunes.apple.com/app/id346528801/")
+	}
+}
+
+func stringCheck(t *testing.T, key, correct, other string) {
+	if correct != other {
+		t.Errorf("%v should be '%v', not '%v'.", key, correct, other)
+	}
+}
+
+func mustURL(rawURL string) *url.URL {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		panic(err)
+	}
+	return u
+}

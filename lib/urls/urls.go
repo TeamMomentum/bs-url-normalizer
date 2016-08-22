@@ -22,6 +22,14 @@ var (
 		regexp.MustCompile("/app/(id[^/]+)"),
 		regexp.MustCompile("/app/[^/]+/(id[^/]+)"),
 	}
+	dokuhaPat      = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
+	optimizeURLMap = map[string]func(*url.URL) bool{
+		"dokuha.jp":         optimizeDokuhaURL,
+		"novel.syosetu.org": CreateOptimizeURLFunc(regexp.MustCompile(`/\d+`)),
+		"ncode.syosetu.com": CreateOptimizeURLFunc(regexp.MustCompile(`/[^/]+`)),
+		"live.nicovideo.jp": optimizeLiveNicovideoURL,
+		"s.maho.jp":         CreateOptimizeURLFunc(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
+	}
 )
 
 /*
@@ -36,6 +44,7 @@ func FirstNormalizeURL(ul *url.URL) string {
 	normalizeSPHost(ul)
 	normalizeScheme(ul)
 	normalizeMobileAppURL(ul)
+	optimizeURL(ul)
 	normalizePathSuffix(ul)
 	return ul.String()
 }
@@ -230,6 +239,35 @@ func makeStringStringMap(lines []string, sep string) map[string]string {
 		m[spHost] = pcHost
 	}
 	return m
+}
+
+func optimizeURL(ul *url.URL) {
+	if cb, ok := optimizeURLMap[ul.Host]; ok {
+		cb(ul)
+	}
+}
+
+/*
+dokuha.jp用正規化関数
+*/
+func optimizeDokuhaURL(ul *url.URL) bool {
+	groups := dokuhaPat.FindStringSubmatch(ul.Path)
+	if len(groups) == 0 {
+		return false
+	}
+	ul.Path = "/comicweb/contents/comic/" + groups[1]
+	return true
+}
+
+/*
+live.nicovideo.jp用正規化関数
+*/
+func optimizeLiveNicovideoURL(ul *url.URL) bool {
+	if strings.HasPrefix(ul.Path, "/watch/") {
+		ul.RawQuery = ""
+		return true
+	}
+	return false
 }
 
 func init() {

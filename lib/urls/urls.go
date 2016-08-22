@@ -149,7 +149,18 @@ func normalizeAppStore(ul *url.URL) {
 // https://play.google.com/store/apps/details?id=jp.co.absun.tears&hl=ja
 func normalizePlayStore(ul *url.URL) {
 	q := ul.Query()
-	q.Del("hl")
+	keys := []string{}
+	for k := range q {
+		if k != "id" {
+			keys = append(keys, k)
+		}
+	}
+	if len(keys) == 0 {
+		return
+	}
+	for _, k := range keys {
+		q.Del(k)
+	}
 	ul.RawQuery = q.Encode()
 }
 

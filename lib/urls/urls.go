@@ -123,6 +123,8 @@ func normalizeMobileAppURL(ul *url.URL) {
 	switch ul.Host {
 	case "itunes.apple.com": // for apple store
 		normalizeAppStore(ul)
+	case "play.google.com": // for google store
+		normalizePlayStore(ul)
 	}
 }
 
@@ -139,6 +141,16 @@ func normalizeAppStore(ul *url.URL) {
 			return
 		}
 	}
+}
+
+// Normalization for google play store
+// Patterns:
+// https://play.google.com/store/apps/details?id=com.free.mt2
+// https://play.google.com/store/apps/details?id=jp.co.absun.tears&hl=ja
+func normalizePlayStore(ul *url.URL) {
+	q := ul.Query()
+	q.Del("hl")
+	ul.RawQuery = q.Encode()
 }
 
 // 意味空間でURLを切り上げ、crawling対象のURLに変換する関数を返します

@@ -156,16 +156,33 @@ func TestNormalizePathMap(t *testing.T) {
 }
 
 func TestNormalizeMobileApp(t *testing.T) {
-	var ul *url.URL
-	ul = mustURL("https://itunes.apple.com/jp/app/minkara/id346528801?mt=8")
-
-	if u := FirstNormalizeURL(ul); u != "http://itunes.apple.com/app/id346528801/" {
-		t.Errorf("%v != %v", u, "http://itunes.apple.com/app/id346528801/")
+	var cases = []struct {
+		rawurl string
+		wants  string
+	}{
+		{
+			rawurl: "https://itunes.apple.com/jp/app/minkara/id346528801?mt=8",
+			wants:  "http://itunes.apple.com/app/id346528801/",
+		},
+		{
+			rawurl: "https://itunes.apple.com/app/id346528801",
+			wants:  "http://itunes.apple.com/app/id346528801/",
+		},
+		{
+			rawurl: "https://play.google.com/store/apps/details?id=net.totopi.news&hl=jp",
+			wants:  "http://play.google.com/store/apps/details/?id=net.totopi.news",
+		},
+		{
+			rawurl: "https://play.google.com/store/apps/details?id=net.totopi.news",
+			wants:  "http://play.google.com/store/apps/details/?id=net.totopi.news",
+		},
 	}
 
-	ul = mustURL("https://itunes.apple.com/app/id346528801")
-	if u := FirstNormalizeURL(ul); u != "http://itunes.apple.com/app/id346528801/" {
-		t.Errorf("%v != %v", u, "http://itunes.apple.com/app/id346528801/")
+	for _, cs := range cases {
+		ul := mustURL(cs.rawurl)
+		if u := FirstNormalizeURL(ul); u != cs.wants {
+			t.Errorf("%v != %v", u, cs.wants)
+		}
 	}
 }
 

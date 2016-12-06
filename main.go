@@ -15,7 +15,7 @@ import (
 //export first_normalize_url
 func first_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
 	goraw := C.GoString(raw)
-	ul, err := url.Parse(goraw)
+	ul, err := url.ParseRequestURI(goraw)
 	if err != nil {
 		*ptr = unsafe.Pointer(C.CString(""))
 	}
@@ -25,7 +25,7 @@ func first_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
 //export second_normalize_url
 func second_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
 	goraw := C.GoString(raw)
-	ul, err := url.Parse(goraw)
+	ul, err := url.ParseRequestURI(goraw)
 	if err != nil {
 		*ptr = unsafe.Pointer(C.CString(""))
 	}

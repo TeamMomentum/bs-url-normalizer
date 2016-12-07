@@ -35,8 +35,10 @@ func second_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
 }
 
 //export free_normalize_url
-func free_normalize_url(mem unsafe.Pointer) {
-	C.free(mem)
+func free_normalize_url(mem *unsafe.Pointer) {
+	if mem != nil { // check for avoiding panic
+		C.free(*mem)
+	}
 }
 
 func main() {

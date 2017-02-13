@@ -1,20 +1,55 @@
 ## URL正規化モジュール
 
+### 呼び出し方法
+
+Makefileでは[buildmode=c-shared](https://golang.org/cmd/go/#hdr-Description_of_build_modes)を指定しており、makeするとlibmomentum\_url\_normalizer.aというShared Libraryが生成されます。
+
+簡単なサンプルをexamplesディレクトリに用意してありますので、そちらを参考にURL正規化を行ってください。
+
 ### インタフェース
 
-./lib/urls 以下に配置しております。
+正規化関数とメモリ開放関数が実装されており、以下のようなインターフェースとなっております。
 
-モジュールはGo言語で書かれており、正規化関数は以下のインタフェースとなっております。
+なお Go用のライブラリは ./lib/urls 以下に配置しております。
 
-* 1段階目評価時関数
+#### 1段階目評価時関数
+
+* Shared
+
+  ```c
+  first_normalize_url(char* src, void** dst)
+  ```
+
+* Go
+
   ```go
   func FirstNormalizeURL(*url.URL) string
   ```
 
-* 2段階目評価時関数
+#### 2段階目評価時関数
+
+* Shared
+
+  ```c
+  second_normalize_url(char* src, void** dst)
+  ```
+
+* Go
+
   ```go
   func SecondNormalizeURL(*url.URL) string
   ```
+
+#### リソース開放関数
+
+* Shared
+
+  ```c
+  free_normalize_url(void* dst)
+  ```
+* Go
+
+  リソースはGCされるためインターフェースを用意しておりません。
 
 ### 処理概要
 
@@ -29,14 +64,6 @@
   ```go
   // import sort
   sort.Strings([]string)
-  ```
-
-  perlのコードで記述した場合、以下と同等となることかと思います。
-
-  ```perl
-  use utf8;
-
-  sort @keys;
   ```
 
 * SPとPCのホスト変換

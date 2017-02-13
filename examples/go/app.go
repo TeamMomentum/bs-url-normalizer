@@ -3,7 +3,7 @@ package main
 import (
 	"net/url"
 
-	"../lib/urls"
+	"../../lib/urls"
 )
 
 func main() {

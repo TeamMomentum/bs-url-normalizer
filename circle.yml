@@ -15,3 +15,4 @@ jobs:
       - run: go get honnef.co/go/tools/cmd/unused
       - run: make lint
       - run: make test
+

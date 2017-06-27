@@ -5,7 +5,7 @@ shared:
 	go build -buildmode=c-shared -o $(TARGET).a ./main.go
 
 test:
-	go test ./lib/...
+	go test -v -race ./lib/...
 
 build:
 	@$(MAKE) test

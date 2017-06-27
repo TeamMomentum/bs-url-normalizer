@@ -40,13 +40,8 @@ var (
 // FirstNormalizeURL returns a unique URL of the input URL,
 // which contributes to reduce the database footprint.
 func FirstNormalizeURL(ul *url.URL) string {
-	removeQueryParameters(ul, ul.Query())
-	normalizeSPHost(ul)
-	normalizeScheme(ul)
-	normalizeMobileAppURL(ul)
-	optimizeURL(ul)
-	normalizePathSuffix(ul)
-	return ul.String()
+	_, normalizedURL := NormalizeURL(ul)
+	return normalizedURL
 }
 
 // SecondNormalizeURL does the FirstNormalizeURL first, then
@@ -57,6 +52,24 @@ func SecondNormalizeURL(ul *url.URL) string {
 		return ul.String()
 	}
 	return ul.Scheme + "://" + ul.Host
+}
+
+// getCrawlingURL: Momentum Internal Use
+func getCrawlingURL(ul *url.URL) string {
+	optimizeURL(ul)
+	return ul.String()
+}
+
+// NormalizeURL: Momentum Internal Use
+func NormalizeURL(ul *url.URL) (string, string) {
+	removeQueryParameters(ul, ul.Query())
+	normalizeSPHost(ul)
+	normalizeScheme(ul)
+	targetRawURL := getCrawlingURL(ul)
+	normalizeMobileAppURL(ul)
+	normalizePathSuffix(ul)
+
+	return targetRawURL, ul.String()
 }
 
 // removeQueryParameters removes the unnecessary query parameters.

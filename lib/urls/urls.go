@@ -62,10 +62,10 @@ func getCrawlingURL(ul *url.URL) string {
 
 // NormalizeURL: Momentum Internal Use
 func NormalizeURL(ul *url.URL) (string, string) {
+	targetRawURL := getCrawlingURL(ul)
 	removeQueryParameters(ul, ul.Query())
 	normalizeSPHost(ul)
 	normalizeScheme(ul)
-	targetRawURL := getCrawlingURL(ul)
 	normalizeMobileAppURL(ul)
 	normalizePathSuffix(ul)
 

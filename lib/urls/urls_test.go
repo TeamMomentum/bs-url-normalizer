@@ -214,9 +214,9 @@ func TestOptimizeURL(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		optimizeURL(up)
-		if up.String() != cs.wants {
-			t.Errorf("%v != %v", up.String(), cs.wants)
+		result, _ := NormalizeURL(up)
+		if result != cs.wants {
+			t.Errorf("%v != %v", result, cs.wants)
 		}
 	}
 }

@@ -1,3 +1,8 @@
+// Copyright 2016 Momentum K.K. All rights reserved.
+// This source code or any portion thereof must not be
+// reproduced or used in any manner whatsoever.
+
+// Package urls normalizes URLs and implements its helpers
 package urls
 
 import (
@@ -25,20 +30,15 @@ var (
 	dokuhaPat      = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
 	optimizeURLMap = map[string]func(*url.URL) bool{
 		"dokuha.jp":         optimizeDokuhaURL,
-		"novel.syosetu.org": CreateOptimizeURLFunc(regexp.MustCompile(`/\d+`)),
-		"ncode.syosetu.com": CreateOptimizeURLFunc(regexp.MustCompile(`/[^/]+`)),
+		"novel.syosetu.org": createOptimizeURLFunc(regexp.MustCompile(`/\d+`)),
+		"ncode.syosetu.com": createOptimizeURLFunc(regexp.MustCompile(`/[^/]+`)),
 		"live.nicovideo.jp": optimizeLiveNicovideoURL,
-		"s.maho.jp":         CreateOptimizeURLFunc(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
+		"s.maho.jp":         createOptimizeURLFunc(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
 	}
 )
 
-/*
-1段階目評価時関数:
-* 特定のクエリパラメータを除去する
-* PC・モバイルのページ統合を行う
-* http/https プロトコルのhttpで統一する
-* パス末尾の正規化
-*/
+// FirstNormalizeURL returns a unique URL of the input URL,
+// which contributes to reduce the database footprint.
 func FirstNormalizeURL(ul *url.URL) string {
 	removeQueryParameters(ul, ul.Query())
 	normalizeSPHost(ul)
@@ -49,15 +49,8 @@ func FirstNormalizeURL(ul *url.URL) string {
 	return ul.String()
 }
 
-/*
-2段階目評価時関数:
-1段階目評価時関数に加え以下の処理
-* ドメイン(パス)正規化処理
-if 正規化対象のドメインであれば:
-  正規化済みドメインを返す
-else:
-  ドメインのみを返す
-*/
+// SecondNormalizeURL does the FirstNormalizeURL first, then
+// shrinks the URL by website as much as possible.
 func SecondNormalizeURL(ul *url.URL) string {
 	FirstNormalizeURL(ul)
 	if normalizePath(ul) {
@@ -66,10 +59,10 @@ func SecondNormalizeURL(ul *url.URL) string {
 	return ul.Scheme + "://" + ul.Host
 }
 
-// 不要なクエリパラメータを除去します
+// removeQueryParameters removes the unnecessary query parameters.
 func removeQueryParameters(ul *url.URL, query url.Values) {
 	deleteQueries := []string{}
-	for key, _ := range query {
+	for key := range query {
 		if strings.HasPrefix(key, "utm_") {
 			deleteQueries = append(deleteQueries, key)
 		} else if _, ok := disusedParametersMap[key]; ok {
@@ -86,20 +79,19 @@ func removeQueryParameters(ul *url.URL, query url.Values) {
 	ul.RawQuery = query.Encode()
 }
 
-// http/https を常にhttpを利用するように変更します
+// normalizeScheme replaces all schemes into http
 func normalizeScheme(ul *url.URL) {
 	ul.Scheme = defaultScheme
 }
 
-// URLパスの末尾が常に'/'になるようにします
+// normalizePathSuffix keeps the end of URL as '/'.
 func normalizePathSuffix(ul *url.URL) {
 	if ul.Path == "" || ul.Path[len(ul.Path)-1] != '/' {
 		ul.Path += "/"
 	}
 }
 
-// SPのドメインをPCのドメインに変換します
-// ul: 変換対象URLへの参照
+// normalizeSPHost converts mobile URLs into their PC URLs.
 func normalizeSPHost(ul *url.URL) {
 	host, ok := spPCHostMap[ul.Host]
 	if ok {
@@ -107,9 +99,7 @@ func normalizeSPHost(ul *url.URL) {
 	}
 }
 
-// パス階層での正規化を行います
-// ul: 変換対象URLへの参照
-// return: 正規化を行ったかどうかの真偽値
+// normalizePath reduces known URLs to the top page of the website
 func normalizePath(ul *url.URL) bool {
 	f, ok := normalizePathMap[ul.Host]
 	if !ok {
@@ -118,7 +108,7 @@ func normalizePath(ul *url.URL) bool {
 	return f(ul)
 }
 
-// mobile appstoreの正規化を行います
+// normalizeMobileAppURL normalizes mobile appstore URLs
 func normalizeMobileAppURL(ul *url.URL) {
 	switch ul.Host {
 	case "itunes.apple.com": // for apple store
@@ -128,7 +118,7 @@ func normalizeMobileAppURL(ul *url.URL) {
 	}
 }
 
-// apple app storeの正規化を行います
+// normalizeAppStore normalizes apple's app store
 // Patterns:
 // https://itunes.apple.com/jp/app/minkara/id346528801?mt=8
 // https://itunes.apple.com/app/id994362719
@@ -143,7 +133,7 @@ func normalizeAppStore(ul *url.URL) {
 	}
 }
 
-// Normalization for google play store
+// normalizePlayStore normalizes google's playstore
 // Patterns:
 // https://play.google.com/store/apps/details?id=com.free.mt2
 // https://play.google.com/store/apps/details?id=jp.co.absun.tears&hl=ja
@@ -165,7 +155,7 @@ func normalizePlayStore(ul *url.URL) {
 }
 
 // 意味空間でURLを切り上げ、crawling対象のURLに変換する関数を返します
-func CreateOptimizeURLFunc(re *regexp.Regexp) func(*url.URL) bool {
+func createOptimizeURLFunc(re *regexp.Regexp) func(*url.URL) bool {
 	return func(ul *url.URL) bool {
 		groups := re.FindStringSubmatch(ul.Path)
 		if len(groups) == 0 {
@@ -185,11 +175,11 @@ func splitNPath(ul *url.URL, n int) string {
 	parts := []string{}
 	size := len(vs)
 	if vs[size-1] == "" {
-		size -= 1
+		size--
 		vs = vs[:size]
 	}
 	if vs[0] == "" {
-		size -= 1
+		size--
 		vs = vs[1:]
 	}
 	for i := 0; i < size && i < n; i++ {
@@ -229,7 +219,7 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 				ul.RawQuery = ""
 			} else {
 				query := ul.Query()
-				for key, _ := range query {
+				for key := range query {
 					if param != key {
 						query.Del(key)
 					}

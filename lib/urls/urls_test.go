@@ -83,11 +83,7 @@ func TestFirstNormalization(t *testing.T) {
 http://blog.livedoor.jp/tihoukoumu/sub/test => http://blog.livedoor.jp/tihoukoumu
 */
 func TestSecondNormalization(t *testing.T) {
-	var (
-		ul *url.URL
-	)
-
-	ul = mustURL("http://example.com/tihoukoumu?d=1&a=2&c=3&b=4")
+	ul := mustURL("http://example.com/tihoukoumu?d=1&a=2&c=3&b=4")
 	if sul := SecondNormalizeURL(ul); sul != "http://example.com" {
 		t.Errorf("URL should not be %v", sul)
 	}

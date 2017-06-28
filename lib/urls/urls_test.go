@@ -1,3 +1,8 @@
+// Copyright 2016 Momentum K.K. All rights reserved.
+// This source code or any portion thereof must not be
+// reproduced or used in any manner whatsoever.
+
+// Package urls normalizes URLs and implements its helpers
 package urls
 
 import (

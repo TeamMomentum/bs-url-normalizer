@@ -1,4 +1,4 @@
-// Copyright 2016 Momentum K.K. All rights reserved.
+// Copyright 2017 Momentum K.K. All rights reserved.
 // This source code or any portion thereof must not be
 // reproduced or used in any manner whatsoever.
 
@@ -24,6 +24,7 @@ var (
 	normalizePathMap map[string]func(*url.URL) bool
 )
 
+// Normalizer normalizes the URL into the crawlable URL and the key for KVS use
 type Normalizer struct {
 	cURL  string
 	n1URL string
@@ -31,6 +32,7 @@ type Normalizer struct {
 	url   *url.URL
 }
 
+// NewNormalizer generate a new Normalizer structure when the input URL is supported.
 func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 	if !isValidScheme(ul) {
 		n = nil
@@ -54,6 +56,7 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 	return
 }
 
+// CrawlingURL returns the prefered URL for crawling
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
 		optimizeURL(n.url)
@@ -62,6 +65,8 @@ func (n *Normalizer) CrawlingURL() string {
 	return n.cURL
 }
 
+// FirstNormalizedURL returns a unique URL of the input URL,
+// which contributes to reduce the database footprint.
 func (n *Normalizer) FirstNormalizedURL() string {
 	if n.n1URL != "" {
 		return n.n1URL
@@ -84,6 +89,8 @@ func (n *Normalizer) FirstNormalizedURL() string {
 	return n.n1URL
 }
 
+// SecondNormalizedURL does the FirstNormalizeURL first, then
+// shrinks the URL by website as much as possible.
 func (n *Normalizer) SecondNormalizedURL() string {
 	n.FirstNormalizedURL()
 	if n.n2URL != "" {
@@ -116,16 +123,6 @@ func removeQueryParameters(ul *url.URL, query url.Values) {
 	}
 
 	ul.RawQuery = query.Encode()
-}
-
-// IsValidURL
-func IsValidURL(ul *url.URL) bool {
-	for _, s := range supportedSchemes {
-		if ul.Scheme == s {
-			return true
-		}
-	}
-	return false
 }
 
 // normalizeScheme replaces all schemes into http

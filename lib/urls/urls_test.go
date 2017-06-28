@@ -158,19 +158,19 @@ func TestNormalizeMobileApp(t *testing.T) {
 	}{
 		{
 			rawurl: "https://itunes.apple.com/jp/app/minkara/id346528801?mt=8",
-			wants:  "http://itunes.apple.com/app/id346528801/",
+			wants:  "mobileapp::1-346528801",
 		},
 		{
 			rawurl: "https://itunes.apple.com/app/id346528801",
-			wants:  "http://itunes.apple.com/app/id346528801/",
+			wants:  "mobileapp::1-346528801",
 		},
 		{
 			rawurl: "https://play.google.com/store/apps/details?id=net.totopi.news&hl=jp",
-			wants:  "http://play.google.com/store/apps/details/?id=net.totopi.news",
+			wants:  "mobileapp::2-net.totopi.news",
 		},
 		{
 			rawurl: "https://play.google.com/store/apps/details?id=net.totopi.news",
-			wants:  "http://play.google.com/store/apps/details/?id=net.totopi.news",
+			wants:  "mobileapp::2-net.totopi.news",
 		},
 	}
 
@@ -214,9 +214,9 @@ func TestOptimizeURL(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		result, _ := NormalizeURL(up)
-		if result != cs.wants {
-			t.Errorf("%v != %v", result, cs.wants)
+		optimizeURL(up)
+		if up.String() != cs.wants {
+			t.Errorf("%v != %v", up.String(), cs.wants)
 		}
 	}
 }

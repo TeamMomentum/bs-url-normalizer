@@ -42,15 +42,18 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 
 	url1 := ""
 	url2 := ""
+	url3 := ""
 	if isStaticURL(ul) {
 		url1 = ul.String()
 		url2 = url1
+		url3 = url1
 	}
 
 	n = &Normalizer{
 		url:   ul,
 		n1URL: url1,
 		n2URL: url2,
+		cURL:  url3,
 	}
 
 	return

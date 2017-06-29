@@ -6,7 +6,6 @@
 package urls
 
 import (
-	"fmt"
 	"net/url"
 	"regexp"
 )
@@ -49,12 +48,4 @@ func normalizePlayStore(ul *url.URL) string {
 		return "mobileapp::2-" + id[0]
 	}
 	return ""
-}
-
-func AppStoreIDToMobileApp(id uint) string {
-	return fmt.Sprintf("mobileapp::1-%v", id)
-}
-
-func PlayStoreIDToMobileApp(id string) string {
-	return "mobileapp::2-" + id
 }

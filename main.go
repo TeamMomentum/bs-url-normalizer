@@ -13,31 +13,31 @@ import (
 )
 
 //export first_normalize_url
-func first_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
-	goraw := C.GoString(raw)
-	ul, err := url.ParseRequestURI(goraw)
+func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
+	rawURL := C.GoString(cStr)
+	ul, err := url.ParseRequestURI(rawURL)
 	if err != nil {
-		*ptr = unsafe.Pointer(C.CString(""))
+		*p = unsafe.Pointer(C.CString(""))
 	} else {
-		*ptr = unsafe.Pointer(C.CString(urls.FirstNormalizeURL(ul)))
+		*p = unsafe.Pointer(C.CString(urls.FirstNormalizeURL(ul)))
 	}
 }
 
 //export second_normalize_url
-func second_normalize_url(raw *C.char, ptr *unsafe.Pointer) {
-	goraw := C.GoString(raw)
-	ul, err := url.ParseRequestURI(goraw)
+func second_normalize_url(cStr *C.char, p *unsafe.Pointer) {
+	rawURL := C.GoString(cStr)
+	ul, err := url.ParseRequestURI(rawURL)
 	if err != nil {
-		*ptr = unsafe.Pointer(C.CString(""))
+		*p = unsafe.Pointer(C.CString(""))
 	} else {
-		*ptr = unsafe.Pointer(C.CString(urls.SecondNormalizeURL(ul)))
+		*p = unsafe.Pointer(C.CString(urls.SecondNormalizeURL(ul)))
 	}
 }
 
 //export free_normalize_url
-func free_normalize_url(mem *unsafe.Pointer) {
-	if mem != nil { // check for avoiding panic
-		C.free(*mem)
+func free_normalize_url(m *unsafe.Pointer) {
+	if m != nil { // check for avoiding panic
+		C.free(*m)
 	}
 }
 

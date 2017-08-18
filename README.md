@@ -1,3 +1,5 @@
+Read this in English [here](https://github.com/TeamMomentum/bs-url-normalizer/blob/master/README.en.md)
+
 ## URL正規化モジュール
 
 ### 呼び出し方法

@@ -98,6 +98,7 @@ s.kakaku.com,kakaku.com
 s.tabelog.com,tabelog.com
 touch.pixiv.net,www.pixiv.net
 touch.allabout.co.jp,allabout.co.jp
+touch.navitime.co.jp,www.navitime.co.jp
 a.excite.co.jp,www.excite.co.jp
 sp.mainichi.jp,mainichi.jp
 m.youtube.com,www.youtube.com

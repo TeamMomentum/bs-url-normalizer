@@ -94,6 +94,7 @@ func init() {
 }
 
 const spHostData = `sp.nicovideo.jp,www.nicovideo.jp
+s.kakaku.com,kakaku.com
 s.tabelog.com,tabelog.com
 touch.pixiv.net,www.pixiv.net
 touch.allabout.co.jp,allabout.co.jp

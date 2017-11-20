@@ -14,11 +14,13 @@ import (
 var (
 	dokuhaPattern  = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
 	optimizeURLMap = map[string]func(*url.URL) bool{
-		"dokuha.jp":         optimizeDokuhaURL,
-		"novel.syosetu.org": createOptimizeURLFunc(regexp.MustCompile(`/\d+`)),
-		"ncode.syosetu.com": createOptimizeURLFunc(regexp.MustCompile(`/[^/]+`)),
-		"live.nicovideo.jp": optimizeLiveNicovideoURL,
-		"s.maho.jp":         createOptimizeURLFunc(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
+		"dokuha.jp":            optimizeDokuhaURL,
+		"novel.syosetu.org":    createOptimizeURLCallBack(regexp.MustCompile(`/\d+`)),
+		"ncode.syosetu.com":    createOptimizeURLCallBack(regexp.MustCompile(`/[^/]+`)),
+		"live.nicovideo.jp":    optimizeLiveNicovideoURL,
+		"s.maho.jp":            createOptimizeURLCallBack(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
+		"enjoy.point.auone.jp": optimizeRestrictedURL("/gacha", "/reward", "/enquete"),
+		"uranai.nosv.org":      optimizeRestrictedURL("/favorite.php"),
 	}
 )
 
@@ -28,8 +30,22 @@ func optimizeURL(ul *url.URL) {
 	}
 }
 
+//Normalize 401 URLs
+func optimizeRestrictedURL(prefixes ...string) func(*url.URL) bool {
+	return func(ul *url.URL) bool {
+		for _, prefix := range prefixes {
+			if strings.HasPrefix(ul.Path, prefix) {
+				ul.Path = prefix
+				ul.RawQuery = ""
+				return true
+			}
+		}
+		return false
+	}
+}
+
 // 意味空間でURLを切り上げ、crawling対象のURLに変換する関数を返します
-func createOptimizeURLFunc(re *regexp.Regexp) func(*url.URL) bool {
+func createOptimizeURLCallBack(re *regexp.Regexp) func(*url.URL) bool {
 	return func(ul *url.URL) bool {
 		groups := re.FindStringSubmatch(ul.Path)
 		if len(groups) == 0 {

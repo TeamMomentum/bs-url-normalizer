@@ -74,7 +74,7 @@ func (n *Normalizer) FirstNormalizedURL() string {
 		return n.n1URL
 	}
 
-	removeQueryParameters(ul, ul.Query())
+	removeQueryParameters(ul)
 	normalizeSPHost(ul)
 	normalizeScheme(ul)
 	normalizePathSuffix(ul)

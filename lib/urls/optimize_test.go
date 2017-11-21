@@ -55,6 +55,14 @@ func TestOptimizeURL(t *testing.T) {
 			"http://uranai.nosv.org/favorite.php?crumb=0adf265b9d9c7921914c9f9fa32adeb3&add=novel/worldmadeh5&p=33&commu_id=worldmadehappye",
 			"http://uranai.nosv.org/favorite.php",
 		},
+		{
+			"http://amigo.gesoten.com/jewel/event/1494614261",
+			"http://amigo.gesoten.com",
+		},
+		{
+			"http://gaingame.gesoten.com/gaingame?user_id=000287102299&media_id=56&time=20171121001956&key=15E73E171612396096A3F68D8379841B",
+			"http://gaingame.gesoten.com",
+		},
 	}
 
 	for _, cs := range cases {

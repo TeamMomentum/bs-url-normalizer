@@ -21,6 +21,8 @@ var (
 		"s.maho.jp":            createOptimizeURLCallBack(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
 		"enjoy.point.auone.jp": optimizeRestrictedURL("/gacha", "/reward", "/enquete"),
 		"uranai.nosv.org":      optimizeRestrictedURL("/favorite.php"),
+		"amigo.gesoten.com":    optimizeRestrictedURL(""),
+		"gaingame.gesoten.com": optimizeRestrictedURL(""),
 	}
 )
 

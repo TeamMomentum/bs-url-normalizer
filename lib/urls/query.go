@@ -61,8 +61,10 @@ func init() {
 	})
 
 	disusedHostParameterMap = map[string]string{
-		"d.pixiv.org": "num",
+		"d.pixiv.org":    "num",
+		"enq.nstk-4.com": "time",
 	}
+
 	noQueryHostPathsMap = map[string][]string{
 		"s.tabelog.com": {""},
 		"touch.pixiv.net": {

@@ -47,6 +47,10 @@ func Test_removeQueryParameters(t *testing.T) {
 			in:  "http://www.nicovideo.jp/watch/sm32288578?ref=video%2Franking%2Ffav%2Fdaily%2Fgame%2Fnow%2F50",
 			out: "http://www.nicovideo.jp/watch/sm32288578",
 		},
+		{
+			in:  "http://enq.nstk-4.com/b41c09cb00cb0a09/iframe.php?bnr=geniee&pos=l1&banner_name=WFcriteo&device=pc&time=1511182658378",
+			out: "http://enq.nstk-4.com/b41c09cb00cb0a09/iframe.php?banner_name=WFcriteo&bnr=geniee&device=pc&pos=l1",
+		},
 	}
 	for _, tt := range tests {
 		ul, err := url.Parse(tt.in)

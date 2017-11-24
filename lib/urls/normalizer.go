@@ -53,7 +53,7 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 // CrawlingURL returns the prefered URL for crawling
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
-		optimizeURL(n.url)
+		n.url = optimizeURL(n.url)
 		n.cURL = n.url.String()
 	}
 	return n.cURL
@@ -66,17 +66,17 @@ func (n *Normalizer) FirstNormalizedURL() string {
 		return n.n1URL
 	}
 
-	ul := n.url
 	n.CrawlingURL()
+	ul := n.url
 
 	n.n1URL = normalizeMobileAppURL(ul)
 	if n.n1URL != "" {
 		return n.n1URL
 	}
 
-	removeQueryParameters(ul)
 	normalizeSPHost(ul)
 	normalizeScheme(ul)
+	removeQueryParameters(ul)
 	normalizePathSuffix(ul)
 	n.n1URL = ul.String()
 

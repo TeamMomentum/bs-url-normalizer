@@ -66,8 +66,8 @@ func init() {
 	}
 
 	noQueryHostPathsMap = map[string][]string{
-		"s.tabelog.com": {""},
-		"touch.pixiv.net": {
+		"tabelog.com": {""},
+		"www.pixiv.net": {
 			"/member_illust.php",
 			"/bookmark",
 			"/recommend.php",

@@ -63,6 +63,52 @@ func TestOptimizeURL(t *testing.T) {
 			"http://gaingame.gesoten.com/gaingame?user_id=000287102299&media_id=56&time=20171121001956&key=15E73E171612396096A3F68D8379841B",
 			"http://gaingame.gesoten.com",
 		},
+		{
+			"http://adm.shinobi.jp/a/384b4d631a8cfc69600abf2f7f11a529?x=150&y=0&url=http%3A%2F%2Fwww.example.com%2Fxyz%2Fabc%2Fpage%2F&referrer=&user_id=&du=http%3A%2F%2Fwww.example.com%2Fxyz%2Fabc%2Fpage%2F&iw=300&ih=250",
+			"http://www.example.com/xyz/abc/page/",
+		},
+		{
+			"https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-9033894351963905&output=html&h=250&slotname=1477980675&adk=1268037780&adf=2150039491&w=330&fwrn=2&lmt=1511790354&rafmt=3&format=330x250&url=https%3A%2F%2Fwww.example.com%2F2017%2F11%2F26%2Fpage%2F&region=hajisan&flash=0&fwr=0&resp_fmts=1&sfro=1&wgl=1&adsid=NT&dt=1511790352188&bpp=19&bdt=4339&fdt=2738&idt=2755&shv=r20171113&cbv=r20170110&saldr=aa&prev_fmts=330x60%2C330x250&correlator=8166610681857&frm=20&ga_vid=2067164720.1505658871&ga_sid=1511790355&ga_hid=1111340073&ga_fc=0&pv=1&iag=3&icsg=2&nhd=1&dssz=2&mdo=0&mso=0&u_tz=540&u_his=1&u_java=1&u_h=640&u_w=360&u_ah=640&u_aw=360&u_cd=32&u_nplug=0&u_nmime=0&adx=15&ady=8035&biw=360&bih=540&abxe=1&eid=21061122%2C33895411&oid=3&rx=0&eae=0&fc=668&brdim=0%2C0%2C0%2C0%2C360%2C0%2C360%2C540%2C360%2C540&vis=1&rsz=%7C%7CpeEbr%7C&abl=CS&ppjl=f&pfx=0&fu=144&bc=1&ifi=4&xpc=hdTDSyV9lP&p=https%3A//hajimete-sangokushi.com&dtd=2800",
+			"https://www.example.com/2017/11/26/page/",
+		},
+		{
+			"https://securepubads.g.doubleclick.net/gampad/ads?gdfp_req=1&glade_req=1&glv=26&dt=1511772682906&output=html&iu=%2F19153562%2FP_SmartNews&sz=300x250&sfv=1-0-10&correlator=4028602074156422&adk=1314925101&biw=320&bih=568&adx=10&ady=3227.3125&oid=3&u_sd=2&ifi=1&scp=EnableGAS%3DTrue&nhd=1&url=https%3A%2F%2Fwww.example.com%2F2017%2F11%2F27%2F472414%2F&top=www.example.com",
+			"https://www.example.com/2017/11/27/472414/",
+		},
+		{
+			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=16795&tp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&pp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&rnd=1509797344050&targetID=adg_16795&sdkver=1.7.0&sdktype=0&acl=off",
+			"http://www.example.com/test/abc.def/today/1466646832",
+		},
+		{
+			"http://showads.pubmatic.com/AdServer/AdServerServlet?pubId=137870&siteId=215541&adId=1163866&kadwidth=320&kadheight=50&SAVersion=2&js=1&kdntuid=1&pageURL=http%3A%2F%2Fwww.example.com%2Fplus%2Fevent%3Futm_source%3D%26utm_medium%3Dbanner%26utm_campaign%3D%25E3%2583%25A2%25E3%2583%25A1%25E3%2583%25B3%25E3%2582%25BF%25E3%2583%25A0&inIframe=1&kadpageurl=http%3A%2F%2Fwww.example.com&operId=1&kltstamp=2017-11-27%208%3A57%3A9&timezone=9&screenResolution=414x736&ranreq=0.39262822122021623&pmUniAdId=0&adVisibility=2&adPosition=1403x0&dspids=%7B%22uids%22%3A%5B%5D%7D",
+			"http://www.example.com/plus/event?utm_source=&utm_medium=banner&utm_campaign=%E3%83%A2%E3%83%A1%E3%83%B3%E3%82%BF%E3%83%A0",
+		},
+		{
+			"http://s.yimg.jp/images/listing/tool/yads/yads-iframe.html/?enc=UTF-8&fr_id=yads_4882764-0&fr_support=1&page=1&pv_ts=1511772692009-3522396&s=98335_206734-229039&ssl=1&t=f&tag_path=https%3A%2F%2Fyads.yjtag.yahoo.co.jp%2Ftag&tagpos=0x0&u=https%3A%2F%2Fwww.example.com%2Fxx111%2Fschedule.html&xd_support=1",
+			"https://www.example.com/xx111/schedule.html",
+		},
+		{
+			"http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html?s=53959_12054-221718&t=f&ssl=0&fr_id=yads_3895185-0&xd_support=1&fl_support=27&fr_support=1&enc=UTF-8&pv_ts=1511740652699-346455&tag_path=https%3a%2f%2fyads.yjtag.yahoo.co.jp%2ftag&page=1&u=http%3a%2f%2fwww.example.com%2f&ref=http%3a%2f%2fwww.example.com%2f&tagpos=0x0",
+			"http://www.example.com/",
+		},
+		{
+			"http://ssl.webtracker.jp/res/?arid=9-171127180106-22015925&cid=adb9b695990bd8d6846e86a4279677d1fcade5d3d6f49b3ba3f5dc0cd6c0c7406453b36ae9cacd78dcede31dd79d7d39&ssl=1&url=https%3A%2F%2Fwww.example.com%2Fnews%2F201711%2F24146736.html",
+			"https://www.example.com/news/201711/24146736.html",
+		},
+		{
+			"http://a.t.webtracker.jp/res/?cid=2a7a48984e3409d5b8e3f8a30e53a2fa96eaca76118c8104aae99617d906c66e1d2324a6061a8a43ebe9feae5a00c6b4&euid=2ed53b38d25c38c35d884b17681ada65868d3eb10bafb869&url=http%3A%2F%2Fwww.example.com%2Felem%2F000%2F001%2F593%2F1593104%2F&arid=30-171127090322-650739457",
+			"http://www.example.com/elem/000/001/593/1593104/",
+		},
+		{
+			"http://adw.addlv.smt.docomo.ne.jp/tafs/p/sbst/?_adcount=1&_adinf=16119%7C0_&_aid=2792&_creativeids=56842_&_divid=daisy_2261_00001&_fmt=js&_format=1&_frameid=1511772999080917915229&_ftype=1&_nocache=151177299988269510277&_slot=2261&_url=https%3A%2F%2Fwww.example.com%2Fentertainment%2Fcolumn%2F3921",
+			"https://www.example.com/entertainment/column/3921",
+		},
+
+		// unoptimizable
+		{
+			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=318475406%2C318478658%2C318478607&format=320x50_mb&heap_free=7037696&heap_max=134217728&heap_total=40550400&js=afma-sdk-a-v11746038.9452000.2&mr=97878157284952778%2C-115984107731430746%2C6252059087207515892%2C-1297580106298873782%2C-3694031955756562062%",
+			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=318475406%2C318478658%2C318478607&format=320x50_mb&heap_free=7037696&heap_max=134217728&heap_total=40550400&js=afma-sdk-a-v11746038.9452000.2&mr=97878157284952778%2C-115984107731430746%2C6252059087207515892%2C-1297580106298873782%2C-3694031955756562062%",
+		},
 	}
 
 	for _, cs := range cases {
@@ -70,9 +116,9 @@ func TestOptimizeURL(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		optimizeURL(up)
-		if up.String() != cs.wants {
-			t.Errorf("%v != %v", up.String(), cs.wants)
+		opted := optimizeURL(up)
+		if opted.String() != cs.wants {
+			t.Errorf("%v != %v", opted.String(), cs.wants)
 		}
 	}
 }

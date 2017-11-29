@@ -24,22 +24,6 @@ func Test_removeQueryParameters(t *testing.T) {
 			out: "http://test.com/a?num=1",
 		},
 		{
-			in:  "https://s.tabelog.com/aichi/A2303/A230302/23000859/?svd=20171120&svt=1900&svps=2&default_yoyaku_condition=1",
-			out: "https://s.tabelog.com/aichi/A2303/A230302/23000859/",
-		},
-		{
-			in:  "https://touch.pixiv.net/novel/show.php?id=8928225&uarea=tag",
-			out: "https://touch.pixiv.net/novel/show.php?id=8928225&uarea=tag",
-		},
-		{
-			in:  "https://touch.pixiv.net/bookmark.php?id=5020681&p=7",
-			out: "https://touch.pixiv.net/bookmark.php",
-		},
-		{
-			in:  "https://touch.pixiv.net/novel/recommend.php?id=6160013",
-			out: "https://touch.pixiv.net/novel/recommend.php",
-		},
-		{
 			in:  "http://www.nicovideo.jp/search/Trinity%20Field%20MASTER?f_range=0&l_range=0&opt_md=&start=&end=",
 			out: "http://www.nicovideo.jp/search/Trinity%20Field%20MASTER?end=&f_range=0&l_range=0&opt_md=&start=",
 		},

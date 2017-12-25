@@ -13,6 +13,11 @@ build:
 
 clean:
 	rm -f $(TARGET).a $(TARGET).h
+	- rm js/*
+
+js/bs-url-normalizer.js: gopherjs/main.go
+	gopherjs build ./gopherjs -o js/bs-url-normalizer.js
+
 
 lint:
 	golint -set_exit_status $$(go list ./... | grep -v vendor)

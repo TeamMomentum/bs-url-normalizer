@@ -98,3 +98,5 @@ target/
 
 # pyenv
 .python-version
+
+vendor/

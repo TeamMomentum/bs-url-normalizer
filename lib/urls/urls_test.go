@@ -18,28 +18,52 @@ https://example.com/ => http://example.com/
 http://example.com => http://example.com/
 */
 func TestFirstNormalization(t *testing.T) {
-	var (
-		ul *url.URL
-		nu string
-	)
+	tests := []struct {
+		in  string
+		out string
+	}{
+		// TODO: Add test cases.
 
-	// プロトコル正規化
-	ul = mustURL("https://example.com/")
-	nu = FirstNormalizeURL(mustURL("https://example.com/"))
-
-	if nu == ul.String() {
-		t.Errorf("%v != %v", nu, ul.String())
+		{
+			in:  "https://s.tabelog.com/aichi/A2303/A230302/23000859/?svd=20171120&svt=1900&svps=2&default_yoyaku_condition=1",
+			out: "http://tabelog.com/aichi/A2303/A230302/23000859/",
+		},
+		{
+			in:  "https://touch.pixiv.net/novel/show.php?id=8928225&uarea=tag",
+			out: "http://www.pixiv.net/novel/show.php/?id=8928225&uarea=tag",
+		},
+		{
+			in:  "https://touch.pixiv.net/bookmark.php?id=5020681&p=7",
+			out: "http://www.pixiv.net/bookmark.php/",
+		},
+		{
+			in:  "https://touch.pixiv.net/novel/recommend.php?id=6160013",
+			out: "http://www.pixiv.net/novel/recommend.php/",
+		},
+		{
+			in:  "https://example.com/",
+			out: "http://example.com/",
+		},
+		{
+			in:  "http://example.com",
+			out: "http://example.com/",
+		},
+		{
+			in:  "http://adm.shinobi.jp/a/66e78d8e9225eb41e4c240097cf56bb6?x=155&y=54&url=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&referrer=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Fgoal%2F2&user_id=&du=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&iw=1003&ih=995",
+			out: "http://gaingame.gendama.jp/otenba/treasure/",
+		},
 	}
-
-	// パス正規化
-	ul = mustURL("http://example.com")
-	nu = FirstNormalizeURL(mustURL("http://example.com"))
-
-	if nu == ul.String() {
-		t.Errorf("%v should not be %v", nu, ul.String())
-	}
-	if nu != "http://example.com/" {
-		t.Errorf("%v should be %v", nu, "http://example.com/")
+	for _, tt := range tests {
+		ul, err := url.Parse(tt.in)
+		if err != nil {
+			t.Errorf("%v : %v", tt.in, err)
+		}
+		t.Run(ul.Host+ul.Path, func(t *testing.T) {
+			result := FirstNormalizeURL(ul)
+			if result != tt.out {
+				t.Errorf("unexpected %v : %v", result, tt.out)
+			}
+		})
 	}
 }
 

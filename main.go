@@ -17,7 +17,7 @@ func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 	rawURL := C.GoString(cStr)
 	ul, err := url.ParseRequestURI(rawURL)
 	if err != nil {
-		*p = unsafe.Pointer(C.CString(""))
+		*p = unsafe.Pointer(C.CString(rawURL))
 	} else {
 		*p = unsafe.Pointer(C.CString(urls.FirstNormalizeURL(ul)))
 	}

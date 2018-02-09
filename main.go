@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"unsafe"
 
-	"github.com/TeamMomentum/bs-url-normalizer/lib/urls"
+	"./lib/urls"
 )
 
 //export first_normalize_url

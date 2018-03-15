@@ -52,6 +52,23 @@ func TestFirstNormalization(t *testing.T) {
 			in:  "http://adm.shinobi.jp/a/66e78d8e9225eb41e4c240097cf56bb6?x=155&y=54&url=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&referrer=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Fgoal%2F2&user_id=&du=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&iw=1003&ih=995",
 			out: "http://gaingame.gendama.jp/otenba/treasure/",
 		},
+
+		// New Line Tests
+		//{
+		//	in:  "http://example.com\n", => PANIC: invalid hostname
+		//},
+		{
+			in:  "http://example.com/\n",
+			out: "http://example.com/%0A/",
+		},
+		{
+			in:  "http://example.com?id=hello\n",
+			out: "http://example.com/?id=hello%0A",
+		},
+		{
+			in:  "http://example.com?cb=hello\n",
+			out: "http://example.com/",
+		},
 	}
 	for _, tt := range tests {
 		ul, err := url.Parse(tt.in)

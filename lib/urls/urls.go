@@ -26,3 +26,12 @@ func SecondNormalizeURL(ul *url.URL) string {
 	}
 	return n.SecondNormalizedURL()
 }
+
+// CrawlingURL convert URL for crawling
+func CrawlingURL(ul *url.URL) string {
+	n, err := NewNormalizer(ul)
+	if err != nil {
+		return ""
+	}
+	return n.CrawlingURL()
+}

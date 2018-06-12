@@ -53,6 +53,7 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 // CrawlingURL returns the prefered URL for crawling
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
+		normalizePunycodeHost(n.url)
 		n.url = optimizeURL(n.url)
 		n.cURL = n.url.String()
 	}
@@ -128,15 +129,6 @@ func isValidScheme(ul *url.URL) bool {
 
 func isStaticURL(ul *url.URL) bool {
 	return ul.Scheme == "mobileapp"
-}
-
-// 指定したURLを第N階層で区切り、Domainとします
-func splitNDomainPath(ul *url.URL, n int) string {
-	path := splitNPath(ul, n)
-	if path == "" {
-		return ul.Host
-	}
-	return ul.Host + "/" + path
 }
 
 // 指定したPathを第N階層で区切って返します

@@ -131,15 +131,6 @@ func isStaticURL(ul *url.URL) bool {
 	return ul.Scheme == "mobileapp"
 }
 
-// 指定したURLを第N階層で区切り、Domainとします
-func splitNDomainPath(ul *url.URL, n int) string {
-	path := splitNPath(ul, n)
-	if path == "" {
-		return ul.Host
-	}
-	return ul.Host + "/" + path
-}
-
 // 指定したPathを第N階層で区切って返します
 func splitNPath(ul *url.URL, n int) string {
 	vs := strings.Split(ul.Path, "/")

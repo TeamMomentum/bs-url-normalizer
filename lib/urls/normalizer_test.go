@@ -51,14 +51,6 @@ func TestQueryOrder(t *testing.T) {
 	}
 }
 
-// パス階層分割関数のtest
-func TestSplitNDomainPath(t *testing.T) {
-	ul := mustURL("http://example.com/a/b/c/")
-	if splitNDomainPath(ul, 2) != "example.com/a/b" {
-		t.Errorf("%v != %v", splitNDomainPath(ul, 2), "example.com/a/b")
-	}
-}
-
 func stringCheck(t *testing.T, key, correct, other string) {
 	if correct != other {
 		t.Errorf("%v should be '%v', not '%v'.", key, correct, other)

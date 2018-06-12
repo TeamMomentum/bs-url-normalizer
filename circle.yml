@@ -2,17 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.8
+      - image: dictav/golang-tools:1.10.2
 
     working_directory: /go/src/github.com/TeamMomentum/bs-url-normalizer
 
     steps:
       - checkout
-      - run: go get honnef.co/go/tools/cmd/gosimple
-      - run: go get honnef.co/go/tools/cmd/staticcheck
-      - run: go get -u github.com/kisielk/errcheck
-      - run: go get -u github.com/golang/lint/golint
-      - run: go get honnef.co/go/tools/cmd/unused
+      - run: dep ensure
       - run: make lint
       - run: make test
 

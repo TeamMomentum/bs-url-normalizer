@@ -9,6 +9,8 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+
+	"golang.org/x/net/lex/httplex"
 )
 
 var (
@@ -25,6 +27,13 @@ func normalizePath(ul *url.URL) bool {
 		return false
 	}
 	return f(ul)
+}
+
+func normalizePunycodeHost(ul *url.URL) {
+	host, err := httplex.PunycodeHostPort(ul.Host)
+	if err == nil {
+		ul.Host = host
+	}
 }
 
 // normalizeSPHost converts mobile URLs into their PC URLs.

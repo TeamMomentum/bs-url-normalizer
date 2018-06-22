@@ -3,11 +3,14 @@ package main
 import (
 	"net/url"
 
-	"../../lib/urls"
+	"github.com/TeamMomentum/bs-url-normalizer/lib/urls"
 )
 
 func main() {
-	u, _ := url.Parse("http://example.com/path/")
+	u, err := url.Parse("http://example.com/path/")
+	if err != nil {
+		panic(err)
+	}
 	println(urls.FirstNormalizeURL(u))
 	println(urls.SecondNormalizeURL(u))
 }

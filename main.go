@@ -15,9 +15,14 @@ import (
 //export first_normalize_url
 func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 	rawURL := C.GoString(cStr)
-	ul, err := url.ParseRequestURI(rawURL)
+	ul, err := url.Parse(rawURL)
 	if err != nil {
-		*p = unsafe.Pointer(C.CString(""))
+		_, ok := err.(url.EscapeError)
+		if ok {
+			*p = unsafe.Pointer(C.CString(rawURL))
+		} else {
+			*p = unsafe.Pointer(C.CString(""))
+		}
 	} else {
 		*p = unsafe.Pointer(C.CString(urls.FirstNormalizeURL(ul)))
 	}
@@ -26,9 +31,14 @@ func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 //export second_normalize_url
 func second_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 	rawURL := C.GoString(cStr)
-	ul, err := url.ParseRequestURI(rawURL)
+	ul, err := url.Parse(rawURL)
 	if err != nil {
-		*p = unsafe.Pointer(C.CString(""))
+		_, ok := err.(url.EscapeError)
+		if ok {
+			*p = unsafe.Pointer(C.CString(rawURL))
+		} else {
+			*p = unsafe.Pointer(C.CString(""))
+		}
 	} else {
 		*p = unsafe.Pointer(C.CString(urls.SecondNormalizeURL(ul)))
 	}

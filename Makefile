@@ -15,10 +15,7 @@ clean:
 	rm -f $(TARGET).a $(TARGET).h
 
 lint:
-	golint -set_exit_status $$(go list ./... | grep -v vendor)
-	(! gofmt -s -d $$(find ./ -name "*.go" | grep -v vendor | grep -v assets.go) | grep '^')
-	unused $$(go list ./... | grep -v vendor)
-	gosimple $$(go list ./... | grep -v vendor)
-	errcheck $$(go list ./... | grep -v vendor)
-	staticcheck $$(go list ./... | grep -v vendor)
-	go vet $$(go list ./... | grep -v /vendor/)
+	gometalinter -j 4 --deadline=300s ./... \
+		--skip=main.go \
+		--skip=/usr/local --skip=vendor \
+		--exclude='/usr/local' --exclude='vendor/'

@@ -87,6 +87,7 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 				}
 				ul.RawQuery = query.Encode()
 			}
+			ul.Fragment = "" // 第一正規化でも実施される可能性があるが、念のため
 			return true
 		}
 	}

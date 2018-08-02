@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/TeamMomentum/bs-url-normalizer/lib/assets"
 	"golang.org/x/net/lex/httplex"
 )
 
@@ -47,7 +48,11 @@ func normalizeSPHost(ul *url.URL) {
 func makeStringStringMap(lines []string, sep string) map[string]string {
 	m := make(map[string]string)
 	for _, line := range lines {
-		rows := strings.Split(line, sep)
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		rows := strings.Split(trimmed, sep)
 		if len(rows) < 2 {
 			continue
 		}
@@ -58,13 +63,16 @@ func makeStringStringMap(lines []string, sep string) map[string]string {
 	return m
 }
 
-/* 指定したdomain => N階層のpairからパス正規化パターンを生成します
- */
+// makeNormalizePathMap: 指定したdomain => N階層のpairからパス正規化パターンを生成します
+// - format: `domain,パス階層,残したいparamID` の順に sep 区切り
 func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL) bool, error) {
 	m := make(map[string]func(*url.URL) bool)
 	for _, line := range lines {
-		// domain,パス階層,残したいparamIDの順に sep区切り
-		rows := strings.Split(line, sep)
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		rows := strings.Split(trimmed, sep)
 		if len(rows) < 3 {
 			continue
 		}
@@ -94,73 +102,17 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 	return m, nil
 }
 
+var (
+	spHostData, pathDepthData string
+)
+
 func init() {
 	var err error
+	spHostData = string(assets.MustAsset("norm_host_sp.csv"))
+	pathDepthData = string(assets.MustAsset("norm_host_path.csv"))
 	spPCHostMap = makeStringStringMap(strings.Split(spHostData, "\n"), ",")
 	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
 	if err != nil {
 		panic(err)
 	}
 }
-
-const spHostData = `sp.nicovideo.jp,www.nicovideo.jp
-s.kakaku.com,kakaku.com
-s.tabelog.com,tabelog.com
-touch.pixiv.net,www.pixiv.net
-touch.allabout.co.jp,allabout.co.jp
-touch.navitime.co.jp,www.navitime.co.jp
-a.excite.co.jp,www.excite.co.jp
-sp.mainichi.jp,mainichi.jp
-m.youtube.com,www.youtube.com
-s.ameblo.jp,ameblo.jp
-sp.okwave.jp,okwave.jp
-sp.logsoku.com,www.logsoku.com
-sp.daily.co.jp,www.daily.co.jp
-sp.ultra-soccer.jp,web.ultra-soccer.jp
-m.walkerplus.com,www.walkerplus.com
-sp.bokete.jp,bokete.jp
-sp.skincare-univ.com,www.skincare-univ.com
-m.2log.sc,2log.sc
-m.diodeo.jp,www.diodeo.jp
-m.pideo.net,www.pideo.net
-m.cinematoday.jp,www.cinematoday.jp
-m.sponichi.co.jp,www.sponichi.co.jp`
-
-const pathDepthData = `am-our.com,1,
-ameblo.jp,1,
-b.ibbs.info,1,
-bannch.com,3,
-bbs.mottoki.com,1,bbs
-bbs7.meiwasuisan.com,1,
-blog.goo.ne.jp,1,
-blog.kuruten.jp,1,
-blog.livedoor.jp,1,
-blogs.yahoo.co.jp,1,
-ch.nicovideo.jp,1,
-cp.atrct.tv,2,
-fanblogs.jp,1,
-free.jikkyo.org,4,
-girlsnews.tv,1,
-ibbs.info,1,id
-jbbs.shitaraba.net,5,
-lineblog.me,1,
-lyze.jp,1,
-mbbs.tv,1,id
-mblg.tv,1,
-mdpr.jp,1,
-nanos.jp,1,
-plaza.rakuten.co.jp,1,
-rank.log2.jp,1,
-rara.jp,1,
-s1.ibbs.info,1,id
-s2.ibbs.info,1,id
-seesaawiki.jp,1,
-spora.jp,1,
-woman.excite.co.jp,2,
-www.dclog.jp,1,
-www.ebbs.jp,1,b
-www.eniblo.com,1,
-www.nikkan-gendai.com,3,
-www.tokyo-sports.co.jp,1,
-www.zakzak.co.jp,1,
-yaplog.jp,1,`

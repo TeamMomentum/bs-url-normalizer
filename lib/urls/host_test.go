@@ -94,6 +94,20 @@ func Test_normalizePath(t *testing.T) {
 		{"www.tokyo-sports.co.jp", "https://www.tokyo-sports.co.jp/sports/othersports/000000/", true, "https://www.tokyo-sports.co.jp/sports"},
 		{"www.zakzak.co.jp", "https://www.zakzak.co.jp/eco/news/180702/eco0000000-n1.html", true, "https://www.zakzak.co.jp/eco"},
 		{"yaplog.jp", "http://yaplog.jp/someone/archive/0000", true, "http://yaplog.jp/someone"},
+		{"www.ne.jp", "http://www.ne.jp/asahi/net/foo/bar.html", true, "http://www.ne.jp/asahi/net/foo"},
+		{"wwwxx.plala.or.jp", "https://www10.plala.or.jp/plataro/", true, "https://www10.plala.or.jp/plataro"},
+		{"wwwxxx.upp.so-net.ne.jp", "http://www008.upp.so-net.ne.jp/foo/page.html", true, "http://www008.upp.so-net.ne.jp/foo"},
+		{"www.geocities.jp", "http://www.geocities.jp/abcdefg/index.html", true, "http://www.geocities.jp/abcdefg"},
+
+		/* ユーザ空間(/~) ベースの正規化対象ホスト群 */
+		{"www.asahi-net.or.jp", "http://www.asahi-net.or.jp/~foo/bar/?page=1", true, "http://www.asahi-net.or.jp/~foo"},
+		{"www.eonet.ne.jp", "http://www.eonet.ne.jp/~xxx/", true, "http://www.eonet.ne.jp/~xxx"},
+		{"wwwxx.biglobe.ne.jp", "http://www7b.biglobe.ne.jp/~user/04/index.cgi", true, "http://www7b.biglobe.ne.jp/~user"},
+		{"parkx.wakwak.com", "http://park1.wakwak.com/~user/", true, "http://park1.wakwak.com/~user"},
+		{"www.xxx.dti.ne.jp", "http://www.eurus.dti.ne.jp/~userID/", true, "http://www.eurus.dti.ne.jp/~userID"},
+		{"wwwx.odn.ne.jp", "http://www2.odn.ne.jp/~user32900/", true, "http://www2.odn.ne.jp/~user32900"},
+		{"www.famille.ne.jp", "http://www.famille.ne.jp/~xyz136/", true, "http://www.famille.ne.jp/~xyz136"},
+		/* ---- */
 
 		{"bakusai.com", "http://bakusai.com/areatop/acode=3/", false, ""}, // トピックは異なってもサイト全体で同一傾向と見なし、パス毎に正規化は行わない
 

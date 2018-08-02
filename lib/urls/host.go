@@ -23,11 +23,12 @@ var (
 
 // normalizePath reduces known URLs to the top page of the website
 func normalizePath(ul *url.URL) bool {
-	f, ok := normalizePathMap[ul.Host]
-	if !ok {
-		return false
+	k := trimWWW(ul.Host)
+	f, ok := normalizePathMap[k]
+	if ok {
+		return f(ul)
 	}
-	return f(ul)
+	return normalizeUserSpace(ul)
 }
 
 func normalizePunycodeHost(ul *url.URL) {
@@ -83,23 +84,57 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 		}
 		param := rows[2]
 		m[domain] = func(ul *url.URL) bool {
-			ul.Path = splitNPath(ul, num)
-			if param == "" {
-				ul.RawQuery = ""
-			} else {
-				query := ul.Query()
-				for key := range query {
-					if param != key {
-						query.Del(key)
-					}
-				}
-				ul.RawQuery = query.Encode()
-			}
-			ul.Fragment = "" // 第一正規化でも実施される可能性があるが、念のため
-			return true
+			return applyNormPath(ul, num, param)
 		}
 	}
 	return m, nil
+}
+
+// normalizeUserSpace : 第一パス階層がユーザ空間となっているようなURLのパスを正規化し、正規化対象かどうかの判定結果を返します。
+// 例: http://example.com/~foo/bar/file => http://example.com/~foo
+func normalizeUserSpace(ul *url.URL) bool {
+	if len(ul.Path) < 3 || ul.Path[1] != '~' {
+		return false
+	}
+	return applyNormPath(ul, 1, "") // 第一パス階層をユーザ空間と見なし、ホスト名正規化対象とする
+}
+
+// applyNormPath : パス階層とクエリパラメータ正規化の指定を引数で与えられたURLに適用します
+func applyNormPath(ul *url.URL, num int, param string) bool {
+	ul.Path = splitNPath(ul, num)
+	if param == "" {
+		ul.RawQuery = ""
+	} else {
+		query := ul.Query()
+		for key := range query {
+			if param != key {
+				query.Del(key)
+			}
+		}
+		ul.RawQuery = query.Encode()
+	}
+	ul.Fragment = "" // 第一正規化でも実施される可能性があるが、念のため
+	return true
+}
+
+// trimWWW : ホスト名の先頭 `www` ~ `.` の間に含まれる、数値を除外した結果を返します
+// 例: www.example.com -> www.example.com, www001.example.com -> www.example.com
+func trimWWW(host string) string {
+	if !strings.HasPrefix(host, "www") {
+		return host
+	}
+	if len(host) < 4 {
+		return host
+	}
+	if r := host[3]; r == '.' {
+		return host
+	}
+	for i := 4; i < len(host); i++ {
+		if r := host[i]; r < '0' || '9' < r {
+			return "www" + host[i:]
+		}
+	}
+	return host
 }
 
 var (

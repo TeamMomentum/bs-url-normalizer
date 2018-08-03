@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/TeamMomentum/bs-url-normalizer/lib/assets"
 	"golang.org/x/net/lex/httplex"
 )
 
@@ -22,11 +23,12 @@ var (
 
 // normalizePath reduces known URLs to the top page of the website
 func normalizePath(ul *url.URL) bool {
-	f, ok := normalizePathMap[ul.Host]
-	if !ok {
-		return false
+	k := trimWWW(ul.Host)
+	f, ok := normalizePathMap[k]
+	if ok {
+		return f(ul)
 	}
-	return f(ul)
+	return normalizeUserSpace(ul)
 }
 
 func normalizePunycodeHost(ul *url.URL) {
@@ -47,7 +49,11 @@ func normalizeSPHost(ul *url.URL) {
 func makeStringStringMap(lines []string, sep string) map[string]string {
 	m := make(map[string]string)
 	for _, line := range lines {
-		rows := strings.Split(line, sep)
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		rows := strings.Split(trimmed, sep)
 		if len(rows) < 2 {
 			continue
 		}
@@ -58,13 +64,16 @@ func makeStringStringMap(lines []string, sep string) map[string]string {
 	return m
 }
 
-/* 指定したdomain => N階層のpairからパス正規化パターンを生成します
- */
+// makeNormalizePathMap: 指定したdomain => N階層のpairからパス正規化パターンを生成します
+// - format: `domain,パス階層,残したいparamID` の順に sep 区切り
 func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL) bool, error) {
 	m := make(map[string]func(*url.URL) bool)
 	for _, line := range lines {
-		// domain,パス階層,残したいparamIDの順に sep区切り
-		rows := strings.Split(line, sep)
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		rows := strings.Split(trimmed, sep)
 		if len(rows) < 3 {
 			continue
 		}
@@ -75,107 +84,70 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 		}
 		param := rows[2]
 		m[domain] = func(ul *url.URL) bool {
-			ul.Path = splitNPath(ul, num)
-			if param == "" {
-				ul.RawQuery = ""
-			} else {
-				query := ul.Query()
-				for key := range query {
-					if param != key {
-						query.Del(key)
-					}
-				}
-				ul.RawQuery = query.Encode()
-			}
-			return true
+			return applyNormPath(ul, num, param)
 		}
 	}
 	return m, nil
 }
 
+// normalizeUserSpace : 第一パス階層がユーザ空間となっているようなURLのパスを正規化し、正規化対象かどうかの判定結果を返します。
+// 例: http://example.com/~foo/bar/file => http://example.com/~foo
+func normalizeUserSpace(ul *url.URL) bool {
+	if len(ul.Path) < 3 || ul.Path[1] != '~' {
+		return false
+	}
+	return applyNormPath(ul, 1, "") // 第一パス階層をユーザ空間と見なし、ホスト名正規化対象とする
+}
+
+// applyNormPath : パス階層とクエリパラメータ正規化の指定を引数で与えられたURLに適用します
+func applyNormPath(ul *url.URL, num int, param string) bool {
+	ul.Path = splitNPath(ul, num)
+	if param == "" {
+		ul.RawQuery = ""
+	} else {
+		query := ul.Query()
+		for key := range query {
+			if param != key {
+				query.Del(key)
+			}
+		}
+		ul.RawQuery = query.Encode()
+	}
+	ul.Fragment = "" // 第一正規化でも実施される可能性があるが、念のため
+	return true
+}
+
+// trimWWW : ホスト名の先頭 `www` ~ `.` の間に含まれる、数値を除外した結果を返します
+// 例: www.example.com -> www.example.com, www001.example.com -> www.example.com
+func trimWWW(host string) string {
+	if !strings.HasPrefix(host, "www") {
+		return host
+	}
+	if len(host) < 4 {
+		return host
+	}
+	if r := host[3]; r == '.' {
+		return host
+	}
+	for i := 4; i < len(host); i++ {
+		if r := host[i]; r < '0' || '9' < r {
+			return "www" + host[i:]
+		}
+	}
+	return host
+}
+
+var (
+	spHostData, pathDepthData string
+)
+
 func init() {
 	var err error
+	spHostData = string(assets.MustAsset("norm_host_sp.csv"))
+	pathDepthData = string(assets.MustAsset("norm_host_path.csv"))
 	spPCHostMap = makeStringStringMap(strings.Split(spHostData, "\n"), ",")
 	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
 	if err != nil {
 		panic(err)
 	}
 }
-
-const spHostData = `sp.nicovideo.jp,www.nicovideo.jp
-s.kakaku.com,kakaku.com
-s.tabelog.com,tabelog.com
-touch.pixiv.net,www.pixiv.net
-touch.allabout.co.jp,allabout.co.jp
-touch.navitime.co.jp,www.navitime.co.jp
-a.excite.co.jp,www.excite.co.jp
-sp.mainichi.jp,mainichi.jp
-m.youtube.com,www.youtube.com
-s.ameblo.jp,ameblo.jp
-sp.okwave.jp,okwave.jp
-sp.logsoku.com,www.logsoku.com
-sp.daily.co.jp,www.daily.co.jp
-sp.ultra-soccer.jp,web.ultra-soccer.jp
-m.walkerplus.com,www.walkerplus.com
-sp.bokete.jp,bokete.jp
-sp.skincare-univ.com,www.skincare-univ.com
-m.2log.sc,2log.sc
-m.diodeo.jp,www.diodeo.jp
-m.pideo.net,www.pideo.net
-m.cinematoday.jp,www.cinematoday.jp
-m.sponichi.co.jp,www.sponichi.co.jp`
-
-const pathDepthData = `am-our.com,1,
-ameblo.jp,1,
-bannch.com,3,
-blog.dmm.co.jp,1,
-blog.kuruten.jp,1,
-blog.livedoor.jp,1,
-blog.oricon.co.jp,1,
-blogs.yahoo.co.jp,1,
-cp.atrct.tv 2,
-fanblogs.jp,1,
-free.jikkyo.org,4,
-girlsnews.tv,2,
-howcollect.jp,4,
-i.anisen.tv,1,
-jbbs.shitaraba.net,5,
-lyze.jp,1,
-mdpr.jp,1,
-mess-y.com,4,
-nanos.jp,1,
-nikkan-spa.jp,1,
-plaza.rakuten.co.jp,1,
-seesaawiki.jp,1,
-taishu.jp,2,
-tocana.jp,1,
-woman.excite.co.jp,2,
-www.asagei.com,2,
-www.cyzo.com,1,
-www.eniblo.com,1,
-www.idolreport.jp,1,
-www.justhd.xyz,4,
-www.menscyzo.com,1,
-www.nikkan-gendai.com,3,
-www.tokyo-sports.co.jp,2,
-www.zakzak.co.jp,3,
-yaplog.jp,1,
-ibbs.info,1,id
-s1.ibbs.info,1,id
-s2.ibbs.info,1,id
-b.ibbs.info,1,
-talk.milkcafe.net,4,
-mikle.jp,1,
-matome.naver.jp,2,
-bbs7.meiwasuisan.com,1,
-mblg.tv,1
-blg-girls.net,2,
-www.dclog.jp,1,
-spora.jp,1,
-0bbs.jp,1,
-rank.log2.jp,1,
-rara.jp,1,
-bbs.mottoki.com,1,bbs
-www.ebbs.jp,1,b
-mbbs.tv,1,id
-bakusai.com,5,`

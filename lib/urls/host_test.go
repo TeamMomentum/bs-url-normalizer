@@ -68,6 +68,7 @@ func Test_normalizePath(t *testing.T) {
 		{"blogs.yahoo.co.jp", "https://blogs.yahoo.co.jp/a209143707/66868842.html", true, "https://blogs.yahoo.co.jp/a209143707"},
 		{"ch.nicovideo.jp", "http://ch.nicovideo.jp/horiemon/blomaga/201807", true, "http://ch.nicovideo.jp/horiemon"},
 		{"cp.atrct.tv", "http://cp.atrct.tv/v/4zmEwAGgBg?pg=1", true, "http://cp.atrct.tv/v/4zmEwAGgBg"}, // アダルト画像掲示板？
+		{"d.hatena.ne.jp","http://d.hatena.ne.jp/foo/20180817", true, "http://d.hatena.ne.jp/foo"},
 		{"fanblogs.jp", "http://fanblogs.jp/30suppinnbihada/archive/512/0", true, "http://fanblogs.jp/30suppinnbihada"},
 		{"free.jikkyo.org", "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx", true, "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx"}, // アダルトカテゴリ混在
 		{"girlsnews.tv", "https://girlsnews.tv/unit/316023", true, "https://girlsnews.tv/unit"},                                                       // アダルトカテゴリ混在,
@@ -87,6 +88,7 @@ func Test_normalizePath(t *testing.T) {
 		{"seesaawiki.jp", "http://seesaawiki.jp/foobar/d/FAQ", true, "http://seesaawiki.jp/foobar"},
 		{"spora.jp", "http://spora.jp/mocchy/posts/606270", true, "http://spora.jp/mocchy"},
 		{"woman.excite.co.jp", "https://woman.excite.co.jp/article/beauty/abc_def_00000/", true, "https://woman.excite.co.jp/article/beauty"},
+		{"www.atwiki.jp", "https://www65.atwiki.jp/some_game/pages/123.html", true, "https://www65.atwiki.jp/some_game"}, // scheme正規化は第一正規化時に別途実施される想定なのでここではチェックしない
 		{"www.dclog.jp", "http://www.dclog.jp/someone/1/1234567890", true, "http://www.dclog.jp/someone"},
 		{"www.ebbs.jp", "http://www.ebbs.jp/bbs.php?m=top&b=000000&guid=On", true, "http://www.ebbs.jp/bbs.php?b=000000"},
 		{"www.eniblo.com", "https://www.eniblo.com/someone/2013/3/28/1364457329", true, "https://www.eniblo.com/someone"},

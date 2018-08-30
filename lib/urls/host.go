@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/TeamMomentum/bs-url-normalizer/lib/assets"
-	"golang.org/x/net/lex/httplex"
+	"golang.org/x/net/http/httpguts"
 )
 
 var (
@@ -32,7 +32,7 @@ func normalizePath(ul *url.URL) bool {
 }
 
 func normalizePunycodeHost(ul *url.URL) {
-	host, err := httplex.PunycodeHostPort(ul.Host)
+	host, err := httpguts.PunycodeHostPort(ul.Host)
 	if err == nil {
 		ul.Host = host
 	}

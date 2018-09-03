@@ -114,29 +114,30 @@ func optimizeLiveNicovideoURL(ul *url.URL) *url.URL {
 	d.socdm.com用正規化関数
 */
 func optimizeSocdmURL(ul *url.URL) *url.URL {
+	raw, ok := ul.Query()["sdktype"]
+	if !ok {
+		return ul
+	}
+
 	var src = ""
-	if raw, ok := ul.Query()["sdktype"]; ok {
-		println("sdktype", raw[0])
-		switch raw[0] {
-		case "0":
-			if raw, ok := ul.Query()["tp"]; ok {
-				src = raw[0]
-			}
-		case "1":
-			if raw, ok := ul.Query()["appbundle"]; ok {
-				src = "mobile-app::2-" + raw[0]
-			}
-		case "2":
-			if raw, ok := ul.Query()["appbundle"]; ok {
-				src = "mobile-app::1-" + raw[0]
-			}
-		default:
-			return ul
+	switch raw[0] {
+	case "0":
+		if raw, ok := ul.Query()["tp"]; ok {
+			src = raw[0]
 		}
+	case "1":
+		if raw, ok := ul.Query()["appbundle"]; ok {
+			src = "mobile-app::2-" + raw[0]
+		}
+	case "2":
+		if raw, ok := ul.Query()["appbundle"]; ok {
+			src = "mobile-app::1-" + raw[0]
+		}
+	default:
+		return ul
 	}
 
 	if len(src) == 0 {
-		println("HERE2")
 		return ul
 	}
 

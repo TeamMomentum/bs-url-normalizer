@@ -26,4 +26,5 @@ lint:
 	gometalinter -j 4 --deadline=300s ./... \
 		--skip=main.go \
 		--skip=/usr/local --skip=vendor \
-		--exclude='/usr/local' --exclude='vendor/'
+		--exclude='/usr/local' --exclude='vendor/' \
+		--cyclo-over=12

@@ -124,7 +124,7 @@ func TestOptimizeURL(t *testing.T) {
 			"https://limo.media/articles/-/7319",
 		},
 		{
-			"https://krad20.deqwas.net/AdService/Collection.aspx?s=18272_442-217134&t=f&ssl=1&fr_id=yads_7437856-2&xd_support=1&fr_support=1&sb_support=0&enc=UTF-8&pv_ts=1536209929316-6281701&tag_path=https%3A%2F%2Fyads.yjtag.yahoo.co.jp%2Ftag%0A&page=1&u=https%3A%2F%2Fmatome.naver.jp%2Fm%2Fodai%2F2140585444076756301%3Fpage%3D2&canu=https%3A%2F%2Fmatome.naver.jp%2Fodai%2F2140585444076756301%0A&tagpos=0x3935&async=0",
+			"https://krad20.deqwas.net/AdService/Collection.aspx?s=18272_442-217134&t=f&ssl=1&fr_id=yads_7437856-2&xd_support=1&fr_support=1&sb_support=0&enc=UTF-8&pv_ts=1536209929316-6281701&tag_path=https%3A%2F%2Fyads.yjtag.yahoo.co.jp%2Ftag&page=1&u=https%3A%2F%2Fmatome.naver.jp%2Fm%2Fodai%2F2140585444076756301%3Fpage%3D2&canu=https%3A%2F%2Fmatome.naver.jp%2Fodai%2F2140585444076756301&tagpos=0x3935&async=0",
 			"https://matome.naver.jp/m/odai/2140585444076756301?page=2",
 		},
 

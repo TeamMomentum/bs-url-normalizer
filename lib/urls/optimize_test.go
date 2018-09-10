@@ -119,6 +119,14 @@ func TestOptimizeURL(t *testing.T) {
 			"http://adw.addlv.smt.docomo.ne.jp/tafs/p/sbst/?_adcount=1&_adinf=16119%7C0_&_aid=2792&_creativeids=56842_&_divid=daisy_2261_00001&_fmt=js&_format=1&_frameid=1511772999080917915229&_ftype=1&_nocache=151177299988269510277&_slot=2261&_url=https%3A%2F%2Fwww.example.com%2Fentertainment%2Fcolumn%2F3921",
 			"https://www.example.com/entertainment/column/3921",
 		},
+		{
+			"https://ad.deqwas-dsp.net/AdService/collection.aspx?client=ca-pub-9611473549939085&output=html&h=280&slotname=4942526061&adk=4069183175&adf=3349651995&w=435&fwrn=4&fwrnh=100&lmt=1536209925&loeid=201222032&rafmt=1&guci=2.2.0.0.2.2.0&format=435x280&url=https%3A%2F%2Flimo.media%2Farticles%2F-%2F7319&flash=30.0.0&fwr=0&rh=0&rw=435.2&resp_fmts=3&wgl=1&adsid=ADfwbuh-hVGHjtH6ri2p-tQOeMN4jNRxy_VmynyM9WH05QJTZRu4IHxI39UEKOkB9VEN&dt=1536209925079&bpp=4&bdt=688&fdt=269&idt=302&shv=r20180829&cbv=r20180604&saldr=aa&abxe=1&prev_fmts=870x90,435x280&correlator=5677701074903&frm=20&pv=1&ga_vid=1662089437.1531869027&ga_sid=1536209925&ga_hid=576573333&ga_fc=0&icsg=46182217427104&dssz=52&mdo=0&mso=0&u_tz=540&u_his=10&u_java=1&u_h=818&u_w=1455&u_ah=791&u_aw=1455&u_cd=24&u_nplug=1&u_nmime=2&adx=450&ady=3839&biw=1275&bih=703&scr_x=0&scr_y=0&eid=21060853,201222022&oid=3&ref=https%3A%2F%2Flimo.media%2F&rx=0&eae=0&fc=1808&docm=11&brdim=164,73,-7,-7,1455,,1469,805,1291,718&vis=1&rsz=||leEbr|&abl=CS&ppjl=f&pfx=0&fu=1168&bc=1&ifi=14&xpc=ZOFsd15qSw&p=https%3A%2F%2Flimo.media&dtd=346",
+			"https://limo.media/articles/-/7319",
+		},
+		{
+			"https://krad20.deqwas.net/AdService/Collection.aspx?s=18272_442-217134&t=f&ssl=1&fr_id=yads_7437856-2&xd_support=1&fr_support=1&sb_support=0&enc=UTF-8&pv_ts=1536209929316-6281701&tag_path=https%3A%2F%2Fyads.yjtag.yahoo.co.jp%2Ftag%0A&page=1&u=https%3A%2F%2Fmatome.naver.jp%2Fm%2Fodai%2F2140585444076756301%3Fpage%3D2&canu=https%3A%2F%2Fmatome.naver.jp%2Fodai%2F2140585444076756301%0A&tagpos=0x3935&async=0",
+			"https://matome.naver.jp/m/odai/2140585444076756301?page=2",
+		},
 
 		// unoptimizable
 		{

@@ -38,6 +38,8 @@ var (
 		"optimized-by.rubiconproject.com": parseAdframeURL("rf"),
 		"jbbs.shitaraba.net":              parseAdframeURL("url"),
 		"megalodon.jp":                    parseAdframeURL("url"),
+		"ad.deqwas-dsp.net":               parseAdframeURL("url"),
+		"krad20.deqwas.net":               parseAdframeURL("u"),
 	}
 )
 

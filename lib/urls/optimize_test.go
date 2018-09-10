@@ -96,6 +96,10 @@ func TestOptimizeURL(t *testing.T) {
 			"mobile-app::1-com.satohiro.playtube",
 		},
 		{
+			"http://tg.socdm.com/adsv/v1?id=17439&posall=RTB&schedule_id=95571.100311.636698&family_id=636698&creative_id=1260743&loglocation_id=22446&proto=imobile&wpr=NvGYaeBAvbzDzj-A9qK_PQ%3D%3D&rdn=http%3A%2F%2Fssp-click.i-mobile.co.jp%2Fclick.ashx%3Fdspid%3D9%26asid%3D1437802%26dspadvid%3D1260743%3A1528778290938%2Fsp1%26ru%3D&ssplocid=imobile%3A430731&prv2=iQ5EwPZdOPds7o_eCqBsOYf_AOKtYX4ITTzeYKJibkIHQ53IB1U41c9CJZQ&t=iframe&xuid=WgYOFsCo5oEAACCjZ-EAAAAA&ctsv=a-ad254&width=300&height=250&seqid=fe9ec674-bd23-4fb6-0c4f-7d8a4ad3ccd4&seqtime=1536209928469&ssp_tag_id=1437802&bidtime=1536209928&idx=0",
+			"tagid:imobile/430731",
+		},
+		{
 			"http://showads.pubmatic.com/AdServer/AdServerServlet?pubId=137870&siteId=215541&adId=1163866&kadwidth=320&kadheight=50&SAVersion=2&js=1&kdntuid=1&pageURL=http%3A%2F%2Fwww.example.com%2Fplus%2Fevent%3Futm_source%3D%26utm_medium%3Dbanner%26utm_campaign%3D%25E3%2583%25A2%25E3%2583%25A1%25E3%2583%25B3%25E3%2582%25BF%25E3%2583%25A0&inIframe=1&kadpageurl=http%3A%2F%2Fwww.example.com&operId=1&kltstamp=2017-11-27%208%3A57%3A9&timezone=9&screenResolution=414x736&ranreq=0.39262822122021623&pmUniAdId=0&adVisibility=2&adPosition=1403x0&dspids=%7B%22uids%22%3A%5B%5D%7D",
 			"http://www.example.com/plus/event?utm_source=&utm_medium=banner&utm_campaign=%E3%83%A2%E3%83%A1%E3%83%B3%E3%82%BF%E3%83%A0",
 		},

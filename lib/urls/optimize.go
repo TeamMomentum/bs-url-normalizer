@@ -29,6 +29,7 @@ var (
 		"securepubads.g.doubleclick.net":  optimizeDoubleClickURL,
 		"pubads.g.doubleclick.net":        optimizeDoubleClickURL,
 		"d.socdm.com":                     optimizeSocdmURL,
+		"tg.socdm.com":                    optimizeTgSocdmURL,
 		"showads.pubmatic.com":            parseAdframeURL("pageURL"),
 		"s.yimg.jp":                       parseAdframeURL("u"),
 		"i.yimg.jp":                       parseAdframeURL("u"),
@@ -143,6 +144,26 @@ func optimizeSocdmURL(ul *url.URL) *url.URL {
 
 	u, err := url.Parse(src)
 	if err == nil {
+		return u
+	}
+
+	return ul
+}
+
+/*
+	tg.socdm.com用正規化関数
+
+	- tagid として利用されることを想定し Opaque に値が残るようにする
+	- `ssplocid` に `momementum:12345` のような値が入っているので `:` を `/` に replace する
+*/
+func optimizeTgSocdmURL(ul *url.URL) *url.URL {
+	raw, ok := ul.Query()["ssplocid"]
+	if !ok {
+		return ul
+	}
+
+	tagid := strings.Replace(raw[0], ":", "/", 1)
+	if u, err := url.Parse("tagid:" + tagid); err == nil {
 		return u
 	}
 

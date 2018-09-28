@@ -27,9 +27,7 @@ func Asset(name string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		_ = f.Close()
-	}()
+	defer f.Close() // nolint
 	return ioutil.ReadAll(f)
 }
 

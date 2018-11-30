@@ -10,5 +10,5 @@ jobs:
       - checkout
       - run: dep ensure
       - run: make lint
-      - run: make test
+      - run: make
 

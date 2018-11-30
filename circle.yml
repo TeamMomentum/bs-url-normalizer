@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: dictav/golang-tools:1.10.2
+      - image: dictav/golang-tools:1.11.2
 
     working_directory: /go/src/github.com/TeamMomentum/bs-url-normalizer
 

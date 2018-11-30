@@ -24,6 +24,7 @@ var (
 		"amigo.gesoten.com":               optimizeRestrictedURL(""),
 		"gaingame.gesoten.com":            optimizeRestrictedURL(""),
 		"www.chatwork.com":                optimizeRestrictedURL(""),
+		"mail.yahoo.com":                  optimizeRestrictedURL(""),
 		"adm.shinobi.jp":                  parseAdframeURL("url"),
 		"googleads.g.doubleclick.net":     optimizeDoubleClickURL,
 		"securepubads.g.doubleclick.net":  optimizeDoubleClickURL,
@@ -155,6 +156,13 @@ func optimizeSocdmURL(ul *url.URL) *url.URL {
 	g.doubleclick.net用正規化関数
 */
 func optimizeDoubleClickURL(ul *url.URL) *url.URL {
+	if raw, ok := ul.Query()["content_url"]; ok {
+		u, err := url.Parse(raw[0])
+		if err == nil {
+			return u
+		}
+	}
+
 	if raw, ok := ul.Query()["msid"]; ok {
 		u, err := url.Parse("mobile-app::2-" + raw[0])
 		if err == nil {

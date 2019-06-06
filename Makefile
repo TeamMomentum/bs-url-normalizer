@@ -8,7 +8,7 @@ all:	build
 shared:
 	go build -buildmode=c-shared -o $(TARGET).a ./main.go
 
-asset: $(ASSETS_FILE)
+assets: $(ASSETS_FILE)
 	$(ASSETS_CMD) -p assets -src=$(RESOURCE_DIR) -dest=$(ASSETS_DEST_DIR)
 
 test:

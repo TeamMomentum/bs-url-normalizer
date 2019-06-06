@@ -80,7 +80,7 @@ func TestOptimizeURL(t *testing.T) {
 			"mobileapp::1-com.square-enix.mangaupjp",
 		},
 		{
-			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=false&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_gcache_xSeconds&eid=318478496%2C318481016%2C318481687&format=320x50_mb&heap_free=1898008&heap_max=536870912&heap_total=48598368&js=afma-sdk-a-v12843999.11717000.1&msid=jp.takke.android.tkmixiviewer&preqs=6&scroll_index=-1&seq_num=7&target_api=16	",
+			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=false&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_gcache_xSeconds&eid=318478496%2C318481016%2C318481687&format=320x50_mb&heap_free=1898008&heap_max=536870912&heap_total=48598368&js=afma-sdk-a-v12843999.11717000.1&msid=jp.takke.android.tkmixiviewer&preqs=6&scroll_index=-1&seq_num=7&target_api=16",
 			"mobileapp::2-jp.takke.android.tkmixiviewer",
 		},
 		{
@@ -139,6 +139,7 @@ func TestOptimizeURL(t *testing.T) {
 		up, err := url.Parse(cs.rawurl)
 		if err != nil {
 			t.Error(err)
+			continue
 		}
 		opted := optimizeURL(up)
 		if opted.String() != cs.wants {

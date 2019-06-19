@@ -60,6 +60,10 @@ func TestOptimizeURL(t *testing.T) {
 			"http://amigo.gesoten.com",
 		},
 		{
+			"https://mail.yahoo.com/d/compose/3732029806",
+			"https://mail.yahoo.com",
+		},
+		{
 			"http://gaingame.gesoten.com/gaingame?user_id=000287102299&media_id=56&time=20171121001956&key=15E73E171612396096A3F68D8379841B",
 			"http://gaingame.gesoten.com",
 		},
@@ -82,6 +86,10 @@ func TestOptimizeURL(t *testing.T) {
 		{
 			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=false&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_gcache_xSeconds&eid=318478496%2C318481016%2C318481687&format=320x50_mb&heap_free=1898008&heap_max=536870912&heap_total=48598368&js=afma-sdk-a-v12843999.11717000.1&msid=jp.takke.android.tkmixiviewer&preqs=6&scroll_index=-1&seq_num=7&target_api=16",
 			"mobileapp::2-jp.takke.android.tkmixiviewer",
+		},
+		{
+			"https://pubads.g.doubleclick.net/gampad/ads?_ad_b=0x0&_c_csdk_npa_o=false&_hl=ja-jp&_package_name=jp.wear.wear&adk=0&an=4.28.1.iphone.jp.wear.wear&bas_off=0&bas_on=0&basets=1&binary_arch=arm64&blob=ABPQqLE8FsNa-vmO0PPkRHlB4nGIALH5YQEcovHtpDaK7IpaxdLYuBhjVyP_MSKY0shnUefUR7XlyHdIcA5jJVLPOd6NZcPDy_as-UDSfk8G3yzlaPjHCYSnAsGVYxfzWPzDiYdNxi&blockAutoClicks=true&cap=a&cap_bs=1&caps=interactiveVideo_inlineVideo_mraid1_mraid2_th_autoplay_mediation_av_sdkAdmobApiForAds_di_transparentBackground_sdkVideo_aso_aaso_sfv_dinm_dim_nav_navc_ct_dinmo_gls_gcache&cellular_country_code=440&cellular_network_code=51&content_infol=76&content_url=https%3A%2F%2Fwear.jp%2Fkahofuji%2F13684747%2F&correlator=1645873929803960&crqc=1&currts=481800&dload=1419&dtsdk=iphoneos11.1&dtxcb=9B55&eid=318477469%2C318481842%2C318480253%2C318481005%2C318482598&forceHttps=true&gdfp_req=1&gsb=wi&guci=0.0.0.0.0.0.0.0&hl=ja&idtypel=4&impl=ifr&includeDoritos=true&ios_app_muted=0&ios_app_volume=1&ios_base_sdk=11.1&ios_key_window_h=667&ios_key_window_w=375",
+			"https://wear.jp/kahofuji/13684747/",
 		},
 		{
 			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=16795&tp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&pp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&rnd=1509797344050&targetID=adg_16795&sdkver=1.7.0&sdktype=0&acl=off",

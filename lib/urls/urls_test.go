@@ -49,6 +49,10 @@ func TestFirstNormalization(t *testing.T) {
 			out: "http://example.com/",
 		},
 		{
+			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=22122&sdktype=2&sdkver=1.5.2&appname=FreeTube&appbundle=com.satohiro.playtube&appver=1.5.3.2&networktype=carrier&carrier=440-20&lang=ja-JP&locale=ja_JP&tz=Asia/Tokyo&scheme=freetube",
+			"mobile-app::1-com.satohiro.playtube",
+		},
+		{
 			in:  "http://adm.shinobi.jp/a/66e78d8e9225eb41e4c240097cf56bb6?x=155&y=54&url=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&referrer=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Fgoal%2F2&user_id=&du=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&iw=1003&ih=995",
 			out: "http://gaingame.gendama.jp/otenba/treasure/",
 		},

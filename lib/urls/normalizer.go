@@ -103,7 +103,9 @@ func (n *Normalizer) SecondNormalizedURL() string {
 
 // normalizeScheme replaces all schemes into http
 func normalizeScheme(ul *url.URL) {
-	ul.Scheme = defaultScheme
+	if ul.Scheme == "https" {
+		ul.Scheme = defaultScheme
+	}
 }
 
 // normalizePathSuffix keeps the end of URL as '/'.

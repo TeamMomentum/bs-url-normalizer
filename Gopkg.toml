@@ -26,8 +26,12 @@
 
 
 [[constraint]]
-  branch = "release-branch.go1.11"
   name = "golang.org/x/net"
+  branch = "release-branch.go1.11"
+
+[[constraint]]
+  name = "github.com/rakyll/statik"
+  version = "v0.1.6"
 
 [prune]
   go-tests = true

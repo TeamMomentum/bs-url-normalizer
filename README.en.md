@@ -51,3 +51,32 @@ But you can import it directly from "lib/urls", if you are using Go Language
 * Go
 
   It will be GC automatically.
+
+
+## Development
+
+### Requirements
+
+- [GNU Make](https://www.gnu.org/software/make/)
+- [Go 1.11](https://golang.org)
+- [statick v0.1.6](https://github.com/rakyll/statik): To embed asset files into Go codes
+
+### Building Shared Library
+
+```sh
+$ make build
+```
+
+### Test
+
+```sh
+$ make test
+go test -v -race ./lib/...
+...
+```
+
+### Updating embedded asset files (Optional)
+
+```sh
+$ make assets
+```

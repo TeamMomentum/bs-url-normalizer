@@ -19,7 +19,10 @@ $(ASSETS_FILE):
 test: $(ASSETS_FILE)
 	go test -v -race ./lib/...
 
-build: $(ASSETS_FILE) test
+dep:
+	dep ensure
+
+build: dep $(ASSETS_FILE) test
 	@$(MAKE) shared
 
 clean:

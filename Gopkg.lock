@@ -2,16 +2,16 @@
 
 
 [[projects]]
-  digest = "1:ea0700160aca4ef099f4e06686a665a87691f4248dddd40796925eda2e46bd64"
+  digest = "1:77b730fa4c2d98f3ddf492acbea351eb6b0560fa5eace4105a6fc33ff937bb1b"
   name = "github.com/rakyll/statik"
   packages = ["fs"]
   pruneopts = "UT"
-  revision = "aa8a7b1baecd0f31a436bf7956fcdcc609a83035"
-  version = "v0.1.4"
+  revision = "3bac566d30cdbeddef402a80f3d6305860e59f12"
+  version = "v0.1.6"
 
 [[projects]]
   branch = "release-branch.go1.11"
-  digest = "1:5e38a63597d1f70e2417d38f05e55cb58cbc8483ef4ff52ebbf35d5baa9c3abe"
+  digest = "1:d85c27d6ba6e4025225eed536f3ff7c5455d0857a0585c80d7510f7eee6fc68e"
   name = "golang.org/x/net"
   packages = [
     "http/httpguts",
@@ -21,7 +21,7 @@
   revision = "c39426892332e1bb5ec0a434a079bf82f5d30c54"
 
 [[projects]]
-  digest = "1:7509ba4347d1f8de6ae9be8818b0cd1abc3deeffe28aeaf4be6d4b6b5178d9ca"
+  digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
   name = "golang.org/x/text"
   packages = [
     "collate",

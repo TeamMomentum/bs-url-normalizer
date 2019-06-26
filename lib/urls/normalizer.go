@@ -70,9 +70,10 @@ func (n *Normalizer) FirstNormalizedURL() string {
 	n.CrawlingURL()
 	ul := n.url
 
-	n.n1URL = normalizeMobileAppURL(ul)
-	if n.n1URL != "" {
-		return n.n1URL
+	if mu := normalizeMobileAppURL(ul); mu != "" {
+		n.n1URL = mu
+		n.n2URL = mu
+		return mu
 	}
 
 	normalizeSPHost(ul)

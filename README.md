@@ -98,20 +98,44 @@ Makefileでは[buildmode=c-shared](https://golang.org/cmd/go/#hdr-Description_of
   func normalizePath(ul *url.URL) bool
   ```
 
-## テスト
+## Development
 
-  ```
-  $ go test ./lib/... -v
-  === RUN   TestRemoveQueryParameters
-  --- PASS: TestRemoveQueryParameters (0.00s)
-  === RUN   TestQueryOrder
-  --- PASS: TestQueryOrder (0.00s)
-  === RUN   TestNormalizeURLFormat
-  --- PASS: TestNormalizeURLFormat (0.00s)
-  === RUN   TestSplitNDomainPath
-  --- PASS: TestSplitNDomainPath (0.00s)
-  === RUN   TestNormalizePathMap
-  --- PASS: TestNormalizePathMap (0.00s)
-  PASS
-  ok      github.com/TeamMomentum/bs-url-normalizer/lib/urls     0.012s
-  ```
+### Requirements
+
+- [GNU Make](https://www.gnu.org/software/make/)
+- [Go 1.11](https://golang.org)
+- [dep](https://github.com/golang/dep): Go dependency management tool
+- [statick v0.1.6](https://github.com/rakyll/statik): To embed asset files into Go codes
+
+### Building Shared Library
+
+```sh
+# `make build` will do:
+# 1. update Go dependencies,
+# 2. update asset files
+# 3. run tests
+# 4. build a shared library file
+$ make build
+```
+
+
+### Update dependencies
+
+```sh
+make dep
+```
+
+
+### Test
+
+```sh
+$ make test
+go test -v -race ./lib/...
+...
+```
+
+### Updating embedded asset files (Optional)
+
+```sh
+$ make assets
+```

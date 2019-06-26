@@ -35,6 +35,10 @@ func Test_removeQueryParameters(t *testing.T) {
 			in:  "http://enq.nstk-4.com/b41c09cb00cb0a09/iframe.php?bnr=geniee&pos=l1&banner_name=WFcriteo&device=pc&time=1511182658378",
 			out: "http://enq.nstk-4.com/b41c09cb00cb0a09/iframe.php?banner_name=WFcriteo&bnr=geniee&device=pc&pos=l1",
 		},
+		{
+			in:  "https://www.ranker.com/list/the-7-most-horrifying-things-found-living-inside-humans/beau-iverson?utm_source=facebook&utm_medium=creepy&pgid=1011190218967434&utm_campaign=squid-babies-image&fbclid=IwAR3tuHm8oTsHs8aDx8ZHHbAPg5-NCgFIqAzJcYto2wngZe0Ylc_6k3q2JFU",
+			out: "https://www.ranker.com/list/the-7-most-horrifying-things-found-living-inside-humans/beau-iverson?pgid=1011190218967434",
+		},
 	}
 	for _, tt := range tests {
 		ul, err := url.Parse(tt.in)

@@ -25,9 +25,10 @@ var (
 		"gaingame.gesoten.com":            optimizeRestrictedURL(""),
 		"www.chatwork.com":                optimizeRestrictedURL(""),
 		"adm.shinobi.jp":                  parseAdframeURL("url"),
-		"googleads.g.doubleclick.net":     parseAdframeURL("url"),
-		"securepubads.g.doubleclick.net":  parseAdframeURL("url"),
-		"d.socdm.com":                     parseAdframeURL("tp"),
+		"googleads.g.doubleclick.net":     optimizeDoubleClickURL,
+		"securepubads.g.doubleclick.net":  optimizeDoubleClickURL,
+		"pubads.g.doubleclick.net":        optimizeDoubleClickURL,
+		"d.socdm.com":                     optimizeSocdmURL,
 		"showads.pubmatic.com":            parseAdframeURL("pageURL"),
 		"s.yimg.jp":                       parseAdframeURL("u"),
 		"i.yimg.jp":                       parseAdframeURL("u"),
@@ -37,6 +38,8 @@ var (
 		"optimized-by.rubiconproject.com": parseAdframeURL("rf"),
 		"jbbs.shitaraba.net":              parseAdframeURL("url"),
 		"megalodon.jp":                    parseAdframeURL("url"),
+		"ad.deqwas-dsp.net":               parseAdframeURL("url"),
+		"krad20.deqwas.net":               parseAdframeURL("u"),
 	}
 )
 
@@ -106,5 +109,72 @@ func optimizeLiveNicovideoURL(ul *url.URL) *url.URL {
 		ul.RawQuery = ""
 		return ul
 	}
+	return ul
+}
+
+/*
+	d.socdm.com用正規化関数
+*/
+func optimizeSocdmURL(ul *url.URL) *url.URL {
+	raw, ok := ul.Query()["sdktype"]
+	if !ok {
+		return ul
+	}
+
+	var src = ""
+	switch raw[0] {
+	case "0":
+		if raw, ok := ul.Query()["tp"]; ok {
+			src = raw[0]
+		}
+	case "1":
+		if raw, ok := ul.Query()["appbundle"]; ok {
+			src = "mobileapp::2-" + raw[0]
+		}
+	case "2":
+		if raw, ok := ul.Query()["appbundle"]; ok {
+			src = "mobileapp::1-" + raw[0]
+		}
+	default:
+		return ul
+	}
+
+	if len(src) == 0 {
+		return ul
+	}
+
+	u, err := url.Parse(src)
+	if err == nil {
+		return u
+	}
+
+	return ul
+}
+
+/*
+	g.doubleclick.net用正規化関数
+*/
+func optimizeDoubleClickURL(ul *url.URL) *url.URL {
+	if raw, ok := ul.Query()["msid"]; ok {
+		u, err := url.Parse("mobileapp::2-" + raw[0])
+		if err == nil {
+			return u
+		}
+	}
+
+	if raw, ok := ul.Query()["_package_name"]; ok {
+		u, err := url.Parse("mobileapp::1-" + raw[0])
+		if err == nil {
+			return u
+		}
+	}
+
+	if raw, ok := ul.Query()["url"]; ok {
+		u, err := url.Parse(raw[0])
+		if err == nil {
+			return u
+		}
+	}
+
 	return ul
 }

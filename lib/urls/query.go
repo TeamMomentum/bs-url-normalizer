@@ -58,6 +58,7 @@ func init() {
 		"action_type_map",
 		"action_ref_map",
 		"cb",
+		"fbclid",
 	})
 
 	disusedHostParameterMap = map[string]string{

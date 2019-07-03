@@ -77,11 +77,11 @@ func TestOptimizeURL(t *testing.T) {
 		},
 		{
 			"https://pubads.g.doubleclick.net/gampad/ads?os_version=11.4.0&u_sso=p&ios_base_sdk=11.4&request_id=26&u_mwsso=p&u_so=p&js=afma-sdk-i-v7.31.0&is_arr=true&ios_app_volume=1&is_other_audio_playing=0&sai=1&ios_output_volume=0.6875&fbs_aiid=D6558B4EB29A4FE58F87869271F68C58&ios_current_boot_timestamp_ms=1303491339.552&eid=318477469%2C318481073&request_origin=pub&ms=GVFv59jgFzf8vZ2_6_GwP3QMYkZzkR6HtQmN--Avw9b-Qm-UZVwZf_MPcHVs4CFEWyAK_ByHCSLyW_uxt98XFcnhPsk2TaAcsO-gRv3nduZy5MLIQqfPrr_7V6iiq_Lt2nDJnV6zqz600F_SEn3wqfQKhSYghwxekD1Xce2xFWKekR42929xvPmj9Ibwx4c0yqMd9w_bRoQtvWLoFxXIga2ftPxKkd33dOGISnvZYDHLZPUEagCVVmCVYG13JQKBjnxDy2DKKKO4c8Is-jbpsboSdXV7qcDhHjf6eCDne6uwQ31z5Pg8hkEw_H093oRrIa2Im19pl6BzHR_IsNxO3A&hl=ja&u_sd=2&ios_key_window_w=375&cellular_country_code=440&u_w=375&ios_radio=CTRadioAccessTechnologyLTE&u_h=667&submodel=iPhone9%2C1&ios_key_window_h=667&cap_bs=1&net=wi&ios_app_muted=0&binary_arch=arm64&should_silence_audio=0&cellular_network_code=20&_c_csdk_npa_o=false&_ad_b=300x250&format=300x250_as&ad_x=37.5&ad_y=275&ad_w=300&ad_h=250&ad_v=true&_package_name=com.square-enix.mangaupjp&an=43.0.0.iphone.com.square-enix.mangaupjp&u_audio=5&swipeable=1&dtxcb=9F2000&dtsdk=iphoneos11.4&adk=2672299862&preqs=10&seq_num=18&pimp=10&preqs_in_session=10&time_in_session=486.2405869998038&basets=63395&bas_on=0&oar=0&currts=549645&bas_off=0&crqc=1&treq=519272&tfetch=519361&tresponse=519615&tload=520370&dload=1098&output=html&region=mobile_app&u_tz=540&url=43.0.0.iphone.com.square-enix.mangaupjp.adsenseformobileapps.com&gdfp_req=1&markup=html&m_ast=afmajs&impl=ifr&iu=%2F9116787%2F1284627&sz=300x250&correlator=1681027331541702&_hl=ja-jp&gsb=wi&caps=interactiveVideo_inlineVideo_mraid1_mraid2_th_autoplay_mediation_av_sdkAdmobApiForAds_di_transparentBackground_sdkVideo_aso_sfv_dinm_dim_nav_navc_ct_dinmo_gls_saiMacro_gcache&swdr=fals",
-			"mobile-app::1-com.square-enix.mangaupjp",
+			"mobileapp::1-com.square-enix.mangaupjp",
 		},
 		{
-			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=false&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_gcache_xSeconds&eid=318478496%2C318481016%2C318481687&format=320x50_mb&heap_free=1898008&heap_max=536870912&heap_total=48598368&js=afma-sdk-a-v12843999.11717000.1&msid=jp.takke.android.tkmixiviewer&preqs=6&scroll_index=-1&seq_num=7&target_api=16	",
-			"mobile-app::2-jp.takke.android.tkmixiviewer",
+			"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=false&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_gcache_xSeconds&eid=318478496%2C318481016%2C318481687&format=320x50_mb&heap_free=1898008&heap_max=536870912&heap_total=48598368&js=afma-sdk-a-v12843999.11717000.1&msid=jp.takke.android.tkmixiviewer&preqs=6&scroll_index=-1&seq_num=7&target_api=16",
+			"mobileapp::2-jp.takke.android.tkmixiviewer",
 		},
 		{
 			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=16795&tp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&pp=http%3A%2F%2Fwww.example.com%2Ftest%2Fabc.def%2Ftoday%2F1466646832&rnd=1509797344050&targetID=adg_16795&sdkver=1.7.0&sdktype=0&acl=off",
@@ -89,11 +89,11 @@ func TestOptimizeURL(t *testing.T) {
 		},
 		{
 			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=11426&sdktype=1&sdkver=1.5.0&appname=マイブックマーク&appbundle=com.ululu.android.apps.my_bookmark&appver=2.9.6.02&advertising_id=aa5621ad-7339-4ef8-938b-bb68f130bc06&lang=ja&locale=ja_JP&tz=Asia/Tokyo",
-			"mobile-app::2-com.ululu.android.apps.my_bookmark",
+			"mobileapp::2-com.ululu.android.apps.my_bookmark",
 		},
 		{
 			"http://d.socdm.com/adsv/v1?posall=SSPLOC&id=22122&sdktype=2&sdkver=1.5.2&appname=FreeTube&appbundle=com.satohiro.playtube&appver=1.5.3.2&networktype=carrier&carrier=440-20&lang=ja-JP&locale=ja_JP&tz=Asia/Tokyo&scheme=freetube",
-			"mobile-app::1-com.satohiro.playtube",
+			"mobileapp::1-com.satohiro.playtube",
 		},
 		{
 			"http://tg.socdm.com/adsv/v1?id=17439&posall=RTB&schedule_id=95571.100311.636698&family_id=636698&creative_id=1260743&loglocation_id=22446&proto=imobile&wpr=NvGYaeBAvbzDzj-A9qK_PQ%3D%3D&rdn=http%3A%2F%2Fssp-click.i-mobile.co.jp%2Fclick.ashx%3Fdspid%3D9%26asid%3D1437802%26dspadvid%3D1260743%3A1528778290938%2Fsp1%26ru%3D&ssplocid=imobile%3A430731&prv2=iQ5EwPZdOPds7o_eCqBsOYf_AOKtYX4ITTzeYKJibkIHQ53IB1U41c9CJZQ&t=iframe&xuid=WgYOFsCo5oEAACCjZ-EAAAAA&ctsv=a-ad254&width=300&height=250&seqid=fe9ec674-bd23-4fb6-0c4f-7d8a4ad3ccd4&seqtime=1536209928469&ssp_tag_id=1437802&bidtime=1536209928&idx=0",
@@ -143,6 +143,7 @@ func TestOptimizeURL(t *testing.T) {
 		up, err := url.Parse(cs.rawurl)
 		if err != nil {
 			t.Error(err)
+			continue
 		}
 		opted := optimizeURL(up)
 		if opted.String() != cs.wants {

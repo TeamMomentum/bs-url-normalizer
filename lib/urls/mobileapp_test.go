@@ -35,5 +35,8 @@ func TestNormalizeMobileApp(t *testing.T) {
 		if u := FirstNormalizeURL(ul); u != cs.wants {
 			t.Errorf("%v != %v", u, cs.wants)
 		}
+		if u := SecondNormalizeURL(ul); u != cs.wants {
+			t.Errorf("%v != %v", u, cs.wants)
+		}
 	}
 }

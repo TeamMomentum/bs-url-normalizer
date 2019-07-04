@@ -30,8 +30,4 @@ clean:
 	rm -f $(TARGET).a $(TARGET).h
 
 lint:
-	gometalinter -j 4 --deadline=300s ./... \
-		--skip=main.go \
-		--skip=/usr/local --skip=vendor \
-		--exclude='/usr/local' --exclude='vendor/' \
-		--cyclo-over=12
+	golangci-lint run

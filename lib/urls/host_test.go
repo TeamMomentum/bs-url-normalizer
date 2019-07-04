@@ -24,39 +24,39 @@ func Test_normalizePath(t *testing.T) {
 	}
 
 	tests := []struct {
-		in  string
+		in   string
 		want string
 	}{
-    {
-      // not normalize
-      "https://www.example.com/path/to/html?q=query&w=word",
-      "https://www.example.com/path/to/html?q=query&w=word",
-    },
-    {
-      "https://example1.com/path/to/html?q=query&w=word",
-      "https://example1.com/path",
-    },
-    {
-      "https://example2.com/path/to/html?q=query&w=word",
-      "https://example2.com/path/to",
-    },
-    {
-      "https://www01.example3.com/path/to/html?q=query&w=word",
-      "https://www01.example3.com/path",
-    },
-    {
-      "https://example4.com/path/to/html?q=query&w=word",
-      "https://example4.com/path?q=query",
-    },
-    {
-      "https://www.example.com/~user/path/to/html?q=query&w=word",
-      "https://www.example.com/~user",
-    },
-  }
+		{
+			// not normalize
+			"https://www.example.com/path/to/html?q=query&w=word",
+			"https://www.example.com/path/to/html?q=query&w=word",
+		},
+		{
+			"https://example1.com/path/to/html?q=query&w=word",
+			"https://example1.com/path",
+		},
+		{
+			"https://example2.com/path/to/html?q=query&w=word",
+			"https://example2.com/path/to",
+		},
+		{
+			"https://www01.example3.com/path/to/html?q=query&w=word",
+			"https://www01.example3.com/path",
+		},
+		{
+			"https://example4.com/path/to/html?q=query&w=word",
+			"https://example4.com/path?q=query",
+		},
+		{
+			"https://www.example.com/~user/path/to/html?q=query&w=word",
+			"https://www.example.com/~user",
+		},
+	}
 	for _, tt := range tests {
 		t.Run(tt.in, func(t *testing.T) {
 			ul := mustURL(tt.in)
-      shouldNormalize := tt.in != tt.want
+			shouldNormalize := tt.in != tt.want
 			isNormalized := normalizePath(ul)
 			if isNormalized != shouldNormalize {
 				t.Errorf("normalizePath() returns %v, want %v", isNormalized, shouldNormalize)
@@ -77,23 +77,23 @@ func Test_normalizeSPHost(t *testing.T) {
 
 	spPCHostMap = makeStringStringMap(testHosts, ",")
 
-  tests := []struct {
-    in string
-    want string
-  } {
-    {
-      "https://www.example.com/path/to/html?q=query&w=word",
-      "https://www.example.com/path/to/html?q=query&w=word",
-    },
-    {
-      "https://sp.example1.com/path/to/html?q=query&w=word",
-      "https://www.example1.com/path/to/html?q=query&w=word",
-    },
-    {
-      "https://sp.example2.com/path/to/html?q=query&w=word",
-      "https://example2.com/path/to/html?q=query&w=word",
-    },
-  }
+	tests := []struct {
+		in   string
+		want string
+	}{
+		{
+			"https://www.example.com/path/to/html?q=query&w=word",
+			"https://www.example.com/path/to/html?q=query&w=word",
+		},
+		{
+			"https://sp.example1.com/path/to/html?q=query&w=word",
+			"https://www.example1.com/path/to/html?q=query&w=word",
+		},
+		{
+			"https://sp.example2.com/path/to/html?q=query&w=word",
+			"https://example2.com/path/to/html?q=query&w=word",
+		},
+	}
 	for _, tt := range tests {
 		t.Run(tt.in, func(t *testing.T) {
 			ul := mustURL(tt.in)

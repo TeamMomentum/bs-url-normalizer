@@ -1,0 +1,33 @@
+{
+  "description": "ユーザ空間(/~) ベースの正規化対象ホスト群",
+  "tests": [
+    {
+      "in": "http://www.asahi-net.or.jp/~foo/bar/?page=1",
+      "n2url": "http://www.asahi-net.or.jp/~foo"
+    },
+    {
+      "in": "http://www.eonet.ne.jp/~xxx/",
+      "n2url": "http://www.eonet.ne.jp/~xxx"
+    },
+    {
+      "in": "http://www7b.biglobe.ne.jp/~user/04/index.cgi",
+      "n2url": "http://www7b.biglobe.ne.jp/~user"
+    },
+    {
+      "in": "http://park1.wakwak.com/~user/",
+      "n2url": "http://park1.wakwak.com/~user"
+    },
+    {
+      "in": "http://www.eurus.dti.ne.jp/~userID/",
+      "n2url": "http://www.eurus.dti.ne.jp/~userID"
+    },
+    {
+      "in": "http://www2.odn.ne.jp/~user32900/",
+      "n2url": "http://www2.odn.ne.jp/~user32900"
+    },
+    {
+      "in": "http://www.famille.ne.jp/~xyz136/",
+      "n2url": "http://www.famille.ne.jp/~xyz136"
+    }
+  ]
+}

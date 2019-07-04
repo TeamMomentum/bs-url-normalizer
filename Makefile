@@ -17,7 +17,7 @@ $(ASSETS_FILE):
 	@$(MAKE) assets
 
 test: $(ASSETS_FILE)
-	go test -v -race ./lib/...
+	go test -v -race ./...
 
 dep:
 	dep ensure

@@ -1,0 +1,190 @@
+{
+  "description": "resources/norm_host_path の内容に合わせて n2url",
+  "tests": [
+    {
+      "in": "https://www.example.com/path/to/page.html?x=1&y=test",
+      "n2url": "http://www.example.com"
+    },
+    {
+      "in": "https://am-our.com/idea/534/15188/",
+      "n2url": "http://am-our.com/idea"
+    },
+    {
+      "in": "https://ameblo.jp/ebizo-ichikawa/entry-12387941308.html",
+      "n2url": "http://ameblo.jp/ebizo-ichikawa"
+    },
+    {
+      "in": "http://b.ibbs.info/sample/?anc=1-2#anc",
+      "n2url": "http://b.ibbs.info/sample"
+    },
+    {
+      "in": "http://bannch.com/bs/bbs/798793/sub/index.html?test=123",
+      "n2url": "http://bannch.com/bs/bbs/798793"
+    },
+    {
+      "in": "http://bbs.mottoki.com/index?bbs=kinyuu&thread=&page=2",
+      "n2url": "http://bbs.mottoki.com/index?bbs=kinyuu"
+    },
+    {
+      "in": "http://bbs7.meiwasuisan.com/gravure/1529300473/",
+      "n2url": "http://bbs7.meiwasuisan.com/gravure"
+    },
+    {
+      "in": "https://blog.goo.ne.jp/kuru0214/e/f0efbe813b94e456962c849b1f1c34f7",
+      "n2url": "http://blog.goo.ne.jp/kuru0214"
+    },
+    {
+      "in": "http://blog.kuruten.jp/katsutacompany77/411052",
+      "n2url": "http://blog.kuruten.jp/katsutacompany77"
+    },
+    {
+      "in": "http://blog.livedoor.jp/dqnplus/archives/1972090.html",
+      "n2url": "http://blog.livedoor.jp/dqnplus"
+    },
+    {
+      "in": "https://blogs.yahoo.co.jp/a209143707/66868842.html",
+      "n2url": "http://blogs.yahoo.co.jp/a209143707"
+    },
+    {
+      "in": "http://ch.nicovideo.jp/horiemon/blomaga/201807",
+      "n2url": "http://ch.nicovideo.jp/horiemon"
+    },
+    {
+      "description": "アダルト画像掲示板？ ",
+      "in": "http://cp.atrct.tv/v/4zmEwAGgBg?pg=1",
+      "n2url": "http://cp.atrct.tv/v/4zmEwAGgBg"
+    }, 
+    {
+      "in": "http://d.hatena.ne.jp/foo/20180817",
+      "n2url": "http://d.hatena.ne.jp/foo"
+    },
+    {
+      "in": "http://fanblogs.jp/30suppinnbihada/archive/512/0",
+      "n2url": "http://fanblogs.jp/30suppinnbihada"
+    },
+    {
+      "description": "アダルトカテゴリ混在",
+      "in": "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx",
+      "n2url": "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx"
+    },
+    {
+      "description": "アダルトカテゴリ混在",
+      "in": "https://girlsnews.tv/unit/316023",
+      "n2url": "http://girlsnews.tv/unit"
+    },
+    {
+      "in": "http://ibbs.info/thread.php?no=1&id=TIEpachi",
+      "n2url": "http://ibbs.info/thread.php?id=TIEpachi"
+    },
+    {
+      "description": "スレッドごとに正規化するのは細かすぎるかも？",
+      "in": "https://jbbs.shitaraba.net/bbs/read.cgi/internet/0120/741222/",
+      "n2url": "http://jbbs.shitaraba.net/bbs/read.cgi/internet/0120/741222"
+    },
+    {
+      "in": "https://lineblog.me/kanosisters/archives/13190716.html",
+      "n2url": "http://lineblog.me/kanosisters"
+    },
+    {
+      "in": "https://lyze.jp/someone/diary/1/",
+      "n2url": "http://lyze.jp/someone"
+    },
+    {
+      "in": "http://mbbs.tv/u/?id=sample&p=2",
+      "n2url": "http://mbbs.tv/u?id=sample"
+    },
+    {
+      "in": "http://mblg.tv/someone/entry/26489/",
+      "n2url": "http://mblg.tv/someone"
+    },
+    {
+      "in": "https://mdpr.jp/news/1234567890",
+      "n2url": "http://mdpr.jp/news"
+    },
+    {
+      "in": "http://nanos.jp/sample/novel/1/",
+      "n2url": "http://nanos.jp/sample"
+    },
+    {
+      "in": "https://plaza.rakuten.co.jp/someone/diary/201807020000/",
+      "n2url": "http://plaza.rakuten.co.jp/someone"
+    },
+    {
+      "in": "http://rank.log2.jp/kro/category.php?cid=11",
+      "n2url": "http://rank.log2.jp/kro"
+    },
+    {
+      "in": "https://rara.jp/someone/page231",
+      "n2url": "http://rara.jp/someone"
+    },
+    {
+      "in": "http://s1.ibbs.info/thread.php?no=1&id=TIEpachi",
+      "n2url": "http://s1.ibbs.info/thread.php?id=TIEpachi"
+    },
+    {
+      "in": "http://s2.ibbs.info/thread.php?no=1&id=TIEpachi",
+      "n2url": "http://s2.ibbs.info/thread.php?id=TIEpachi"
+    },
+    {
+      "in": "http://seesaawiki.jp/foobar/d/FAQ",
+      "n2url": "http://seesaawiki.jp/foobar"
+    },
+    {
+      "in": "http://spora.jp/mocchy/posts/606270",
+      "n2url": "http://spora.jp/mocchy"
+    },
+    {
+      "in": "https://woman.excite.co.jp/article/beauty/abc_def_00000/",
+      "n2url": "http://woman.excite.co.jp/article/beauty"
+    },
+    {
+      "description": "scheme正規化は第一正規化時に別途実施される想定なのでここではチェックしない",
+      "in": "https://www65.atwiki.jp/some_game/pages/123.html",
+      "n2url": "http://www65.atwiki.jp/some_game"
+    },
+    {
+      "in": "http://www.dclog.jp/someone/1/1234567890",
+      "n2url": "http://www.dclog.jp/someone"
+    },
+    {
+      "in": "http://www.ebbs.jp/bbs.php?m=top&b=000000&guid=On",
+      "n2url": "http://www.ebbs.jp/bbs.php?b=000000"
+    },
+    {
+      "in": "https://www.eniblo.com/someone/2013/3/28/1364457329",
+      "n2url": "http://www.eniblo.com/someone"
+    },
+    {
+      "in": "https://www.nikkan-gendai.com/articles/view/life/232439",
+      "n2url": "http://www.nikkan-gendai.com/articles/view/life"
+    },
+    {
+      "in": "https://www.tokyo-sports.co.jp/sports/othersports/000000/",
+      "n2url": "http://www.tokyo-sports.co.jp/sports"
+    },
+    {
+      "in": "https://www.zakzak.co.jp/eco/news/180702/eco0000000-n1.html",
+      "n2url": "http://www.zakzak.co.jp/eco"
+    },
+    {
+      "in": "http://yaplog.jp/someone/archive/0000",
+      "n2url": "http://yaplog.jp/someone"
+    },
+    {
+      "in": "http://www.ne.jp/asahi/net/foo/bar.html",
+      "n2url": "http://www.ne.jp/asahi/net/foo"
+    },
+    {
+      "in": "https://www10.plala.or.jp/plataro/",
+      "n2url": "http://www10.plala.or.jp/plataro"
+    },
+    {
+      "in": "http://www008.upp.so-net.ne.jp/foo/page.html",
+      "n2url": "http://www008.upp.so-net.ne.jp/foo"
+    },
+    {
+      "in": "http://www.geocities.jp/abcdefg/index.html",
+      "n2url": "http://www.geocities.jp/abcdefg"
+    }
+  ]
+}

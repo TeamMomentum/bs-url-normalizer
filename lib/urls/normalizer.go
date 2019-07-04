@@ -103,6 +103,9 @@ func (n *Normalizer) SecondNormalizedURL() string {
 
 // normalizeScheme replaces all schemes into http
 func normalizeScheme(ul *url.URL) {
+	if isStaticURL(ul) {
+		return
+	}
 	ul.Scheme = defaultScheme
 }
 

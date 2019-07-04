@@ -45,7 +45,12 @@ jobs:
 
 workflows:
   version: 2
-  lint_and_test:
+  test:
     jobs:
-    - lint
-    - test
+      - dep
+      - lint:
+          requires:
+            - dep
+      - test:
+          requires:
+            - dep

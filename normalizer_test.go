@@ -17,8 +17,6 @@ import (
 
 const testDir = "testdata"
 
-type normType string
-
 type testFile struct {
 	Tests []testData `json:"tests"`
 }
@@ -30,7 +28,7 @@ type testData struct {
 }
 
 func TestNormalization(t *testing.T) {
-	files, err := filepath.Glob("testdata/*.json")
+	files, err := filepath.Glob(testDir + "/*.json")
 	if err != nil {
 		t.Fatal(err)
 	}

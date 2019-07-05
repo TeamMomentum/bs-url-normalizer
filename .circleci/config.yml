@@ -45,7 +45,7 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  lint_and_test:
     jobs:
       - dep
       - lint:

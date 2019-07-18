@@ -74,3 +74,36 @@ $ make -f bigquery-udf.mk PROJECT=<GCP_PROJECT> DATASET=<BIGQUERY_DATASET> BUCKE
 ```
 $ bq query --nouse_legacy_sql "SELECT <DATASET>.N1URL('https://www.m0mentum.co.jp/path/to/html')"
 ```
+
+## 開発
+
+```
+js/
+├── Makefile
+├── README.md
+├── adframe/            # adframe を正規化するためのjsファイル群
+├── assets/             # 特定のURLを正規化するためのjsファイル群
+├── bigquery-udf.mk     # BigQuery UDF を作るための Makefile
+├── bq.js               # BigQuery UDF を作るためのjs
+├── build/
+├── package-lock.json
+├── package.json
+├── prettier.config.js
+├── rollup.config.js
+├── test/
+├── tools/              # assets/ ディレクトリのファイルを作成するためのjsスクリプト
+├── url-normalizer.js   # メインファイル。正規化の処理はここ
+├── url.js
+└── util.js
+```
+
+### assets/params.js
+
+ホスト毎に以下のようなプロパティを持つオブジェクトを返します。値はクエリパラメータのキーです。
+
+- url: "実際に広告が表示されたURL",
+- ref: "実際に広告が表示されたURLのReferrer",
+- android: "アンドロイドのパッケージネーム",
+- ios: "iOSのパッケージネーム",
+- content_url: "android または ios の場合に、リンクする Web 上のURL"
+

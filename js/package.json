@@ -1,0 +1,43 @@
+{
+  "name": "@momentum/url-normalizer",
+  "version": "1.4.0",
+  "description": "BigQueryのUDFとして使える第２正規化モジュール",
+  "main": "build/url-normalizer.js",
+  "module": "url-normalizer.js",
+  "scripts": {
+    "postinstall": "rollup -c --input url-normalizer.js --output build/url-normalizer.js",
+    "test": "mocha"
+  },
+  "keywords": [
+    "n1url",
+    "n2url",
+    "url-normalizer"
+  ],
+  "author": "Team Momentum",
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "^0.64.1",
+    "rollup-plugin-commonjs": "^9.1.5",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^4.0.0"
+  },
+  "devDependencies": {
+    "csv": "^3.1.0",
+    "eslint": "^5.5.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "esm": "^3.2.25",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.102.0",
+    "flow-typed": "^2.5.2",
+    "mocha": "^5.2.0",
+    "prettier": "^1.18.2",
+    "punycode": "^2.1.1",
+    "rollup-watch": "^4.3.1",
+    "url-parse": "^1.4.3"
+  }
+}

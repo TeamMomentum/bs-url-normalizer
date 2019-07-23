@@ -25,7 +25,7 @@ export function createAppURL(
   };
 }
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements, max-lines-per-function
 export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
   if (url.protocol !== 'http:' && url.protocol !== 'https:') {
     return url;

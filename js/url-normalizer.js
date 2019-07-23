@@ -48,32 +48,7 @@ export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
     url.pathname += '/';
   }
 
-  var keys = IgnoreQueryData['ALL'].keys;
-  var ignore = IgnoreQueryData[url.hostname];
-  if (ignore) {
-    var paths = ignore.paths;
-    var hasPath = paths === 'ALL';
-    for (var j = 0; !hasPath && j < paths.length; j++) {
-      hasPath = url.pathname.indexOf(paths[j]) >= 0;
-    }
-    if (hasPath) {
-      if (ignore.keys === 'ALL') {
-        keys = 'ALL';
-      } else {
-        keys = keys.concat(ignore.keys);
-      }
-    }
-  }
-
-  if (keys === 'ALL') {
-    url.query = {};
-  } else {
-    for (var k in url.query) {
-      if (keys.includes(k) || k.indexOf('utm_') === 0) {
-        delete url.query[k];
-      }
-    }
-  }
+  deleteIgnoreQuery(url);
 
   return URLToString(url);
 }
@@ -116,6 +91,35 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
   }
 
   return url;
+}
+
+function deleteIgnoreQuery(url /*: URLInterface */) {
+  var keys = IgnoreQueryData['ALL'].keys;
+  var ignore = IgnoreQueryData[url.hostname];
+  if (ignore) {
+    var paths = ignore.paths;
+    var hasPath = paths === 'ALL';
+    for (var j = 0; !hasPath && j < paths.length; j++) {
+      hasPath = url.pathname.indexOf(paths[j]) >= 0;
+    }
+    if (hasPath) {
+      if (ignore.keys === 'ALL') {
+        keys = 'ALL';
+      } else {
+        keys = keys.concat(ignore.keys);
+      }
+    }
+  }
+
+  if (keys === 'ALL') {
+    url.query = {};
+  } else {
+    for (var k in url.query) {
+      if (keys.includes(k) || k.indexOf('utm_') === 0) {
+        delete url.query[k];
+      }
+    }
+  }
 }
 
 function convertToN2URL(

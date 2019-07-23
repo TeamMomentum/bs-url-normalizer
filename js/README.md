@@ -27,7 +27,7 @@ $ rollup -c --input main.js
 
 ## ES Modules として読み込む
 
-esm などを使うと Node.js から直接実行できます(Node.js の `--experimental-modules` には対応していません))
+esm などを使うと Node.js から直接実行できます(Node.js の `--experimental-modules` には対応していません)
 
 ```
 // esmodules.js
@@ -43,7 +43,7 @@ http://www.m0mentum.co.jp/path/to/html/
 
 ## CommonJS として読み込む
 
-CommonJS ライブラリとして提供されているので
+CommonJS ライブラリとしても使うことができます。
 
 ```
 // commonjs.js
@@ -57,7 +57,7 @@ $ node commonjs.js
 http://www.m0mentum.co.jp/path/to/html/
 ```
 
-** examples/js に実際のサンプルがあります **
+**examples/js に実際のサンプルがあります**
 
 ## BigQuery の UDF として利用する
 
@@ -100,8 +100,8 @@ js/
 
 ホスト毎に以下のようなプロパティを持つオブジェクトを返します。値はクエリパラメータのキーです。
 
-- url: "実際に広告が表示された URL",
-- ref: "実際に広告が表示された URL の Referrer",
+- url: "実際に広告が表示される URL",
+- ref: "実際に広告が表示される URL の Referrer",
 - android: "アンドロイドのパッケージネーム",
 - ios: "iOS のパッケージネーム",
-- content_url: "android または ios の場合に、リンクする Web 上の URL"
+- content_url: "android または ios の場合に、関連している Web 上の URL"

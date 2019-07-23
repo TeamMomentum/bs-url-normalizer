@@ -1,0 +1,33 @@
+{
+  "description": "first normalization test",
+  "tests": [
+    {
+      "in":  "https://s.tabelog.com/aichi/A2303/A230302/23000859/?svd=20171120&svt=1900&svps=2&default_yoyaku_condition=1",
+      "n1url": "http://tabelog.com/aichi/A2303/A230302/23000859/"
+    },
+    {
+      "in":  "https://touch.pixiv.net/novel/show.php?id=8928225&uarea=tag",
+      "n1url": "http://www.pixiv.net/novel/show.php/?id=8928225&uarea=tag"
+    },
+    {
+      "in":  "https://touch.pixiv.net/bookmark.php?id=5020681&p=7",
+      "n1url": "http://www.pixiv.net/bookmark.php/"
+    },
+    {
+      "in":  "https://touch.pixiv.net/novel/recommend.php?id=6160013",
+      "n1url": "http://www.pixiv.net/novel/recommend.php/"
+    },
+    {
+      "in":  "https://example.com/",
+      "n1url": "http://example.com/"
+    },
+    {
+      "in":  "http://example.com",
+      "n1url": "http://example.com/"
+    },
+    {
+      "in":  "http://adm.shinobi.jp/a/66e78d8e9225eb41e4c240097cf56bb6?x=155&y=54&url=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&referrer=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Fgoal%2F2&user_id=&du=http%3A%2F%2Fgaingame.gendama.jp%2Fotenba%2Ftreasure&iw=1003&ih=995",
+      "n1url": "http://gaingame.gendama.jp/otenba/treasure/"
+    }
+  ]
+}

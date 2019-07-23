@@ -50,7 +50,7 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 	return
 }
 
-// CrawlingURL returns the prefered URL for crawling
+// CrawlingURL returns the preferred URL for crawling
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
 		normalizePunycodeHost(n.url)
@@ -103,6 +103,9 @@ func (n *Normalizer) SecondNormalizedURL() string {
 
 // normalizeScheme replaces all schemes into http
 func normalizeScheme(ul *url.URL) {
+	if isStaticURL(ul) {
+		return
+	}
 	ul.Scheme = defaultScheme
 }
 

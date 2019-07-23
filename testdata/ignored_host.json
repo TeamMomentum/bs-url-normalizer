@@ -1,0 +1,120 @@
+{
+  "description": "特に norm_host_path 正規化の対象となって欲しくないもののテスト",
+  "tests": [
+    {
+      "description": "トピックは異なってもサイト全体で同一傾向と見なし、パス毎に正規化は行わない",
+      "in": "http://bakusai.com/areatop/acode=3/",
+      "n1url": "http://bakusai.com/areatop/acode=3/",
+      "n2url": "http://bakusai.com"
+    },
+
+    {
+      "description": "正規化対象外 ( /tag/list/id/* )",
+      "in": "http://howcollect.jp/tag/list/id/67",
+      "n1url": "http://howcollect.jp/tag/list/id/67/",
+      "n2url": "http://howcollect.jp"
+    },
+    {
+      "description": "正規化対象外 ( /odai/* )",
+      "in": "https://matome.naver.jp/odai/1234567890/",
+      "n1url": "http://matome.naver.jp/odai/1234567890/",
+      "n2url": "http://matome.naver.jp"
+    },        
+    {
+      "description": "正規化対象外  ( /archive/* )",
+      "in": "http://mess-y.com/archive/1234567890",
+      "n1url": "http://mess-y.com/archive/1234567890/",
+      "n2url": "http://mess-y.com"
+    },                                   
+    {
+      "desciption": "正規化対象外 ( /threadres/* )",
+      "in": "http://mikle.jp/threadres/1234567890",
+      "n1url": "http://mikle.jp/threadres/1234567890/",
+      "n2url": "http://mikle.jp"
+    },                                           
+    {
+      "desciption": "正規化対象外 ( /${ARTICLE_ID} )",
+      "in": "https://nikkan-spa.jp/1485749",
+      "n1url": "http://nikkan-spa.jp/1485749/",
+      "n2url": "http://nikkan-spa.jp"
+    },                     
+    {
+      "desciption": "正規化対象外 (/article/-/*)",
+      "in": "http://taishu.jp/article/-/1234567890",
+      "n1url": "http://taishu.jp/article/-/1234567890/",
+      "n2url": "http://taishu.jp"
+    },                                         
+    {
+      "desciption": "正規化対象外 (milkcafe.net はそもそもサブドメインでカテゴリ分けしている)",
+      "in": "http://talk.milkcafe.net/path/to/html",
+      "n1url": "http://talk.milkcafe.net/path/to/html/",
+      "n2url": "http://talk.milkcafe.net"
+    },                            
+    {
+      "desciption": "正規化対象外 ( /yyyy/mm/* )",
+      "in": "http://tocana.jp/yyyy/mm/123456789",
+      "n1url": "http://tocana.jp/yyyy/mm/123456789/",
+      "n2url": "http://tocana.jp"
+    },                                         
+    {
+      "desciption": "正規化対象外 ( /excerpt/* )",
+      "in": "https://www.asagei.com/excerpt/106870",
+      "n1url": "http://www.asagei.com/excerpt/106870/",
+      "n2url": "http://www.asagei.com"
+    },            
+    {
+      "desciption": "正規化対象外 ( /yyyy/mm/ )",
+      "in": "http://www.cyzo.com/2018/06/post_167645_entry.html",
+      "n1url": "http://www.cyzo.com/2018/06/post_167645_entry.html/",
+      "n2url": "http://www.cyzo.com"
+    }, 
+    {
+      "desciption": "正規化対象外 http://www.idolreport.jp/gravure/ しかない？ at 2018/08/02",
+      "in": "http://www.idolreport.jp/gravure/",
+      "n1url": "http://www.idolreport.jp/gravure/",
+      "n2url": "http://www.idolreport.jp"
+    },                             
+    {
+      "desciption": "正規化対象外 ほぼアダルトコンテンツのためカテゴリ細分化不要と判断",
+      "in": "http://www.justhd.xyz/path/to/html",
+      "n1url": "http://www.justhd.xyz/path/to/html/",
+      "n2url": "http://www.justhd.xyz"
+    },                                   
+    {
+      "desciption": "正規化対象外 ( /yyyy/mm/ )",
+      "in": "http://www.menscyzo.com/yyyy/mm/123456789",
+      "n1url": "http://www.menscyzo.com/yyyy/mm/123456789/",
+      "n2url": "http://www.menscyzo.com"
+    },                               
+    {
+      "desciption": "2017/01/31 サービス終了",
+      "in": "http://0bbs.jp/2003v/",
+      "n1url": "http://0bbs.jp/2003v/",
+      "n2url": "http://0bbs.jp"
+    },                        
+    {
+      "desciption": " not found URL example, already closed?",
+      "in": "http://blg-girls.net/path/to/html",
+      "n1url": "http://blg-girls.net/path/to/html/",
+      "n2url": "http://blg-girls.net"
+    },                           
+    {
+      "desciption": "not found URL example, already closed?",
+      "in": "http://blog.oricon.co.jp/path/to/html",
+      "n1url": "http://blog.oricon.co.jp/path/to/html/",
+      "n2url": "http://blog.oricon.co.jp"
+    },                   
+    {
+      "desciption": "dns record not found, 2017年サービス終了?",
+      "in": "http://blog.dmm.co.jp/actress/someone/",
+      "n1url": "http://blog.dmm.co.jp/actress/someone/",
+      "n2url": "http://blog.dmm.co.jp"
+    }, 
+    {
+      "desciption": "403 forbidden, サイト閉鎖？",
+      "in": "http://i.anisen.tv/path/to/html",
+      "n1url": "http://i.anisen.tv/path/to/html/",
+      "n2url": "http://i.anisen.tv"
+    }                               
+  ]
+}

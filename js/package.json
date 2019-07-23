@@ -5,6 +5,7 @@
   "main": "build/url-normalizer.js",
   "module": "url-normalizer.js",
   "scripts": {
+    "fmt": "prettier --write '**/*'",
     "postinstall": "rollup -c --input url-normalizer.js --output build/url-normalizer.js",
     "test": "mocha"
   },

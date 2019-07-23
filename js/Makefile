@@ -20,6 +20,7 @@ test_bq: node_modules
 
 .PHONY: lint 
 lint: node_modules
+	npx prettier --check '**/*'
 	npx eslint --fix *.js adframe assets test tools
 
 node_modules: package.json

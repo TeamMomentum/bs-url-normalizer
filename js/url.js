@@ -66,7 +66,9 @@ export function URLToString(url /*: URLInterface */) /*: string */ {
     host += ':' + url.port;
   }
 
-  return scheme + host + url.pathname + orderedQueryString(url.query) + url.hash;
+  return (
+    scheme + host + url.pathname + orderedQueryString(url.query) + url.hash
+  );
 }
 
 function orderedQueryString(query /*: Query */) /*: string */ {

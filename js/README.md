@@ -27,7 +27,7 @@ $ rollup -c --input main.js
 
 ## ES Modules として読み込む
 
-esm などを使うと Node.js から直接実行できます(Node.jsの `--experimental-modules` には対応していません))
+esm などを使うと Node.js から直接実行できます(Node.js の `--experimental-modules` には対応していません))
 
 ```
 // esmodules.js
@@ -61,9 +61,8 @@ http://www.m0mentum.co.jp/path/to/html/
 
 ## BigQuery の UDF として利用する
 
-本ライブラリは BigQuery のUDFとして使用することができます。
-Persistent UDF として BigQueryに登録するには以下のようにします。
-
+本ライブラリは BigQuery の UDF として使用することができます。
+Persistent UDF として BigQuery に登録するには以下のようにします。
 
 ```
 $ make -f bigquery-udf.mk PROJECT=<GCP_PROJECT> DATASET=<BIGQUERY_DATASET> BUCKET_PATH=gs://your-bucket/directory/of/udf
@@ -101,9 +100,8 @@ js/
 
 ホスト毎に以下のようなプロパティを持つオブジェクトを返します。値はクエリパラメータのキーです。
 
-- url: "実際に広告が表示されたURL",
-- ref: "実際に広告が表示されたURLのReferrer",
+- url: "実際に広告が表示された URL",
+- ref: "実際に広告が表示された URL の Referrer",
 - android: "アンドロイドのパッケージネーム",
-- ios: "iOSのパッケージネーム",
-- content_url: "android または ios の場合に、リンクする Web 上のURL"
-
+- ios: "iOS のパッケージネーム",
+- content_url: "android または ios の場合に、リンクする Web 上の URL"

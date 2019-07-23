@@ -74,6 +74,12 @@ jobs:
           paths:
             - "*"
 
+  js_lint:
+    <<: *js_env
+    steps:
+      - *js_step_attach
+      - run: make -C js lint
+
   js_test:
     <<: *js_env
     steps:
@@ -94,6 +100,9 @@ workflows:
   js:
     jobs:
       - js_dep
+      - js_lint:
+          requires:
+            - js_dep
       - js_test:
           requires:
             - js_dep

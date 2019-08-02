@@ -2,6 +2,15 @@
   "description": "アプリストアのURLは mobileapp:: 形式にURLに変換します。Android=mobileapp::2, iOS=mobileapp::1",
   "tests": [
     {
+      "in": "https://apps.apple.com/jp/app/minkara/id346528801?mt=8",
+      "n1url": "mobileapp::1-346528801",
+      "n2url": "mobileapp::1-346528801"
+    }, {
+      "in": "https://apps.apple.com/app/id346528801",
+      "n1url": "mobileapp::1-346528801",
+      "n2url": "mobileapp::1-346528801"
+    },
+    {
       "in": "https://itunes.apple.com/jp/app/minkara/id346528801?mt=8",
       "n1url":  "mobileapp::1-346528801",
       "n2url":  "mobileapp::1-346528801"
@@ -10,6 +19,11 @@
       "in": "https://itunes.apple.com/app/id346528801",
       "n1url":  "mobileapp::1-346528801",
       "n2url":  "mobileapp::1-346528801"
+    },
+    {
+      "in": "https://www.apple.com/jp/ios/app-store/",
+      "n1url": "http://www.apple.com/jp/ios/app-store/",
+      "n2url": "http://www.apple.com"
     },
     {
       "in": "https://play.google.com/store/apps/details?id=net.totopi.news&hl=jp",

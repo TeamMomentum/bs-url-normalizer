@@ -21,7 +21,7 @@ var (
 // normalizeMobileAppURL normalizes mobile appstore URLs
 func normalizeMobileAppURL(ul *url.URL) string {
 	switch ul.Host {
-	case "itunes.apple.com": // for apple store
+	case "apps.apple.com", "itunes.apple.com": // for apple store
 		return normalizeAppStore(ul)
 	case "play.google.com": // for google store
 		return normalizePlayStore(ul)

@@ -1,0 +1,56 @@
+version: 2
+
+wd: &wd /go/src/github.com/TeamMomentum/bs-url-normalizer
+defaults: &defaults
+  working_directory: *wd
+  docker:
+    - image: dictav/golang-tools:1.12.6
+
+step_attach: &step_attach
+  attach_workspace:
+    at: *wd
+
+jobs:
+  dep:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-vendor-{{ checksum "Gopkg.lock" }}
+      - run: dep ensure -v
+      - save_cache:
+          key: v1-vendor-{{ checksum "Gopkg.lock" }}
+          paths:
+            - /go/src/github.com/TeamMomentum/bs-url-normalizer/vendor
+            - /go/pkg/dep
+      - persist_to_workspace:
+          root: *wd
+          paths:
+            - "*"
+
+  lint:
+    <<: *defaults
+
+    steps:
+      - *step_attach
+      - run: make lint
+
+  test:
+    <<: *defaults
+
+    steps:
+      - *step_attach
+      - run: make test
+
+workflows:
+  version: 2
+  lint_and_test:
+    jobs:
+      - dep
+      - lint:
+          requires:
+            - dep
+      - test:
+          requires:
+            - dep

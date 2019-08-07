@@ -1,0 +1,27 @@
+{
+  "description": "非ASCIIコードが含まれるURLのテスト",
+  "tests": [
+    {
+      "in": "https://日本語.com/path/to/html?q=query#hash",
+      "n1url": "http://xn--wgv71a119e.com/path/to/html/?q=query#hash",
+      "n2url": "http://xn--wgv71a119e.com"
+    },
+    {
+      "in": "https://www.日本語/path/to/html?q=query#hash",
+      "n1url": "http://www.xn--wgv71a119e/path/to/html/?q=query#hash",
+      "n2url": "http://www.xn--wgv71a119e"
+    },
+    {
+      "in": "https://www.example.com/日本語?q=query#hash",
+      "n1url": "http://www.example.com/%E6%97%A5%E6%9C%AC%E8%AA%9E/?q=query#hash"
+    },
+    {
+      "in": "https://www.example.com/path/to/url?q=%E6%97%A5%E6%9C%AC%E8%AA%9E#hash",
+      "n1url": "http://www.example.com/path/to/url/?q=%E6%97%A5%E6%9C%AC%E8%AA%9E#hash"
+    },
+    {
+      "in": "https://www.example.com/path/to/url?%E6%97%A5%E6%9C%AC%E8%AA%9E=query#hash",
+      "n1url": "http://www.example.com/path/to/url/?%E6%97%A5%E6%9C%AC%E8%AA%9E=query#hash"
+    }
+  ]
+}

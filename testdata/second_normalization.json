@@ -1,0 +1,25 @@
+{
+  "description": "second normalization test",
+  "tests": [
+    {
+      "in": "http://example.com/tihoukoumu?d=1&a=2&c=3&b=4",
+      "n2url": "http://example.com"
+    },
+    {
+      "in": "http://example.com:8000/tihoukoumu?d=1&a=2&c=3&b=4",
+      "n2url": "http://example.com:8000"
+    },
+    {
+      "in": "https://example.com:8000//tihoukoumu?d=1&a=2&c=3&b=4",
+      "n2url": "http://example.com:8000"
+    },
+    {
+      "in": "http://blog.livedoor.jp/tihoukoumu/sub/test?d=1&a=2&c=3&b=4",
+      "n2url": "http://blog.livedoor.jp/tihoukoumu"
+    },
+    {
+      "in": "http://bannch.com/a/b/c/d?d=1&a=2&c=3&b=4",
+      "n2url": "http://bannch.com/a/b/c" 
+    }
+  ]
+}

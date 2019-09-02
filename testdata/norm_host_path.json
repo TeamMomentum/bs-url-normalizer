@@ -53,7 +53,7 @@
       "description": "アダルト画像掲示板？ ",
       "in": "http://cp.atrct.tv/v/4zmEwAGgBg?pg=1",
       "n2url": "http://cp.atrct.tv/v/4zmEwAGgBg"
-    }, 
+    },
     {
       "in": "http://d.hatena.ne.jp/foo/20180817",
       "n2url": "http://d.hatena.ne.jp/foo"
@@ -136,6 +136,11 @@
     {
       "in": "https://woman.excite.co.jp/article/beauty/abc_def_00000/",
       "n2url": "http://woman.excite.co.jp/article/beauty"
+    },
+    {
+      "description": "https://atwiki.jp/news/543",
+      "in": "https://w.atwiki.jp/some_wiki/",
+      "n2url": "http://w.atwiki.jp/some_wiki"
     },
     {
       "description": "scheme正規化は第一正規化時に別途実施される想定なのでここではチェックしない",

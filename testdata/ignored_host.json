@@ -70,8 +70,8 @@
     }, 
     {
       "desciption": "正規化対象外 http://www.idolreport.jp/someone/ しかない？ at 2018/08/02",
-      "in": "http://www.idolreport.jp/someone/",
-      "n1url": "http://www.idolreport.jp/someone/",
+      "in": "http://www.idolreport.jp/category_x/",
+      "n1url": "http://www.idolreport.jp/category_x/",
       "n2url": "http://www.idolreport.jp"
     },                             
     {

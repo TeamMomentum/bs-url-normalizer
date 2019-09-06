@@ -3,8 +3,8 @@
 ### Requirements
 
 - [GNU Make](https://www.gnu.org/software/make/)
-- [Go 1.11](https://golang.org)
-- [statick v0.1.6](https://github.com/rakyll/statik): To embed asset files into Go codes
+- [Go](https://golang.org)
+- [statick](https://github.com/rakyll/statik): To embed asset files into Go codes
 
 ### Building Shared Library
 

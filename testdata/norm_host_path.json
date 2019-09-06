@@ -6,71 +6,71 @@
       "n2url": "http://www.example.com"
     },
     {
-      "in": "https://am-our.com/idea/534/15188/",
+      "in": "https://am-our.com/idea/999/99999/",
       "n2url": "http://am-our.com/idea"
     },
     {
-      "in": "https://ameblo.jp/ebizo-ichikawa/entry-12387941308.html",
-      "n2url": "http://ameblo.jp/ebizo-ichikawa"
+      "in": "https://ameblo.jp/someone/entry-99999999999.html",
+      "n2url": "http://ameblo.jp/someone"
     },
     {
       "in": "http://b.ibbs.info/sample/?anc=1-2#anc",
       "n2url": "http://b.ibbs.info/sample"
     },
     {
-      "in": "http://bannch.com/bs/bbs/798793/sub/index.html?test=123",
-      "n2url": "http://bannch.com/bs/bbs/798793"
+      "in": "http://bannch.com/bs/bbs/999999/sub/index.html?test=123",
+      "n2url": "http://bannch.com/bs/bbs/999999"
     },
     {
-      "in": "http://bbs.mottoki.com/index?bbs=kinyuu&thread=&page=2",
-      "n2url": "http://bbs.mottoki.com/index?bbs=kinyuu"
+      "in": "http://bbs.mottoki.com/index?bbs=someone&thread=&page=2",
+      "n2url": "http://bbs.mottoki.com/index?bbs=someone"
     },
     {
-      "in": "http://bbs7.meiwasuisan.com/gravure/1529300473/",
-      "n2url": "http://bbs7.meiwasuisan.com/gravure"
+      "in": "http://bbs7.meiwasuisan.com/someone/9999999999/",
+      "n2url": "http://bbs7.meiwasuisan.com/someone"
     },
     {
-      "in": "https://blog.goo.ne.jp/kuru0214/e/f0efbe813b94e456962c849b1f1c34f7",
-      "n2url": "http://blog.goo.ne.jp/kuru0214"
+      "in": "https://blog.goo.ne.jp/someone/e/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "n2url": "http://blog.goo.ne.jp/someone"
     },
     {
-      "in": "http://blog.kuruten.jp/katsutacompany77/411052",
-      "n2url": "http://blog.kuruten.jp/katsutacompany77"
+      "in": "http://blog.kuruten.jp/someone/999999",
+      "n2url": "http://blog.kuruten.jp/someone"
     },
     {
-      "in": "http://blog.livedoor.jp/dqnplus/archives/1972090.html",
-      "n2url": "http://blog.livedoor.jp/dqnplus"
+      "in": "http://blog.livedoor.jp/someone/archives/9999999.html",
+      "n2url": "http://blog.livedoor.jp/someone"
     },
     {
-      "in": "https://blogs.yahoo.co.jp/a209143707/66868842.html",
-      "n2url": "http://blogs.yahoo.co.jp/a209143707"
+      "in": "https://blogs.yahoo.co.jp/XXXXXXXXXX/99999999.html",
+      "n2url": "http://blogs.yahoo.co.jp/XXXXXXXXXX"
     },
     {
-      "in": "http://ch.nicovideo.jp/horiemon/blomaga/201807",
-      "n2url": "http://ch.nicovideo.jp/horiemon"
+      "in": "http://ch.nicovideo.jp/someone/hytra/999999",
+      "n2url": "http://ch.nicovideo.jp/someone"
     },
     {
       "description": "アダルト画像掲示板？ ",
-      "in": "http://cp.atrct.tv/v/4zmEwAGgBg?pg=1",
-      "n2url": "http://cp.atrct.tv/v/4zmEwAGgBg"
+      "in": "http://cp.atrct.tv/v/XXXXXXXXXX?pg=1",
+      "n2url": "http://cp.atrct.tv/v/XXXXXXXXXX"
     },
     {
-      "in": "http://d.hatena.ne.jp/foo/20180817",
-      "n2url": "http://d.hatena.ne.jp/foo"
+      "in": "http://d.hatena.ne.jp/someone/20180817",
+      "n2url": "http://d.hatena.ne.jp/someone"
     },
     {
-      "in": "http://fanblogs.jp/30suppinnbihada/archive/512/0",
-      "n2url": "http://fanblogs.jp/30suppinnbihada"
-    },
-    {
-      "description": "アダルトカテゴリ混在",
-      "in": "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx",
-      "n2url": "http://free.jikkyo.org/test/read.cgi/lsalofree/xxxxxxx"
+      "in": "http://fanblogs.jp/someone/archive/512/0",
+      "n2url": "http://fanblogs.jp/someone"
     },
     {
       "description": "アダルトカテゴリ混在",
-      "in": "https://girlsnews.tv/unit/316023",
-      "n2url": "http://girlsnews.tv/unit"
+      "in": "http://free.jikkyo.org/test/read.cgi/someone/xxxxxxx",
+      "n2url": "http://free.jikkyo.org/test/read.cgi/someone/xxxxxxx"
+    },
+    {
+      "description": "アダルトカテゴリ混在",
+      "in": "https://girlsnews.tv/someone/999999",
+      "n2url": "http://girlsnews.tv/someone"
     },
     {
       "in": "http://ibbs.info/thread.php?no=1&id=TIEpachi",
@@ -78,12 +78,12 @@
     },
     {
       "description": "スレッドごとに正規化するのは細かすぎるかも？",
-      "in": "https://jbbs.shitaraba.net/bbs/read.cgi/internet/0120/741222/",
-      "n2url": "http://jbbs.shitaraba.net/bbs/read.cgi/internet/0120/741222"
+      "in": "https://jbbs.shitaraba.net/bbs/read.cgi/internet/9999/999999/",
+      "n2url": "http://jbbs.shitaraba.net/bbs/read.cgi/internet/9999/999999"
     },
     {
-      "in": "https://lineblog.me/kanosisters/archives/13190716.html",
-      "n2url": "http://lineblog.me/kanosisters"
+      "in": "https://lineblog.me/someone/archives/99999999.html",
+      "n2url": "http://lineblog.me/someone"
     },
     {
       "in": "https://lyze.jp/someone/diary/1/",
@@ -94,7 +94,7 @@
       "n2url": "http://mbbs.tv/u?id=sample"
     },
     {
-      "in": "http://mblg.tv/someone/entry/26489/",
+      "in": "http://mblg.tv/someone/entry/99999/",
       "n2url": "http://mblg.tv/someone"
     },
     {
@@ -114,7 +114,7 @@
       "n2url": "http://rank.log2.jp/kro"
     },
     {
-      "in": "https://rara.jp/someone/page231",
+      "in": "https://rara.jp/someone/page999",
       "n2url": "http://rara.jp/someone"
     },
     {
@@ -130,8 +130,8 @@
       "n2url": "http://seesaawiki.jp/foobar"
     },
     {
-      "in": "http://spora.jp/mocchy/posts/606270",
-      "n2url": "http://spora.jp/mocchy"
+      "in": "http://spora.jp/someone/posts/999999",
+      "n2url": "http://spora.jp/someone"
     },
     {
       "in": "https://woman.excite.co.jp/article/beauty/abc_def_00000/",

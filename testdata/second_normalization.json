@@ -2,20 +2,20 @@
   "description": "second normalization test",
   "tests": [
     {
-      "in": "http://example.com/tihoukoumu?d=1&a=2&c=3&b=4",
+      "in": "http://example.com/someone?d=1&a=2&c=3&b=4",
       "n2url": "http://example.com"
     },
     {
-      "in": "http://example.com:8000/tihoukoumu?d=1&a=2&c=3&b=4",
+      "in": "http://example.com:8000/someone?d=1&a=2&c=3&b=4",
       "n2url": "http://example.com:8000"
     },
     {
-      "in": "https://example.com:8000//tihoukoumu?d=1&a=2&c=3&b=4",
+      "in": "https://example.com:8000//someone?d=1&a=2&c=3&b=4",
       "n2url": "http://example.com:8000"
     },
     {
-      "in": "http://blog.livedoor.jp/tihoukoumu/sub/test?d=1&a=2&c=3&b=4",
-      "n2url": "http://blog.livedoor.jp/tihoukoumu"
+      "in": "http://blog.livedoor.jp/someone/sub/test?d=1&a=2&c=3&b=4",
+      "n2url": "http://blog.livedoor.jp/someone"
     },
     {
       "in": "http://bannch.com/a/b/c/d?d=1&a=2&c=3&b=4",

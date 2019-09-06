@@ -5,6 +5,9 @@ ASSETS_DIR=assets
 ASSETS_FILE=$(ASSETS_DEST_DIR)/$(ASSETS_DIR)/statik.go
 
 TARGET := libmomentum_url_normalizer
+
+export GO111MODULE := on
+
 all:	build
 
 shared:
@@ -17,10 +20,10 @@ $(ASSETS_FILE):
 	@$(MAKE) assets
 
 test: $(ASSETS_FILE)
-	go test -v -race ./...
+	go test $(GOOPT) -v -race ./...
 
 dep:
-	dep ensure
+	go mod tidy
 
 build: dep $(ASSETS_FILE) test
 	@$(MAKE) shared

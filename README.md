@@ -1,141 +1,98 @@
-Read this in English [here](https://github.com/TeamMomentum/bs-url-normalizer/blob/master/README.en.md)
+# bs-url-normalizer
 
-## URL正規化モジュール
+bs-url-normalizer は Go の URL 正規化パッケージです。
+[Momentum](https://www.m0mentum.co.jp) は自社のサービスで bs-url-normalizer を使用しています。
 
-### 呼び出し方法
+bs-url-normalizer では Linux と macOS 向けに C 言語から利用できる共有ライブラリを用意しています。 examples ディレクトリにいくつかの言語から bs-url-normalizer を呼び出すサンプルを作成しています。
 
-Makefileでは[buildmode=c-shared](https://golang.org/cmd/go/#hdr-Description_of_build_modes)を指定しており、makeするとlibmomentum\_url\_normalizer.aというShared Libraryが生成されます。
+> bs-url-normalizer normalize a URL by [Moementum](https://www.m0mentum.co.jp). It is used by Momentum products.
+>
+> You can generate Shared Library of bs-url-normalizer for Linux or macOS. You can see examples for some languages in examples/ directory.
 
-簡単なサンプルをexamplesディレクトリに用意してありますので、そちらを参考にURL正規化を行ってください。
 
-### インタフェース
+## Usage
 
-正規化関数とメモリ開放関数が実装されており、以下のようなインターフェースとなっております。
+### Go
 
-なお Go用のライブラリは ./lib/urls 以下に配置しております。
+#### Functions
 
-#### 1段階目評価時関数
+```go
+func FirstNormalizeURL(*url.URL) string
+func SecondNormalizeURL(*url.URL) string
+```
 
-* Shared
+#### Example
 
-  ```c
-  first_normalize_url(char* src, void** dst)
-  ```
+https://play.golang.org/p/SvgzdnbV6BM
 
-* Go
+```go
+package main
 
-  ```go
-  func FirstNormalizeURL(*url.URL) string
-  ```
+import (
+	"net/url"
+	"github.com/TeamMomentum/bs-url-normalizer/lib/urls"
+)
 
-#### 2段階目評価時関数
+func main() {
+	u, _ := url.Parse("https://www.m0mentum.co.jp/ja/about.html")
+	n1url := urls.SecondNormalizeURL(u)
+	println(n1url) //=> http://www.m0mentum.co.jp
+}
+```
 
-* Shared
 
-  ```c
-  second_normalize_url(char* src, void** dst)
-  ```
+### C
 
-* Go
+#### Functions
 
-  ```go
-  func SecondNormalizeURL(*url.URL) string
-  ```
+```c
+extern void first_normalize_url(char* src, void** result);
+extern void second_normalize_url(char* src, void** result);
+extern void free_normalize_url(void** result);
+```
 
-#### リソース開放関数
+#### Example
 
-* Shared
+関数を呼び出した後は確保したメモリを解放する必要があります
 
-  ```c
-  free_normalize_url(void* dst)
-  ```
-* Go
+> You have to free a memory that is allocated by bs-url-normalizer
 
-  リソースはGCされるためインターフェースを用意しておりません。
+```c
+#include <stdio.h>
 
-### 処理概要
+#include "libmomentum_url_normalizer.h"
+
+int main() {
+	void *result;
+
+	second_normalize_url("https://www.m0mentum.co.jp/about.html", &result);
+	printf("%s\n", (char*)result) //=> http://www.m0mentum.co.jp;
+	free_normalize_url(result);
+
+        return 0;
+}
+```
+
+
+## 処理概要
 
 正規化処理として行っているのは以下の処理となります。
 
 * クエリパラメータの順序を統一
-
-  クエリキーの文字列の値の昇順でソートしております。
-
-  クエリキーのsliceを引数にsort関数をかけております。
-
-  ```go
-  // import sort
-  sort.Strings([]string)
-  ```
-
+    * クエリキーの文字列の値の昇順でソートしております。
+    * クエリキーのsliceを引数にsort関数をかけております。
 * SPとPCのホスト変換
-
-  ```go
-  func normalizeSPHost(*url.URL)
-  ```
-
 * 不要なクエリパラメータの除去
-
-  ```go
-  func removeQueryParameters(*url.URL, url.Values)
-  ```
-
 * パス末尾の統一
-
-  ```go
-  func normalizePathSuffix(*url.URL)
-  ```
-
 * http/https schemeのhttpへの統一
-
-  ```go
-  func normalizeScheme(*url.URL)
-  ```
-
 * パス階層での正規化
 
-  ```go
-  func normalizePath(ul *url.URL) bool
-  ```
+> TODO: English
 
-## Development
+## Contributing
 
-### Requirements
+Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
-- [GNU Make](https://www.gnu.org/software/make/)
-- [Go 1.11](https://golang.org)
-- [dep](https://github.com/golang/dep): Go dependency management tool
-- [statick v0.1.6](https://github.com/rakyll/statik): To embed asset files into Go codes
+## License
 
-### Building Shared Library
-
-```sh
-# `make build` will do:
-# 1. update Go dependencies,
-# 2. update asset files
-# 3. run tests
-# 4. build a shared library file
-$ make build
-```
-
-
-### Update dependencies
-
-```sh
-make dep
-```
-
-
-### Test
-
-```sh
-$ make test
-go test -v -race ./lib/...
-...
-```
-
-### Updating embedded asset files (Optional)
-
-```sh
-$ make assets
-```
+See the [LICENSE](LICENSE.md) file for license rights and limitations (Apache 2.0).

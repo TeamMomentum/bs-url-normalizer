@@ -11,7 +11,7 @@ export GO111MODULE := on
 all:	build
 
 shared:
-	go build -buildmode=c-shared -o $(TARGET).a ./main.go
+	go build -buildmode=c-shared -o build/$(TARGET).a ./main.go
 
 assets:
 	$(ASSETS_CMD) -f -p $(ASSETS_DIR) -src=$(RESOURCE_DIR) -dest=$(ASSETS_DEST_DIR)

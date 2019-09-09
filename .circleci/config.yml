@@ -4,7 +4,7 @@ wd: &wd /go/src/github.com/TeamMomentum/bs-url-normalizer
 defaults: &defaults
   working_directory: *wd
   docker:
-    - image: dictav/golang-tools:1.12.6
+    - image: dictav/golang-tools:1.12.9
 
 step_attach: &step_attach
   attach_workspace:
@@ -17,13 +17,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-vendor-{{ checksum "Gopkg.lock" }}
-      - run: dep ensure -v
+            - v1-mod-{{ checksum "go.sum" }}
+      - run:
+          name: vendoring
+          command: go mod vendor
+          environment:
+            GO111MODULE: "on"
       - save_cache:
-          key: v1-vendor-{{ checksum "Gopkg.lock" }}
+          key: v1-mod-{{ checksum "go.sum" }}
           paths:
-            - /go/src/github.com/TeamMomentum/bs-url-normalizer/vendor
-            - /go/pkg/dep
+            - /go/pkg/mod
       - persist_to_workspace:
           root: *wd
           paths:
@@ -41,7 +44,7 @@ jobs:
 
     steps:
       - *step_attach
-      - run: make test
+      - run: make test GOOPT="-mod=vendor"
 
 workflows:
   version: 2

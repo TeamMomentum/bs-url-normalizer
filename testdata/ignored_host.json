@@ -3,15 +3,15 @@
   "tests": [
     {
       "description": "トピックは異なってもサイト全体で同一傾向と見なし、パス毎に正規化は行わない",
-      "in": "http://bakusai.com/areatop/acode=3/",
-      "n1url": "http://bakusai.com/areatop/acode=3/",
+      "in": "http://bakusai.com/areatop/acode=99999/",
+      "n1url": "http://bakusai.com/areatop/acode=99999/",
       "n2url": "http://bakusai.com"
     },
 
     {
       "description": "正規化対象外 ( /tag/list/id/* )",
-      "in": "http://howcollect.jp/tag/list/id/67",
-      "n1url": "http://howcollect.jp/tag/list/id/67/",
+      "in": "http://howcollect.jp/tag/list/id/9999",
+      "n1url": "http://howcollect.jp/tag/list/id/9999/",
       "n2url": "http://howcollect.jp"
     },
     {
@@ -34,8 +34,8 @@
     },                                           
     {
       "desciption": "正規化対象外 ( /${ARTICLE_ID} )",
-      "in": "https://nikkan-spa.jp/1485749",
-      "n1url": "http://nikkan-spa.jp/1485749/",
+      "in": "https://nikkan-spa.jp/9999999",
+      "n1url": "http://nikkan-spa.jp/9999999/",
       "n2url": "http://nikkan-spa.jp"
     },                     
     {
@@ -64,14 +64,14 @@
     },            
     {
       "desciption": "正規化対象外 ( /yyyy/mm/ )",
-      "in": "http://www.cyzo.com/2018/06/post_167645_entry.html",
-      "n1url": "http://www.cyzo.com/2018/06/post_167645_entry.html/",
+      "in": "http://www.cyzo.com/2099/99/post_999999_entry.html",
+      "n1url": "http://www.cyzo.com/2099/99/post_999999_entry.html/",
       "n2url": "http://www.cyzo.com"
     }, 
     {
-      "desciption": "正規化対象外 http://www.idolreport.jp/gravure/ しかない？ at 2018/08/02",
-      "in": "http://www.idolreport.jp/gravure/",
-      "n1url": "http://www.idolreport.jp/gravure/",
+      "desciption": "正規化対象外 http://www.idolreport.jp/someone/ しかない？ at 2018/08/02",
+      "in": "http://www.idolreport.jp/category_x/",
+      "n1url": "http://www.idolreport.jp/category_x/",
       "n2url": "http://www.idolreport.jp"
     },                             
     {

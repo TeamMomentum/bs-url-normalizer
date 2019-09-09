@@ -25,7 +25,7 @@ func SecondNormalizeURL(*url.URL) string
 
 https://play.golang.org/p/SvgzdnbV6BM
 
-```
+```go
 package main
 
 import (

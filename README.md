@@ -16,7 +16,7 @@ bs-url-normalizer では Linux と macOS 向けに C 言語から利用できる
 
 #### Functions
 
-```
+```go
 func FirstNormalizeURL(*url.URL) string
 func SecondNormalizeURL(*url.URL) string
 ```

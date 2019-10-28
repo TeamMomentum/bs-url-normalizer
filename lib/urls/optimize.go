@@ -9,10 +9,16 @@ import (
 	"net/url"
 	"regexp"
 	"strings"
+
+	"github.com/go-playground/validator"
 )
 
 var (
-	dokuhaPattern  = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
+	validate = validator.New()
+
+	dokuhaPattern      = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
+	redirect5chPattern = regexp.MustCompile(`^/([^/]+)(/.*)$`)
+
 	optimizeURLMap = map[string]func(*url.URL) *url.URL{
 		"dokuha.jp":                       optimizeDokuhaURL,
 		"novel.syosetu.org":               createOptimizeURLCallBack(regexp.MustCompile(`/\d+`)),
@@ -40,6 +46,8 @@ var (
 		"megalodon.jp":                    parseAdframeURL("url"),
 		"ad.deqwas-dsp.net":               parseAdframeURL("url"),
 		"krad20.deqwas.net":               parseAdframeURL("u"),
+		"itest.5ch.net":                   optimizeItest5chURL,
+		"itest.bbspink.com":               optimizeItest5chURL,
 	}
 )
 
@@ -177,4 +185,31 @@ func optimizeDoubleClickURL(ul *url.URL) *url.URL {
 	}
 
 	return ul
+}
+
+// optimize5chURL convert URL to where the page will be redirected
+// e.g "http://itest.5ch.net/foo/test/read.cgi/abc/" => "http://foo.5ch.net/test/read.cgi/abc/"
+func optimize5chURL(ul *url.URL, domain string) *url.URL {
+	if !strings.HasPrefix(ul.Host, domain+".") { // URL is not target
+		return ul
+	}
+	groups := redirect5chPattern.FindStringSubmatch(ul.Path)
+	if len(groups) < 3 { // unmatched pattern (unable to optimize)
+		return ul
+	}
+	xul, err := url.Parse(ul.String()) // duplicate URL to preserve original one
+	if err != nil {                    // unexpected error at this point
+		return ul
+	}
+	xul.Host = strings.Replace(ul.Host, domain, groups[1], 1)
+	xul.Path = groups[2]
+	if err := validate.Var(xul.String(), "url"); err != nil { // optimized URL is invalid
+		return ul
+	}
+
+	return xul
+}
+
+func optimizeItest5chURL(ul *url.URL) *url.URL {
+	return optimize5chURL(ul, "itest")
 }

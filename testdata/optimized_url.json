@@ -115,11 +115,11 @@
     },
     {
       "in": "https://itest.5ch.net/foo/test/read.cgi/abc/00000000",
-      "n1url": "http://foo.5ch.net/test/read.cgi/abc/00000000/"
+      "curl": "https://foo.5ch.net/test/read.cgi/abc/00000000"
     },
     {
       "in": "https://itest.bbspink.com/bar/test/read.cgi/xyz/000000",
-      "n1url": "http://bar.bbspink.com/test/read.cgi/xyz/000000/"
+      "curl": "https://bar.bbspink.com/test/read.cgi/xyz/000000"
     },
     {
       "description": "unoptimizable",

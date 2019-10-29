@@ -17,7 +17,7 @@ var (
 	validate = validator.New()
 
 	dokuhaPattern      = regexp.MustCompile(`/comicweb/viewer/comic/([^/]*)`)
-	redirect5chPattern = regexp.MustCompile(`^/([^/]+)(/.*)$`)
+	redirect5chPattern = regexp.MustCompile(`^/([^/]+)(/test/read.cgi/.*)$`)
 
 	optimizeURLMap = map[string]func(*url.URL) *url.URL{
 		"dokuha.jp":                       optimizeDokuhaURL,

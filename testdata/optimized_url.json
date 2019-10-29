@@ -124,6 +124,18 @@
       "n1url": "http://bar.bbspink.com/test/read.cgi/xyz/000000/"
     },
     {
+      "description": "non-optimizable path => standard normalization",
+      "in": "https://itest.5ch.net/test/read.cgi/abc/00000000",
+      "curl": "https://itest.5ch.net/test/read.cgi/abc/00000000",
+      "n1url": "http://itest.5ch.net/test/read.cgi/abc/00000000/"
+    },
+    {
+      "description": "non-optimizable path => standard normalization",
+      "in": "https://itest.bbspink.com/test/read.cgi/xyz/000000",
+      "curl": "https://itest.bbspink.com/test/read.cgi/xyz/000000",
+      "n1url": "http://itest.bbspink.com/test/read.cgi/xyz/000000/"
+    },
+    {
       "description": "unoptimizable",
       "in":"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=999999999%2C999999999%2C999999999&format=320x50_mb&heap_free=9999999&heap_max=999999999&heap_total=99999999&js=afma-sdk-a-v11746038.9452000.2&mr=99999999999999999%2C-999999999999999999%2C9999999999999999999%2C-9999999999999999999%2C-9999999999999999999%",
       "n1url":"http://pubads.g.doubleclick.net/gampad/ads/?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=999999999%2C999999999%2C999999999&format=320x50_mb&heap_free=9999999&heap_max=999999999&heap_total=99999999&js=afma-sdk-a-v11746038.9452000.2"

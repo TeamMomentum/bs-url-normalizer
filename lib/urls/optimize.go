@@ -13,6 +13,10 @@ import (
 	"github.com/go-playground/validator"
 )
 
+const (
+	itest5chDomain = "itest"
+)
+
 var (
 	validate = validator.New()
 
@@ -187,10 +191,10 @@ func optimizeDoubleClickURL(ul *url.URL) *url.URL {
 	return ul
 }
 
-// optimize5chURL convert URL to where the page will be redirected
+// optimize5chItestURL convert URL to where the page will be redirected by JavaScript
 // e.g "http://itest.5ch.net/foo/test/read.cgi/abc/" => "http://foo.5ch.net/test/read.cgi/abc/"
-func optimize5chURL(ul *url.URL, domain string) *url.URL {
-	if !strings.HasPrefix(ul.Host, domain+".") { // URL is not target
+func optimizeItest5chURL(ul *url.URL) *url.URL {
+	if !strings.HasPrefix(ul.Host, itest5chDomain+".") { // URL is not target
 		return ul
 	}
 	groups := redirect5chPattern.FindStringSubmatch(ul.Path)
@@ -201,15 +205,11 @@ func optimize5chURL(ul *url.URL, domain string) *url.URL {
 	if err != nil {                    // unexpected error at this point
 		return ul
 	}
-	xul.Host = strings.Replace(ul.Host, domain, groups[1], 1)
+	xul.Host = strings.Replace(ul.Host, itest5chDomain, groups[1], 1)
 	xul.Path = groups[2]
 	if err := validate.Var(xul.String(), "url"); err != nil { // optimized URL is invalid
 		return ul
 	}
 
 	return xul
-}
-
-func optimizeItest5chURL(ul *url.URL) *url.URL {
-	return optimize5chURL(ul, "itest")
 }

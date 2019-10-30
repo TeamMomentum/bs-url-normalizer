@@ -25,6 +25,7 @@ type testData struct {
 	In    string `json:"in"`
 	N1URL string `json:"n1url"`
 	N2URL string `json:"n2url"`
+	CURL  string `json:"curl"`
 }
 
 func TestNormalization(t *testing.T) {
@@ -59,8 +60,8 @@ func parseTestFile(fn string) (*testFile, error) {
 
 func testNormalize(t *testing.T, tests []testData) {
 	for _, tt := range tests {
-		if tt.N1URL == "" && tt.N2URL == "" {
-			t.Errorf("%s: n1url or n2url is required", tt.In)
+		if tt.CURL == "" && tt.N1URL == "" && tt.N2URL == "" {
+			t.Errorf("%s: curl, n1url or n2url is required", tt.In)
 			continue
 		}
 		ul, err := url.Parse(tt.In)
@@ -68,6 +69,13 @@ func testNormalize(t *testing.T, tests []testData) {
 			t.Errorf("%v : %v", tt.In, err)
 		}
 		t.Run(ul.Host+ul.Path, func(t *testing.T) {
+			if tt.CURL != "" {
+				result := urls.CrawlingURL(ul)
+				if result != tt.CURL {
+					t.Errorf("curl:\nwant '%v'\n got '%v'", tt.CURL, result)
+				}
+			}
+
 			if tt.N1URL != "" {
 				result := urls.FirstNormalizeURL(ul)
 				if result != tt.N1URL {

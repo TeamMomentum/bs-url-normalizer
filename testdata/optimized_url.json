@@ -113,7 +113,28 @@
       "in":"https://krad20.deqwas.net/AdService/Collection.aspx?s=99999_999-999999&t=f&ssl=1&fr_id=yads_9999999-9&xd_support=1&fr_support=1&sb_support=0&enc=UTF-8&pv_ts=9999999999999-9999999&tag_path=https%3A%2F%2Fwww.example.com%2Ftag%0A&page=1&u=https%3A%2F%2Fwww.example.com%2Ffoo%2Fbar%2F9999999999999999999%3Fpage%3D2&canu=https%3A%2F%2Fwww.example.com%2Ffoo%2F8888888888888888888%0A&tagpos=0x9999&async=0",
       "n1url": "http://www.example.com/foo/bar/9999999999999999999/?page=2"
     },
-
+    {
+      "in": "https://itest.5ch.net/foo/test/read.cgi/abc/00000000",
+      "curl": "https://foo.5ch.net/test/read.cgi/abc/00000000",
+      "n1url": "http://foo.5ch.net/test/read.cgi/abc/00000000/"
+    },
+    {
+      "in": "https://itest.bbspink.com/bar/test/read.cgi/xyz/000000",
+      "curl": "https://bar.bbspink.com/test/read.cgi/xyz/000000",
+      "n1url": "http://bar.bbspink.com/test/read.cgi/xyz/000000/"
+    },
+    {
+      "description": "non-optimizable path => standard normalization",
+      "in": "https://itest.5ch.net/test/read.cgi/abc/00000000",
+      "curl": "https://itest.5ch.net/test/read.cgi/abc/00000000",
+      "n1url": "http://itest.5ch.net/test/read.cgi/abc/00000000/"
+    },
+    {
+      "description": "non-optimizable path => standard normalization",
+      "in": "https://itest.bbspink.com/test/read.cgi/xyz/000000",
+      "curl": "https://itest.bbspink.com/test/read.cgi/xyz/000000",
+      "n1url": "http://itest.bbspink.com/test/read.cgi/xyz/000000/"
+    },
     {
       "description": "unoptimizable",
       "in":"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=999999999%2C999999999%2C999999999&format=320x50_mb&heap_free=9999999&heap_max=999999999&heap_total=99999999&js=afma-sdk-a-v11746038.9452000.2&mr=99999999999999999%2C-999999999999999999%2C9999999999999999999%2C-9999999999999999999%2C-9999999999999999999%",

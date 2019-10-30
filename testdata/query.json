@@ -28,6 +28,25 @@
     {
       "in": "https://www.ranker.com/list/the-7-most-horrifying-things-found-living-inside-humans/beau-iverson?utm_source=facebook&utm_medium=creepy&pgid=1011190218967434&utm_campaign=squid-babies-image&fbclid=IwAR3tuHm8oTsHs8aDx8ZHHbAPg5-NCgFIqAzJcYto2wngZe0Ylc_6k3q2JFU",
       "n1url": "http://www.ranker.com/list/the-7-most-horrifying-things-found-living-inside-humans/beau-iverson/?pgid=1011190218967434"
+    },
+    {
+      "description": "keep query parameter",
+      "in": "https://itest.5ch.net/find/?q=%E3%83%86%E3%82%B9%E3%83%88",
+      "n1url": "http://itest.5ch.net/find/?q=%E3%83%86%E3%82%B9%E3%83%88"
+    },
+    {
+      "description": "remove redirect destination URL param",
+      "in": "https://itest.5ch.net/jump/to/?url=https%3A%2F%2Fwww.example.com%2F",
+      "n1url": "http://itest.5ch.net/jump/to/"
+    },
+    {
+      "description": "keep query parameter",
+      "in": "https://itest.bbspink.com/find/?q=%E3%83%86%E3%82%B9%E3%83%88",
+      "n1url": "http://itest.bbspink.com/find/?q=%E3%83%86%E3%82%B9%E3%83%88"
+    }, {
+      "description": "remove redirect destination URL param",
+      "in": "https://itest.bbspink.com/jump/to/?url=https%3A%2F%2Fwww.example.com%2F",
+      "n1url": "http://itest.bbspink.com/jump/to/"
     }
   ]
 }

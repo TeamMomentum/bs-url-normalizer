@@ -75,6 +75,8 @@ func init() {
 			"/novel/recommend.php",
 			"/novel/member.php",
 		},
-		"www.nicovideo.jp": {"/watch/sm"},
+		"www.nicovideo.jp":  {"/watch/sm"},
+		"itest.5ch.net":     {"/jump/to"},
+		"itest.bbspink.com": {"/jump/to"},
 	}
 }

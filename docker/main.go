@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
-	"strings"
 
 	bsn "github.com/TeamMomentum/bs-url-normalizer/lib/urls"
 )
@@ -30,31 +32,31 @@ func main() {
 type handler struct{}
 
 func (h *handler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	var isBatch bool
+
+	switch r.Method {
+	case http.MethodGet:
+		isBatch = false
+	case http.MethodPost:
+		isBatch = true
+	default:
+		http.Error(rw, "Unexpected Method", http.StatusBadRequest)
+		return
+	}
 
 	switch {
-	case strings.HasPrefix(r.URL.Path, n1urlPath):
-		u, err := getURL(r)
-		if err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
-			return
+	case r.URL.Path == n1urlPath:
+		if isBatch {
+			batch(rw, r, bsn.FirstNormalizeURL)
+		} else {
+			normalize(rw, r, bsn.FirstNormalizeURL)
 		}
-
-		ret := []byte(bsn.FirstNormalizeURL(u))
-		if _, err := rw.Write(ret); err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
+	case r.URL.Path == n2urlPath:
+		if isBatch {
+			batch(rw, r, bsn.SecondNormalizeURL)
+		} else {
+			normalize(rw, r, bsn.SecondNormalizeURL)
 		}
-	case strings.HasPrefix(r.URL.Path, n2urlPath):
-		u, err := getURL(r)
-		if err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		ret := []byte(bsn.SecondNormalizeURL(u))
-		if _, err := rw.Write(ret); err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
-		}
-	case strings.HasPrefix(r.URL.Path, n2urlPath):
 	default:
 		http.Error(rw, "404", http.StatusNotFound)
 	}
@@ -68,4 +70,47 @@ func getURL(r *http.Request) (*url.URL, error) {
 	}
 
 	return url.Parse(src)
+}
+
+func normalize(rw http.ResponseWriter, r *http.Request, f func(u *url.URL) string) {
+	u, err := getURL(r)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	data := []byte(f(u))
+	if _, err := rw.Write(data); err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+	}
+}
+
+func batch(rw http.ResponseWriter, r *http.Request, f func(u *url.URL) string) {
+	buf := &bytes.Buffer{}
+
+	s := bufio.NewScanner(r.Body)
+	defer r.Body.Close()
+
+	for s.Scan() {
+		if s.Text() == "" {
+			continue
+		}
+
+		u, err := url.Parse(s.Text())
+		if err != nil {
+			http.Error(rw, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		buf.WriteString(f(u) + "\n")
+	}
+
+	if s.Err() != nil {
+		http.Error(rw, s.Err().Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if _, err := io.Copy(rw, buf); err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
 }

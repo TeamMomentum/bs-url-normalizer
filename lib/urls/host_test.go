@@ -9,7 +9,6 @@ import (
 )
 
 func Test_normalizePath(t *testing.T) {
-
 	testPaths := []string{
 		"example1.com,1,",
 		"example2.com,2,",
@@ -69,7 +68,6 @@ func Test_normalizePath(t *testing.T) {
 }
 
 func Test_normalizeSPHost(t *testing.T) {
-
 	testHosts := []string{
 		"sp.example1.com,www.example1.com",
 		"sp.example2.com,example2.com",

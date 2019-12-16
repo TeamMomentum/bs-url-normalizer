@@ -50,6 +50,7 @@ var (
 		"megalodon.jp":                    parseAdframeURL("url"),
 		"ad.deqwas-dsp.net":               parseAdframeURL("url"),
 		"krad20.deqwas.net":               parseAdframeURL("u"),
+		"bidresult-dsp.ad-m.asia":         parseAdframeURL("rf"),
 		"itest.5ch.net":                   optimizeItest5chURL,
 		"itest.bbspink.com":               optimizeItest5chURL,
 	}
@@ -66,7 +67,11 @@ func optimizeURL(ul *url.URL) *url.URL {
 func parseAdframeURL(key string) func(*url.URL) *url.URL {
 	return func(ul *url.URL) *url.URL {
 		if raw, ok := ul.Query()[key]; ok {
-			u, err := url.Parse(raw[0])
+			ref := raw[0]
+			if !strings.HasPrefix(ref, "http://") && !strings.HasPrefix(ref, "https://") {
+				ref = "http://" + ref
+			}
+			u, err := url.Parse(ref)
 			if err == nil {
 				return u
 			}

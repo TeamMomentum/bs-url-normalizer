@@ -6,6 +6,8 @@
 package urls
 
 import (
+	"errors"
+	"net"
 	"net/url"
 	"regexp"
 	"strings"
@@ -54,6 +56,8 @@ var (
 		"itest.5ch.net":                   optimizeItest5chURL,
 		"itest.bbspink.com":               optimizeItest5chURL,
 	}
+
+	errEmptyURLString = errors.New("parse target URL is empty")
 )
 
 func optimizeURL(ul *url.URL) *url.URL {
@@ -65,18 +69,14 @@ func optimizeURL(ul *url.URL) *url.URL {
 
 //Normalize Adframe URLs
 func parseAdframeURL(key string) func(*url.URL) *url.URL {
-	return func(ul *url.URL) *url.URL {
-		if raw, ok := ul.Query()[key]; ok {
-			ref := raw[0]
-			if !strings.HasPrefix(ref, "http://") && !strings.HasPrefix(ref, "https://") {
-				ref = "http://" + ref
-			}
-			u, err := url.Parse(ref)
+	return func(original *url.URL) *url.URL {
+		if raw, ok := original.Query()[key]; ok {
+			u, err := parsePotentialURL(raw[0])
 			if err == nil {
 				return u
 			}
 		}
-		return ul
+		return original
 	}
 }
 
@@ -217,4 +217,39 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 	}
 
 	return xul
+}
+
+func parsePotentialURL(rawurl string) (*url.URL, error) {
+	if rawurl == "" {
+		return nil, errEmptyURLString
+	}
+
+	parsed, parseErr := url.Parse(rawurl)
+	if parseErr != nil { // assumed case: `hello.世界.com:8080/page.html` (multibyte hostname with port number)
+		if host, tail, err := net.SplitHostPort(rawurl); err == nil && host != "" && tail != "" {
+			return url.Parse("http://" + rawurl) // retry with http scheme
+		}
+		return nil, parseErr
+	}
+
+	// Scheme in the result of url.Parse would be lower case.
+	// refer to go: https://github.com/golang/go/blob/9341fe073e6f7742c9d61982084874560dac2014/src/net/url/url.go#L528
+	scheme := parsed.Scheme
+	if scheme == "https" || scheme == "http" {
+		return parsed, nil
+	}
+
+	if scheme == "" { // missing any scheme in rawurl
+		return url.Parse("http://" + rawurl) // re-parse with `http://` scheme prefix
+	}
+
+	if parsed.Host == "" { // case: scheme exists but missing authority part
+		// Check if hostname was considered as the URL scheme
+		// See also: https://github.com/golang/go/issues/12585
+		if alt, err := url.Parse("http://" + rawurl); err == nil && parsed.Scheme == alt.Hostname() && alt.Port() != "" {
+			return alt, nil
+		}
+	}
+
+	return parsed, nil // non-http scheme URL (e.g. ftp://example.com/bar, data:,Hello%2C%20World!, etc)
 }

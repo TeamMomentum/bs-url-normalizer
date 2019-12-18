@@ -61,8 +61,12 @@ var (
 )
 
 func optimizeURL(ul *url.URL) *url.URL {
-	if cb, ok := optimizeURLMap[ul.Host]; ok {
+	baseHost := ul.Host
+	if cb, ok := optimizeURLMap[baseHost]; ok {
 		ul = cb(ul)
+		if ul.Host != baseHost {
+			normalizePunycodeHost(ul)
+		}
 	}
 	return ul
 }

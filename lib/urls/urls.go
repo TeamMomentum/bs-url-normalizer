@@ -35,3 +35,23 @@ func CrawlingURL(ul *url.URL) string {
 	}
 	return n.CrawlingURL()
 }
+
+// R1NormalizeURL returns a unique URL of the input URL,
+// which contributes to reduce the database footprint.
+func R1NormalizeURL(ul *url.URL) string {
+	n, err := NewNormalizerR(ul)
+	if err != nil {
+		return ""
+	}
+	return n.FirstNormalizedURL()
+}
+
+// R2NormalizeURL returns a unique URL of the input URL,
+// which contributes to reduce the database footprint.
+func R2NormalizeURL(ul *url.URL) string {
+	n, err := NewNormalizerR(ul)
+	if err != nil {
+		return ""
+	}
+	return n.SecondNormalizedURL()
+}

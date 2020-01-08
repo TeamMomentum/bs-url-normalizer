@@ -39,11 +39,13 @@ func normalizePunycodeHost(ul *url.URL) {
 }
 
 // normalizeSPHost converts mobile URLs into their PC URLs.
-func normalizeSPHost(ul *url.URL) {
+// returns if the host was normalized or not
+func normalizeSPHost(ul *url.URL) bool {
 	host, ok := spPCHostMap[ul.Host]
 	if ok {
 		ul.Host = host
 	}
+	return ok
 }
 
 func makeStringStringMap(lines []string, sep string) map[string]string {

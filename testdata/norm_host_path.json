@@ -190,6 +190,12 @@
     {
       "in": "http://www.geocities.jp/abcdefg/index.html",
       "n2url": "http://www.geocities.jp/abcdefg"
+    },
+    {
+      "description": "2nd normalize by novel-series",
+      "in": "https://ncode.syosetu.com/abcdefg/1/",
+      "n1url": "http://ncode.syosetu.com/abcdefg/1/",
+      "n2url": "http://ncode.syosetu.com/abcdefg"
     }
   ]
 }

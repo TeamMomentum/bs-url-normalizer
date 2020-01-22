@@ -35,6 +35,11 @@
       "in":  "http://adm.shinobi.jp/a/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX?x=155&y=54&url=http%3A%2F%2Fwww.example.com%2Fja%2Fabout.html&referrer=http%3A%2F%2Fwww.example.com%2F&user_id=&du=http%3A%2F%2Fwww.example.com%2Fja%2Fnew.html&iw=1003&ih=995",
       "r1url": "http://www.example.com/ja/about.html/",
       "r2url": "http://www.example.com"
+    },
+    {
+      "in": "https://ncode.syosetu.com/abcdefg/1/",
+      "r1url": "http://ncode.syosetu.com/abcdefg/1/",
+      "r2url": "http://ncode.syosetu.com/abcdefg"
     }
   ]
 }

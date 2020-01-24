@@ -193,9 +193,27 @@
     },
     {
       "description": "2nd normalize by novel-series",
-      "in": "https://ncode.syosetu.com/abcdefg/1/",
+      "in": "https://ncode.syosetu.com/abcdefg/1",
       "n1url": "http://ncode.syosetu.com/abcdefg/1/",
       "n2url": "http://ncode.syosetu.com/abcdefg"
+    },
+    {
+      "description": "un-targeted host-path",
+      "in": "https://yomou.syosetu.com/search/keyword",
+      "n1url": "http://yomou.syosetu.com/search/keyword/",
+      "n2url": "http://yomou.syosetu.com"
+    },
+    {
+      "description": "2nd normalize by novel-series",
+      "in": "https://syosetu.org/novel/000000/1.html",
+      "n1url": "http://syosetu.org/novel/000000/1.html/",
+      "n2url": "http://syosetu.org/novel/000000"
+    },
+    {
+      "description": "2nd normalize by novel-series (TODO: merge to syosetu.org)",
+      "in": "https://novel.syosetu.org/000000/1.html",
+      "n1url": "http://novel.syosetu.org/000000/1.html/",
+      "n2url": "http://novel.syosetu.org/000000"
     }
   ]
 }

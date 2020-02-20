@@ -106,6 +106,17 @@
       "n1url": "http://www.example.com/foo/bar/9999999999999999999/?page=2"
     },
     {
+      "description": "optimizable AdMind URL",
+      "in": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rf=blog.foo.jp%2Fxyz&s=0&tpsid=0000000000&w=320",
+      "curl": "http://blog.foo.jp/xyz",
+      "n1url": "http://blog.foo.jp/xyz/"
+    },
+    {
+      "description": "non optimizable AdMind URL (missing `rf` query param)",
+      "in": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rrf=blog.foo.jp%2Fxyz&s=0&tpsid=0000000000&w=320",
+      "n1url": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rrf=blog.foo.jp%2Fxyz&s=0&tpsid=0000000000&w=320"
+    },
+    {
       "in": "https://itest.5ch.net/foo/test/read.cgi/abc/00000000",
       "curl": "https://foo.5ch.net/test/read.cgi/abc/00000000",
       "n1url": "http://foo.5ch.net/test/read.cgi/abc/00000000/"
@@ -128,7 +139,7 @@
       "n1url": "http://itest.bbspink.com/test/read.cgi/xyz/000000/"
     },
     {
-      "description": "unoptimizable",
+      "description": "non-optimizable",
       "in":"https://pubads.g.doubleclick.net/gampad/ads?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=999999999%2C999999999%2C999999999&format=320x50_mb&heap_free=9999999&heap_max=999999999&heap_total=99999999&js=afma-sdk-a-v11746038.9452000.2&mr=99999999999999999%2C-999999999999999999%2C9999999999999999999%2C-9999999999999999999%2C-9999999999999999999%",
       "n1url":"http://pubads.g.doubleclick.net/gampad/ads/?_activity_context=true&android_num_video_cache_tasks=0&caps=inlineVideo_interactiveVideo_mraid1_mraid2_sdkVideo_th_autoplay_mediation_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_dinmo_gcache&eid=999999999%2C999999999%2C999999999&format=320x50_mb&heap_free=9999999&heap_max=999999999&heap_total=99999999&js=afma-sdk-a-v11746038.9452000.2"
     }

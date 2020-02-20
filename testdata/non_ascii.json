@@ -42,6 +42,21 @@
     {
       "in": "https://www.example.com/path/to/url?%E6%97%A5%E6%9C%AC%E8%AA%9E=query#hash",
       "n1url": "http://www.example.com/path/to/url/?%E6%97%A5%E6%9C%AC%E8%AA%9E=query#hash"
+    },
+    {
+      "description": "normalize punycode host after optimizeURL() succeeded",
+      "in": "https://googleads.g.doubleclick.net/pagead/ads?client=&output=&url=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo",
+      "n1url": "http://hello.xn--rhqv96g.com/foo/"
+    },
+    {
+      "description": "normalize punycode host after optimizeURL() - parseAdframeURL() succeeded",
+      "in": "http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html?s=&u=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo",
+      "n1url": "http://hello.xn--rhqv96g.com/foo/"
+    },
+    {
+      "description": "normalize punycode won't be called if optimizeURL() do nothing",
+      "in": "http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html?s=&x=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo",
+      "n1url": "http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html/?s=&x=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo"
     }
   ]
 }

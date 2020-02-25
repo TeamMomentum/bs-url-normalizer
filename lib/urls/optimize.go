@@ -27,8 +27,6 @@ var (
 
 	optimizeURLMap = map[string]func(*url.URL) *url.URL{
 		"dokuha.jp":                       optimizeDokuhaURL,
-		"novel.syosetu.org":               createOptimizeURLCallBack(regexp.MustCompile(`/\d+`)),
-		"ncode.syosetu.com":               createOptimizeURLCallBack(regexp.MustCompile(`/[^/]+`)),
 		"live.nicovideo.jp":               optimizeLiveNicovideoURL,
 		"s.maho.jp":                       createOptimizeURLCallBack(regexp.MustCompile(`/book/[^/]+/[^/]+/`)),
 		"enjoy.point.auone.jp":            optimizeRestrictedURL("/gacha", "/reward", "/enquete"),

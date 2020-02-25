@@ -1,0 +1,45 @@
+{
+  "description": "R1 normalization test",
+  "tests": [
+    {
+      "in":  "https://s.tabelog.com/aichi/XXXXX/YYYYYYY/99999999/?svd=20171120&svt=1900&svps=2&default_yoyaku_condition=1",
+      "r1url": "http://s.tabelog.com/aichi/XXXXX/YYYYYYY/99999999/",
+      "r2url": "http://s.tabelog.com"
+    },
+    {
+      "in":  "https://touch.pixiv.net/novel/show.php?id=9999999&uarea=tag",
+      "r1url": "http://touch.pixiv.net/novel/show.php/?id=9999999&uarea=tag",
+      "r2url": "http://touch.pixiv.net"
+    },
+    {
+      "in":  "https://touch.pixiv.net/bookmark.php?id=9999999&p=7",
+      "r1url": "http://touch.pixiv.net/bookmark.php/",
+      "r2url": "http://touch.pixiv.net"
+    },
+    {
+      "in":  "https://touch.pixiv.net/novel/recommend.php?id=9999999",
+      "r1url": "http://touch.pixiv.net/novel/recommend.php/",
+      "r2url": "http://touch.pixiv.net"
+    },
+    {
+      "in":  "https://example.com/",
+      "r1url": "http://example.com/",
+      "r2url": "http://example.com"
+    },
+    {
+      "in":  "http://example.com",
+      "r1url": "http://example.com/",
+      "r2url": "http://example.com"
+    },
+    {
+      "in":  "http://adm.shinobi.jp/a/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX?x=155&y=54&url=http%3A%2F%2Fwww.example.com%2Fja%2Fabout.html&referrer=http%3A%2F%2Fwww.example.com%2F&user_id=&du=http%3A%2F%2Fwww.example.com%2Fja%2Fnew.html&iw=1003&ih=995",
+      "r1url": "http://www.example.com/ja/about.html/",
+      "r2url": "http://www.example.com"
+    },
+    {
+      "in": "https://ncode.syosetu.com/abcdefg/1/",
+      "r1url": "http://ncode.syosetu.com/abcdefg/1/",
+      "r2url": "http://ncode.syosetu.com/abcdefg"
+    }
+  ]
+}

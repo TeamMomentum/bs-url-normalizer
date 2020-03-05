@@ -153,3 +153,68 @@ func Test_parsePotentialURL(t *testing.T) {
 		})
 	}
 }
+
+func TestOptimizeAMPCacheURL(t *testing.T) {
+	tests := []struct {
+		name string
+		arg  string
+		want *url.URL
+	}{
+		{
+			"simple URL",
+			"https://amp-dev.cdn.ampproject.org/c/s/amp.dev/index.amp.html",
+			&url.URL{
+				Scheme: "https",
+				Host:   "amp.dev",
+				Path:   "/index.amp.html",
+			},
+		},
+		{
+			"URL with parameter and fragment",
+			"https://amp-dev.cdn.ampproject.org/c/s/amp.dev/amp/index.html?param=123#Head",
+			&url.URL{
+				Scheme:   "https",
+				Host:     "amp.dev",
+				Path:     "/amp/index.html",
+				Fragment: "Head",
+				RawQuery: "param=123",
+			},
+		},
+		{
+			"top page URL (no path)",
+			"https://amp-example-com.cdn.ampproject.org/c/amp.example.com",
+			&url.URL{
+				Scheme: "http",
+				Host:   "amp.example.com",
+			},
+		},
+		{
+			"empty URL (http://) fails to optimize",
+			"https://4oymiquy7qobjgx36tejs35zeqt24qpemsnzgtfeswmrw6csxbkq.cdn.ampproject.org/c/",
+			&url.URL{
+				Scheme: "https",
+				Host:   "4oymiquy7qobjgx36tejs35zeqt24qpemsnzgtfeswmrw6csxbkq.cdn.ampproject.org",
+				Path:   "/c/",
+			},
+		},
+		{
+			"Japanese domain (ドメイン名例.JP)",
+			"https://xn---jp-qi4b8gof5e173yzqi.cdn.ampproject.org/c/s/xn--eckwd4c7cu47r2wf.jp/page/index.amp.html",
+			&url.URL{
+				Scheme: "https",
+				Host:   "xn--eckwd4c7cu47r2wf.jp",
+				Path:   "/page/index.amp.html",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			u, _ := url.Parse(tt.arg)
+			got := optimizeAMPCacheURL(u)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("optimizeAMPCacheURL() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

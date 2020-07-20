@@ -13,6 +13,7 @@ export type Query = { [string]: Array<string> }
 */
 
 var URLParser = DefaultURLParser;
+var MAX_PROTOCOL_LEN = 10;
 
 export function DefaultURLParser(s /*: string */) /*: URLInterface */ {
   var a;
@@ -42,6 +43,10 @@ export function setURLParser(f /*: (string) => URLInterface */) {
 }
 
 export function parseURL(s /*: string */) /*: URLInterface */ {
+  if (!hasProtocol(s)) {
+    s = 'http://' + s;
+  }
+
   return URLParser(s);
 }
 
@@ -132,4 +137,9 @@ export function parseQuery(queryString /*: string */) /*: Query */ {
   }
 
   return query;
+}
+
+function hasProtocol(s /*: string */) /*: boolean */ {
+  var ss = s.substr(0, MAX_PROTOCOL_LEN);
+  return !!ss.match(/\w+:/);
 }

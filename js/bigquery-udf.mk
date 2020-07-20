@@ -40,16 +40,14 @@ build/$(FILENAME): *.js test/*.js
 bq_test: bq_test_n1url bq_test_n2url
 bq_test_n1url:
 	@echo 'Testing N1URL...'
-	$(BQ_QUERY) --format=json "SELECT $(DATASET).N1URL('$(TEST_BQ_IN)')" | sed -e '1d' > bq_test.out
+	$(BQ_QUERY) --format=json "SELECT $(DATASET).N1URL('$(TEST_BQ_IN)')" > bq_test.out
 	test $$(cat bq_test.out | jq -r '.[0]["f0_"]') = $(TEST_N1URL_OUT)/
-	rm bq_test.out
 	@echo 'ok'
 
 bq_test_n2url:
 	@echo 'Testing N2URL...'
-	$(BQ_QUERY) --format=json "SELECT $(DATASET).N2URL('$(TEST_BQ_IN)')" | sed -e '1d' > bq_test.out
+	$(BQ_QUERY) --format=json "SELECT $(DATASET).N2URL('$(TEST_BQ_IN)')" > bq_test.out
 	test $$(cat bq_test.out | jq -r '.[0]["f0_"]') = $(TEST_N2URL_OUT)
-	rm bq_test.out
 	@echo 'ok'
 
 query:

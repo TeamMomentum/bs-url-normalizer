@@ -96,5 +96,9 @@ export var adFrameParams = {
   'krad20.deqwas.net': {
     url: 'u',
     domain: 'domain'
+  },
+
+  'bidresult-dsp.ad-m.asia': {
+    url: 'rf'
   }
 };

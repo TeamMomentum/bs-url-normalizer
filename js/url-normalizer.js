@@ -10,6 +10,7 @@ import {
 } from './assets';
 import { createAppURL, getActualPage } from './util';
 import { parseURL, URLToString } from './url';
+import { convertUrl } from './convert';
 
 // eslint-disable-next-line max-statements
 export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
@@ -17,6 +18,8 @@ export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
   if (url.protocol !== 'http:') {
     return URLToString(url);
   }
+
+  convertUrl(url);
 
   var host = url.hostname;
   var m = host.match(/^www\d+\.(.+)/);
@@ -44,7 +47,7 @@ export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
   }
 
   var len = url.pathname.length;
-  if (url.pathname[len - 1] !== '/') {
+  if (url.pathname[len - 1] !== '/' && url.protocol !== 'mobileapp:') {
     url.pathname += '/';
   }
 
@@ -143,10 +146,16 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
     return url;
   }
 
+  convertUrl(url);
+
   var host = url.hostname;
   var m = host.match(/^www\d+\.(.+)/);
   if (m) {
     host = 'www.' + m[1];
+  }
+
+  if (url.protocol === 'mobileapp:') {
+    return  url;
   }
 
   var pathDepth = N2URLPathDepthData[host];
@@ -156,6 +165,8 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
     } else {
       pathDepth = ({ depth: 0 } /*: PathDepth */);
     }
+  } else if(host === 'www.atwiki.jp') {
+    console.log('here', pathDepth, url);
   }
 
   var path = '';

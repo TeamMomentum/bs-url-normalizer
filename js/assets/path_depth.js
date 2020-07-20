@@ -37,12 +37,17 @@ export var N1URLPathDepthData = {
   },
 
   'ncode.syosetu.com': {
-    depth: 1,
+    depth: 2,
     paths: 'ALL'
   },
 
+  'syosetu.org': {
+    depth: 3,
+    paths: ['/novel']
+  },
+
   'novel.syosetu.org': {
-    depth: 1,
+    depth: 2,
     paths: 'ALL'
   },
 
@@ -158,6 +163,9 @@ export var N2URLPathDepthData = {
   'woman.excite.co.jp': {
     depth: 2
   },
+  'w.atwiki.jp': {
+    depth: 1
+  },
   'www.atwiki.jp': {
     depth: 1
   },
@@ -254,5 +262,21 @@ export var N2URLPathDepthData = {
   },
   'www.geocities.jp': {
     depth: 1
+  },
+
+  'ncode.syosetu.com': {
+    depth: 1,
+    paths: 'ALL'
+  },
+
+  'syosetu.org': {
+    depth: 2,
+    paths: ['/novel']
+  },
+
+  'novel.syosetu.org': {
+    depth: 1,
+    paths: 'ALL'
   }
+
 };

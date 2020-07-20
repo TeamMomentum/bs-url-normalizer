@@ -11,7 +11,7 @@ type Result = {
 */
 
 export var adFrameFunc = {
-  'd.socdm.com': function(query /*: Query */) /* ?Result */ {
+  'd.socdm.com': function(query /*: Query */) /*: ?Result */ {
     var tp = query['sdktype'];
     if (typeof tp === 'undefined' || typeof tp[0] === 'undefined') {
       return null;

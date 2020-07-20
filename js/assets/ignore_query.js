@@ -78,5 +78,15 @@ export var IgnoreQueryData /*: IgnoreQuery */ = {
   'www.nicovideo.jp': {
     keys: 'ALL',
     paths: ['/watch/sm']
+  },
+
+  'itest.5ch.net': {
+    keys: ['url'],
+    paths: ['/jump/to']
+  },
+
+  'itest.bbspink.com': {
+    keys: ['url'],
+    paths: ['/jump/to']
   }
 };

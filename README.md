@@ -9,6 +9,53 @@ bs-url-normalizer では Linux と macOS 向けに C 言語から利用できる
 >
 > You can generate Shared Library of bs-url-normalizer for Linux or macOS. You can see examples for some languages in examples/ directory.
 
+## 処理概要
+
+**NOTE**: 本パッケージによる正規化はデータベースのキーなどに使うことを想定しています。正規化後のURLはブラウザ等から **アクセスできない可能性があります** 。ご留意ください。
+
+正規化には第一正規化と第二正規化があります。
+
+> TODO: English
+
+### 第一正規化
+
+単一のWebページを表すキーとして利用できます。
+正規化処理として行っているのは以下の処理となります。
+
+* http/https schemeのhttpへの統一
+* SPとPCのホスト変換 [リスト参照](./resources/norm_host_sp.csv)
+* パス階層での正規化
+* パス末尾を `/` で統一
+* 不要なクエリパラメータの除去
+* クエリパラメータの順序を統一
+    * クエリキーの文字列の値の昇順でソートしております。
+    * クエリキーのsliceを引数にsort関数をかけております。
+* フラグメントを削除
+
+### 第二正規化
+
+単一のWebサイトを表すキーとして利用できます (bakusai.com など CGM サイト等では例外があります)。
+正規化処理として行っているのは以下の処理となります。
+
+* http/https schemeのhttpへの統一
+* SPとPCのホスト変換 [リスト参照](./resources/norm_host_sp.csv)
+* パス末尾の `/` は削除
+* 指定ドメイン、指定パターン以外のパスは全て削除
+    * ユーザスペースは保持
+    * [リスト参照](./resources/norm_host_path.csv)
+* クエリパラメータの除去
+    * 特定ドメインにおいては一部を保持
+* フラグメントを削除
+
+
+### 具体例
+
+[testdata](./testdata) にサンプルがありますので参照してください。
+
+- `in`: 正規化前のURLを表します
+- `n1url`: 第一正規化を表します
+- `n2url`: 第二正規化を表します
+
 
 ## Usage
 
@@ -73,21 +120,6 @@ int main() {
 }
 ```
 
-
-## 処理概要
-
-正規化処理として行っているのは以下の処理となります。
-
-* クエリパラメータの順序を統一
-    * クエリキーの文字列の値の昇順でソートしております。
-    * クエリキーのsliceを引数にsort関数をかけております。
-* SPとPCのホスト変換
-* 不要なクエリパラメータの除去
-* パス末尾の統一
-* http/https schemeのhttpへの統一
-* パス階層での正規化
-
-> TODO: English
 
 ## Contributing
 

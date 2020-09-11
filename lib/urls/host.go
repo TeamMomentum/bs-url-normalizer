@@ -34,22 +34,24 @@ func normalizeHost(ul *url.URL) {
 
 	if punycode, err := httpguts.PunycodeHostPort(rawHost); err == nil {
 		ul.Host = punycode
-	} /*  else { // FIXME: should return immediately?
-		return
-	} */
+	}
 
 	host := ul.Hostname() // '[]' for raw IPv6 address would be stripped
-	port := ul.Port()     // empty if no valid port (url.Parse() would be fail with invalid port in the first place)
+	if host == "" {       // nothing to normalize
+		return
+	}
 
-	if !strings.HasPrefix(rawHost, "[") { // except the case when rawHost is IPv6 address
-		host = strings.TrimRight(host, ".") // trimming tailing dots
+	if n := len(host); n > 1 && host[n-1] == '.' && host[n-2] != '.' { // host ends with dot except the case dots are two or more consecutive
+		if !strings.HasPrefix(rawHost, "[") { // except IPv6 address host, Discussion: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#pullrequestreview-486689000
+			host = strings.TrimSuffix(host, ".") // trimming tailing single dot
+		}
 	}
 
 	host = strings.ToLower(host) // converting to lowercase
 
 	// Re-Join normalized host and original port
 	// with trimming tailing ':' because net.JoinHostPort() does not take care of empty port
-	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, port), ":")
+	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, ul.Port()), ":")
 }
 
 // normalizePath reduces known URLs to the top page of the website

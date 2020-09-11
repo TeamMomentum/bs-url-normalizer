@@ -6,6 +6,7 @@
 package urls
 
 import (
+	"net"
 	"net/url"
 	"strconv"
 	"strings"
@@ -21,6 +22,36 @@ var (
 	normalizePathMap map[string]func(*url.URL) bool
 )
 
+// normalizeHost does:
+// 1. Encode to ascii using IDN Punycode
+// 2. Trim tailing single dot of FQDN
+// 3. Convert to lower case
+func normalizeHost(ul *url.URL) {
+	rawHost := ul.Host
+	if rawHost == "" { // empty => nothing to normalize
+		return
+	}
+
+	if punycode, err := httpguts.PunycodeHostPort(rawHost); err == nil {
+		ul.Host = punycode
+	} /*  else { // FIXME: should return immediately?
+		return
+	} */
+
+	host := ul.Hostname() // '[]' for raw IPv6 address would be stripped
+	port := ul.Port()     // empty if no valid port (url.Parse() would be fail with invalid port in the first place)
+
+	if !strings.HasPrefix(rawHost, "[") { // except the case when rawHost is IPv6 address
+		host = strings.TrimRight(host, ".") // trimming tailing dots
+	}
+
+	host = strings.ToLower(host) // converting to lowercase
+
+	// Re-Join normalized host and original port
+	// with trimming tailing ':' because net.JoinHostPort() does not take care of empty port
+	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, port), ":")
+}
+
 // normalizePath reduces known URLs to the top page of the website
 func normalizePath(ul *url.URL) bool {
 	k := trimWWW(ul.Host)
@@ -29,13 +60,6 @@ func normalizePath(ul *url.URL) bool {
 		return f(ul)
 	}
 	return normalizeUserSpace(ul)
-}
-
-func normalizePunycodeHost(ul *url.URL) {
-	host, err := httpguts.PunycodeHostPort(ul.Host)
-	if err == nil {
-		ul.Host = host
-	}
 }
 
 // normalizeSPHost converts mobile URLs into their PC URLs.

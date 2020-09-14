@@ -1,0 +1,119 @@
+{
+	"description": "ホスト部の正規化に関するテスト",
+	"tests": [
+		{
+			"description": "general host with tailing dot",
+			"in": "https://www.example.com.",
+			"n1url": "http://www.example.com/",
+			"n2url": "http://www.example.com"
+		},
+		{
+			"description": "general host with multiple tailing dots (not to be trimmed)",
+			"in": "https://www.example.com..",
+			"n1url": "http://www.example.com../",
+			"n2url": "http://www.example.com.."
+		},
+		{
+			"description": "general host with tailing dot and port",
+			"in": "https://www.example.com.:8080",
+			"n1url": "http://www.example.com:8080/",
+			"n2url": "http://www.example.com:8080"
+		},
+		{
+			"description": "general host with tailing dot, path, query, and hash",
+			"in": "https://www.example.com./PATH/to/Page?Xa=UP#ABC",
+			"n1url": "http://www.example.com/PATH/to/Page/?Xa=UP#ABC",
+			"n2url": "http://www.example.com"
+		},
+		{
+			"description": "IPv4 host with tailing dot",
+			"in": "https://192.168.12.34.",
+			"n1url": "http://192.168.12.34/",
+			"n2url": "http://192.168.12.34"
+		},
+		{
+			"description": "IPv4 host with multiple tailing dots (not to be trimmed)",
+			"in": "https://192.168.12.34..",
+			"n1url": "http://192.168.12.34../",
+			"n2url": "http://192.168.12.34.."
+		},
+		{
+			"description": "IPv4 with tailing dot and port",
+			"in": "https://192.168.12.34.:8080",
+			"n1url": "http://192.168.12.34:8080/",
+			"n2url": "http://192.168.12.34:8080"
+		},
+		{
+			"description": "case-insensitive general host",
+			"in": "https://WWW.EXAMPLE.COM",
+			"n1url": "http://www.example.com/",
+			"n2url": "http://www.example.com"
+		},
+		{
+			"description": "case-insensitive general host with path, query, and hash",
+			"in": "https://WWW.EXAMPLE.COM/PATH/to/Page?Xa=UP#ABC",
+			"n1url": "http://www.example.com/PATH/to/Page/?Xa=UP#ABC",
+			"n2url": "http://www.example.com"
+		},
+		{
+			"description": "case-insensitive general host with tailing dot",
+			"in": "https://WWW.EXAMPLE.COM.",
+			"n1url": "http://www.example.com/",
+			"n2url": "http://www.example.com"
+		},
+		{
+			"description": "IPv6 host",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+		},
+		{
+			"description": "IPv6 host with tailing dot (not to be trimmed), See: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#discussion_r486955428",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]"
+		},
+		{
+			"description": "IPv6 host port",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080"
+		},
+		{
+			"description": "case-insensitive IPv6 host",
+			"in": "https://[2001:0DB8:BD05:01D2:288A:1FC0:0001:10EE]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+		},
+		{
+			"description": "Invalid IPv6 host",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]"
+		},
+		{
+			"description": "empty host with path",
+			"in": "https:///a/b.html",
+			"n1url": "http:///a/b.html/",
+			"n2url": "http://"
+		},
+		{
+			"description": "host == '.'",
+			"in": "https://./a/b.html",
+			"n1url": "http://./a/b.html/",
+			"n2url": "http://."
+		},
+		{
+			"description": "host == '..'",
+			"in": "https://../a/b.html",
+			"n1url": "http://../a/b.html/",
+			"n2url": "http://.."
+		},
+		{
+			"description": "empty host (non-http scheme)",
+			"in": "mobileapp::1-com.example.app",
+			"n1url": "mobileapp::1-com.example.app",
+			"n2url": "mobileapp::1-com.example.app"
+		}
+	]
+}

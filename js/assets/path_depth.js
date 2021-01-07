@@ -278,5 +278,4 @@ export var N2URLPathDepthData = {
     depth: 1,
     paths: 'ALL'
   }
-
 };

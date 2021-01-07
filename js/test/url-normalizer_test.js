@@ -31,7 +31,11 @@ function testNorm(tests) {
   tests.forEach(t =>
     describe(t.in, () => {
       it('needs a input', () => assert(t.in));
-      it('is valid test', () => assert.ok(t.n1url || t.n2url || t.r1url || t.r2url), JSON.stringify(t));
+      it(
+        'is valid test',
+        () => assert.ok(t.n1url || t.n2url || t.r1url || t.r2url),
+        JSON.stringify(t)
+      );
 
       if (t.n1url) {
         it('n1url', () => assert.equal(t.n1url, FirstNormalizedURL(t.in)));

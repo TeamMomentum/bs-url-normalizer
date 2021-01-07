@@ -140,6 +140,7 @@ function convertToN2URL(
   };
 }
 
+// eslint-disable-next-line max-statements
 function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
   var url = createURL(urlStr);
   if (url.protocol !== 'http:') {
@@ -155,7 +156,7 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
   }
 
   if (url.protocol === 'mobileapp:') {
-    return  url;
+    return url;
   }
 
   var pathDepth = N2URLPathDepthData[host];
@@ -165,7 +166,7 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
     } else {
       pathDepth = ({ depth: 0 } /*: PathDepth */);
     }
-  } else if(host === 'www.atwiki.jp') {
+  } else if (host === 'www.atwiki.jp') {
     console.log('here', pathDepth, url);
   }
 

@@ -24,6 +24,7 @@ export function DefaultURLParser(s /*: string */) /*: URLInterface */ {
     typeof window.document !== 'undefined'
   ) {
     a = window.document.createElement('a');
+    a.href = s;
   } else {
     throw new Error('cannot parse URL');
   }

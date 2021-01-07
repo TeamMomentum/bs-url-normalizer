@@ -13,7 +13,7 @@ assets/sp_host.js: ../resources/norm_host_sp.csv
 test: assets test_node test_bq
 
 test_node: node_modules 
-	npx mocha test
+	npx mocha test --ignore=norm_ipv6.json
 
 test_bq: node_modules
 	npx mocha -r ./bq.js test

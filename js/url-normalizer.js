@@ -19,6 +19,15 @@ export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
     return URLToString(url);
   }
 
+  // it treats triple slash (http:/// or https:///) as empty host and / path
+  if (
+    (urlStr.indexOf('http:///') === 0 || urlStr.indexOf('https:///') === 0) &&
+    url.hostname !== ''
+  ) {
+    url.pathname = '/' + url.hostname + url.pathname;
+    url.hostname = '';
+  }
+
   convertUrl(url);
 
   var host = url.hostname;
@@ -60,7 +69,7 @@ export function SecondNormalizedURL(urlStr /*: string */) /*: string */ {
   var url = secondNormalizedURL(urlStr);
   var str = URLToString(url);
   var len = str.length;
-  if (str[len - 1] === '/') {
+  if (str !== 'http://' && str[len - 1] === '/') {
     return str.substring(0, len - 1);
   }
 
@@ -73,6 +82,7 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
   if (url.protocol === 'https:') {
     url.protocol = 'http:';
   }
+
   var spToPC = SPHostData[url.hostname];
   if (spToPC) {
     url.hostname = spToPC;
@@ -92,6 +102,8 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
       return createAppURL('ios', m[3]);
     }
   }
+
+  url.hostname = trimTailingDots(url.hostname);
 
   return url;
 }
@@ -147,6 +159,11 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
     return url;
   }
 
+  // it treats triple slash (http:/// or https:///) as empty host
+  if (urlStr.indexOf('http:///') === 0 || urlStr.indexOf('https:///') === 0) {
+    url.hostname = '';
+  }
+
   convertUrl(url);
 
   var host = url.hostname;
@@ -189,4 +206,16 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
   }
 
   return convertToN2URL(url, path, q);
+}
+
+function trimTailingDots(str /*: string */) /*: string */ {
+  if (str.endsWith('..')) {
+    return str;
+  }
+
+  if (str.length > 2 && str[str.length - 1] === '.') {
+    return str.substring(0, str.length - 1);
+  }
+
+  return str;
 }

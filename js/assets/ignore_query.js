@@ -19,7 +19,8 @@ export var IgnoreQueryData /*: IgnoreQuery */ = {
       'action_ref_map',
       'cb',
       'fbclid',
-      'mr'
+      'mr',
+      '_gl'
     ],
     paths: 'ALL'
   },

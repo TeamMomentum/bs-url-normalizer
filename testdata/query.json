@@ -43,10 +43,16 @@
       "description": "keep query parameter",
       "in": "https://itest.bbspink.com/find/?q=%E3%83%86%E3%82%B9%E3%83%88",
       "n1url": "http://itest.bbspink.com/find/?q=%E3%83%86%E3%82%B9%E3%83%88"
-    }, {
+    },
+    {
       "description": "remove redirect destination URL param",
       "in": "https://itest.bbspink.com/jump/to/?url=https%3A%2F%2Fwww.example.com%2F",
       "n1url": "http://itest.bbspink.com/jump/to/"
+    },
+    {
+      "description": "Trim general query parameters for Google Analytics",
+      "in": "https://www.example.com/page?_gl=1*1g3qoam*_ga*XXXXXXXXYYYYYYZZZZZ..&id=1001&name=abc",
+      "n1url": "http://www.example.com/page/?id=1001&name=abc"
     }
   ]
 }

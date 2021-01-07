@@ -6,6 +6,7 @@
 package urls
 
 import (
+	"net"
 	"net/url"
 	"strconv"
 	"strings"
@@ -21,6 +22,38 @@ var (
 	normalizePathMap map[string]func(*url.URL) bool
 )
 
+// normalizeHost does:
+// 1. Encode to ascii using IDN Punycode
+// 2. Trim tailing single dot of FQDN
+// 3. Convert to lower case
+func normalizeHost(ul *url.URL) {
+	rawHost := ul.Host
+	if rawHost == "" { // empty => nothing to normalize
+		return
+	}
+
+	if punycode, err := httpguts.PunycodeHostPort(rawHost); err == nil {
+		ul.Host = punycode
+	}
+
+	host := ul.Hostname() // '[]' for raw IPv6 address would be stripped
+	if host == "" {       // nothing to normalize
+		return
+	}
+
+	if n := len(host); n > 1 && host[n-1] == '.' && host[n-2] != '.' { // host ends with dot except the case dots are two or more consecutive
+		if !strings.HasPrefix(rawHost, "[") { // except IPv6 address host, Discussion: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#pullrequestreview-486689000
+			host = strings.TrimSuffix(host, ".") // trimming tailing single dot
+		}
+	}
+
+	host = strings.ToLower(host) // converting to lowercase
+
+	// Re-Join normalized host and original port
+	// with trimming tailing ':' because net.JoinHostPort() does not take care of empty port
+	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, ul.Port()), ":")
+}
+
 // normalizePath reduces known URLs to the top page of the website
 func normalizePath(ul *url.URL) bool {
 	k := trimWWW(ul.Host)
@@ -29,13 +62,6 @@ func normalizePath(ul *url.URL) bool {
 		return f(ul)
 	}
 	return normalizeUserSpace(ul)
-}
-
-func normalizePunycodeHost(ul *url.URL) {
-	host, err := httpguts.PunycodeHostPort(ul.Host)
-	if err == nil {
-		ul.Host = host
-	}
 }
 
 // normalizeSPHost converts mobile URLs into their PC URLs.

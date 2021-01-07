@@ -53,7 +53,7 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 // CrawlingURL returns the preferred URL for crawling
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
-		normalizePunycodeHost(n.url)
+		normalizeHost(n.url)
 		n.url = optimizeURL(n.url)
 		n.cURL = n.url.String()
 	}

@@ -57,6 +57,26 @@
       "description": "normalize punycode won't be called if optimizeURL() do nothing",
       "in": "http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html?s=&x=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo",
       "n1url": "http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html/?s=&x=https%3A%2F%2Fhello.%E4%B8%96%E7%95%8C.com%2Ffoo"
+    },
+    {
+      "description": "unicode FQDN with tailing dot",
+      "in": "http://ドメイン名例.jp.",
+      "n2url": "http://xn--eckwd4c7cu47r2wf.jp"
+    },
+    {
+      "description": "unicode FQDN containing subdomain with tailing dot",
+      "in": "http://ウィキペディア.ドメイン名例.jp.",
+      "n2url": "http://xn--cckbak0byl6e.xn--eckwd4c7cu47r2wf.jp"
+    },
+    {
+      "description": "unicode FQDN without ascii TLD with tailing dot",
+      "in": "http://例え.テスト.",
+      "n2url": "http://xn--r8jz45g.xn--zckzah"
+    },
+    {
+      "description": "URL encoded with tailing dot",
+      "in": "http://%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%90%8D%E4%BE%8B.jp.",
+      "n2url": "http://xn--eckwd4c7cu47r2wf.jp"
     }
   ]
 }

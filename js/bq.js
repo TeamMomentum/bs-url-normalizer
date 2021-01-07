@@ -7,9 +7,25 @@ import { setURLParser, parseQuery } from './url';
 
 export function parseURL(url /*: string */) /*: URLInterface */ {
   var a = new _URL(url);
-  var host = decodeURI(a.hostname);
-  var path = decodeURI(a.pathname);
-  var hash = decodeURI(a.hash);
+  var host, path, hash;
+
+  try {
+    host = decodeURI(a.hostname);
+  } catch (e) {
+    host = a.hostname;
+  }
+
+  try {
+    path = decodeURI(a.pathname);
+  } catch (e) {
+    path = a.pathname;
+  }
+
+  try {
+    hash = decodeURI(a.hash);
+  } catch (e) {
+    hash = a.hash;
+  }
 
   return {
     protocol: a.protocol,

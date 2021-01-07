@@ -20,6 +20,10 @@
     {
       "in": "http://bannch.com/a/b/c/d?d=1&a=2&c=3&b=4",
       "n2url": "http://bannch.com/a/b/c" 
-    }
+    },
+		{
+			"in": "https://893.memo.wiki/d/%b9%b0%c6%bb%b2%f1",
+			"n2url": "http://893.memo.wiki"
+		}
   ]
 }

@@ -318,10 +318,10 @@ LOOP:
 		host = rawPath[hostPos:]
 	}
 
-	realURL := *u
+	realURL := cloneURL(u)
 	realURL.Scheme = scheme
 	realURL.Host = host
 	realURL.Path = path
 
-	return &realURL
+	return realURL
 }

@@ -37,11 +37,10 @@ func NewNormalizerR(ul *url.URL) (n *NormalizerR, err error) {
 		url3 = url1
 	}
 
-	// allocate and copy
-	newUl := *ul
+	newUl := cloneURL(ul)
 
 	n = &NormalizerR{
-		url:   &newUl,
+		url:   newUl,
 		n1URL: url1,
 		n2URL: url2,
 		cURL:  url3,

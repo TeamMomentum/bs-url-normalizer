@@ -1,18 +1,28 @@
 version: 2
 
-wd: &wd /go/src/github.com/TeamMomentum/bs-url-normalizer
-defaults: &defaults
-  working_directory: *wd
+goenv: &go_env
+  working_directory: &go_wd /go/src/github.com/TeamMomentum/bs-url-normalizer
+  chache: &go_cache /go/src/github.com/TeamMomentum/bs-url-normalizer/vendor
   docker:
     - image: dictav/golang-tools:1.12.9
+  step_attach: &go_step_attach
+    attach_workspace:
+      at: *go_wd
 
-step_attach: &step_attach
-  attach_workspace:
-    at: *wd
+jsenv: &js_env
+  working_directory: &js_wd ~/bs-url-normalizer/js
+  cache: &js_cache ~/bs-url-normalizer/js/node_modules
+  docker:
+    - image: circleci/node:12
+  step_attach: &js_step_attach
+    attach_workspace:
+      at: *js_wd
+
 
 jobs:
-  dep:
-    <<: *defaults
+  # Go
+  go_dep:
+    <<: *go_env
     steps:
       - checkout
       - restore_cache:
@@ -28,32 +38,71 @@ jobs:
           paths:
             - /go/pkg/mod
       - persist_to_workspace:
-          root: *wd
+          root: *go_wd
           paths:
             - "*"
 
-  lint:
-    <<: *defaults
-
+  go_lint:
+    <<: *go_env
     steps:
-      - *step_attach
+      - *go_step_attach
       - run: make lint
 
-  test:
-    <<: *defaults
-
+  go_test:
+    <<: *go_env
     steps:
-      - *step_attach
+      - *go_step_attach
       - run: make test GOOPT="-mod=vendor"
+
+  # JS
+  js_dep:
+    <<: *js_env
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-js-{{ checksum "js/package-lock.json" }}
+
+      - run: make -C js node_modules
+
+      - save_cache:
+          key: v1-js-{{ checksum "js/package-lock.json" }}
+          paths:
+            - *js_cache
+      - persist_to_workspace:
+          root: *js_wd
+          paths:
+            - "*"
+
+  js_lint:
+    <<: *js_env
+    steps:
+      - *js_step_attach
+      - run: make -C js lint
+
+  js_test:
+    <<: *js_env
+    steps:
+      - *js_step_attach
+      - run: make -C js test
 
 workflows:
   version: 2
-  lint_and_test:
+  go:
     jobs:
-      - dep
-      - lint:
+      - go_dep
+      - go_lint:
           requires:
-            - dep
-      - test:
+            - go_dep
+      - go_test:
           requires:
-            - dep
+            - go_dep
+  js:
+    jobs:
+      - js_dep
+      - js_lint:
+          requires:
+            - js_dep
+      - js_test:
+          requires:
+            - js_dep

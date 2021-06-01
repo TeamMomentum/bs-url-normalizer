@@ -59,6 +59,7 @@ func init() {
 		"action_ref_map",
 		"cb",
 		"fbclid",
+		"_gl", // https://github.com/TeamMomentum/bs-url-normalizer/issues/71
 	})
 
 	disusedHostParameterMap = map[string]string{

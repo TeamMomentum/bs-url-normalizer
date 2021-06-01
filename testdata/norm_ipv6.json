@@ -1,0 +1,35 @@
+{
+	"description": "IPv6に関するテスト",
+	"tests": [
+		{
+			"description": "IPv6 host",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+		},
+		{
+			"description": "IPv6 host with tailing dot (not to be trimmed), See: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#discussion_r486955428",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]"
+		},
+		{
+			"description": "IPv6 host port",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080"
+		},
+		{
+			"description": "case-insensitive IPv6 host",
+			"in": "https://[2001:0DB8:BD05:01D2:288A:1FC0:0001:10EE]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+		},
+		{
+			"description": "Invalid IPv6 host",
+			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]",
+			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]/",
+			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]"
+		}
+	]
+}

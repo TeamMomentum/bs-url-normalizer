@@ -1,0 +1,11 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@momentum/url-normalizer": "../../js",
+    "esm": "^3.2.25",
+    "rollup": "^1.17.0"
+  }
+}

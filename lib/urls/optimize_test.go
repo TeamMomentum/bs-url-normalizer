@@ -12,8 +12,10 @@ import (
 )
 
 // See also: https://golang.org/src/net/url/url_test.go
-// nolint:funlen
+// nolint:funlen, exhaustivestruct
 func Test_parsePotentialURL(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name    string
 		arg     string
@@ -141,10 +143,15 @@ func Test_parsePotentialURL(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			got, err := parsePotentialURL(tt.arg)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("parsePotentialURL() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {

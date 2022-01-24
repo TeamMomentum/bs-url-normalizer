@@ -14,6 +14,7 @@ func FirstNormalizeURL(ul *url.URL) string {
 	if err != nil {
 		return ""
 	}
+
 	return n.FirstNormalizedURL()
 }
 
@@ -24,15 +25,17 @@ func SecondNormalizeURL(ul *url.URL) string {
 	if err != nil {
 		return ""
 	}
+
 	return n.SecondNormalizedURL()
 }
 
-// CrawlingURL convert URL for crawling
+// CrawlingURL convert URL for crawling.
 func CrawlingURL(ul *url.URL) string {
 	n, err := NewNormalizer(ul)
 	if err != nil {
 		return ""
 	}
+
 	return n.CrawlingURL()
 }
 
@@ -43,6 +46,7 @@ func R1NormalizeURL(ul *url.URL) string {
 	if err != nil {
 		return ""
 	}
+
 	return n.FirstNormalizedURL()
 }
 
@@ -53,5 +57,6 @@ func R2NormalizeURL(ul *url.URL) string {
 	if err != nil {
 		return ""
 	}
+
 	return n.SecondNormalizedURL()
 }

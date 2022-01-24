@@ -6,6 +6,7 @@ package main
 import "C"
 
 import (
+	"errors"
 	"net/url"
 	"unsafe"
 
@@ -15,10 +16,11 @@ import (
 //export first_normalize_url
 func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 	rawURL := C.GoString(cStr)
+
 	ul, err := url.Parse(rawURL)
 	if err != nil {
-		_, ok := err.(url.EscapeError)
-		if ok {
+		var escapeError url.EscapeError
+		if errors.As(err, &escapeError) {
 			*p = unsafe.Pointer(C.CString(rawURL))
 		} else {
 			*p = unsafe.Pointer(C.CString(""))
@@ -31,10 +33,11 @@ func first_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 //export second_normalize_url
 func second_normalize_url(cStr *C.char, p *unsafe.Pointer) {
 	rawURL := C.GoString(cStr)
+
 	ul, err := url.Parse(rawURL)
 	if err != nil {
-		_, ok := err.(url.EscapeError)
-		if ok {
+		var escapeError url.EscapeError
+		if errors.As(err, &escapeError) {
 			*p = unsafe.Pointer(C.CString(rawURL))
 		} else {
 			*p = unsafe.Pointer(C.CString(""))

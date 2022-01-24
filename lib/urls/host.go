@@ -6,6 +6,7 @@
 package urls
 
 import (
+	"fmt"
 	"net"
 	"net/url"
 	"strconv"
@@ -16,16 +17,16 @@ import (
 )
 
 var (
-	// SPのHostとPCのHostの変換map
+	// SPのHostとPCのHostの変換map.
 	spPCHostMap map[string]string
-	// パス正規化対象ドメインと正規化関数のmap
+	// パス正規化対象ドメインと正規化関数のmap.
 	normalizePathMap map[string]func(*url.URL) bool
 )
 
 // normalizeHost does:
-// 1. Encode to ascii using IDN Punycode
-// 2. Trim tailing single dot of FQDN
-// 3. Convert to lower case
+// 1. Encode to ascii using IDN Punycode.
+// 2. Trim tailing single dot of FQDN.
+// 3. Convert to lower case.
 func normalizeHost(ul *url.URL) {
 	rawHost := ul.Host
 	if rawHost == "" { // empty => nothing to normalize
@@ -54,67 +55,82 @@ func normalizeHost(ul *url.URL) {
 	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, ul.Port()), ":")
 }
 
-// normalizePath reduces known URLs to the top page of the website
+// normalizePath reduces known URLs to the top page of the website.
 func normalizePath(ul *url.URL) bool {
 	k := trimWWW(ul.Host)
+
 	f, ok := normalizePathMap[k]
 	if ok {
 		return f(ul)
 	}
+
 	return normalizeUserSpace(ul)
 }
 
 // normalizeSPHost converts mobile URLs into their PC URLs.
-// returns if the host was normalized or not
+// returns if the host was normalized or not.
 func normalizeSPHost(ul *url.URL) bool {
 	host, ok := spPCHostMap[ul.Host]
 	if ok {
 		ul.Host = host
 	}
+
 	return ok
 }
 
 func makeStringStringMap(lines []string, sep string) map[string]string {
 	m := make(map[string]string)
+
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
 		if trimmed == "" {
 			continue
 		}
+
 		rows := strings.Split(trimmed, sep)
-		if len(rows) < 2 {
+
+		if len(rows) < 2 { //nolint: gomnd
 			continue
 		}
+
 		spHost := rows[0]
 		pcHost := rows[1]
 		m[spHost] = pcHost
 	}
+
 	return m
 }
 
 // makeNormalizePathMap: 指定したdomain => N階層のpairからパス正規化パターンを生成します
-// - format: `domain,パス階層,残したいparamID` の順に sep 区切り
+// - format: `domain,パス階層,残したいparamID` の順に sep 区切り.
 func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL) bool, error) {
 	m := make(map[string]func(*url.URL) bool)
+
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
 		if trimmed == "" {
 			continue
 		}
+
 		rows := strings.Split(trimmed, sep)
-		if len(rows) < 3 {
+		if len(rows) < 3 { //nolint: gomnd
 			continue
 		}
+
 		domain := rows[0]
+
 		num, err := strconv.Atoi(rows[1])
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("strconv.Atoi: %w", err)
 		}
+
 		param := rows[2]
+
 		m[domain] = func(ul *url.URL) bool {
 			return applyNormPath(ul, num, param)
 		}
 	}
+
 	return m, nil
 }
 
@@ -124,10 +140,11 @@ func normalizeUserSpace(ul *url.URL) bool {
 	if len(ul.Path) < 3 || ul.Path[1] != '~' {
 		return false
 	}
+
 	return applyNormPath(ul, 1, "") // 第一パス階層をユーザ空間と見なし、ホスト名正規化対象とする
 }
 
-// applyNormPath : パス階層とクエリパラメータ正規化の指定を引数で与えられたURLに適用します
+// applyNormPath : パス階層とクエリパラメータ正規化の指定を引数で与えられたURLに適用します.
 func applyNormPath(ul *url.URL, num int, param string) bool {
 	ul.Path = splitNPath(ul, num)
 	if param == "" {
@@ -141,40 +158,46 @@ func applyNormPath(ul *url.URL, num int, param string) bool {
 		}
 		ul.RawQuery = query.Encode()
 	}
+
 	ul.Fragment = "" // 第一正規化でも実施される可能性があるが、念のため
+
 	return true
 }
 
 // trimWWW : ホスト名の先頭 `www` ~ `.` の間に含まれる、数値を除外した結果を返します
-// 例: www.example.com -> www.example.com, www001.example.com -> www.example.com
+// 例: www.example.com -> www.example.com, www001.example.com -> www.example.com.
 func trimWWW(host string) string {
 	if !strings.HasPrefix(host, "www") {
 		return host
 	}
-	if len(host) < 4 {
+
+	if len(host) < 4 { //nolint: gomnd
 		return host
 	}
+
 	if r := host[3]; r == '.' {
 		return host
 	}
+
 	for i := 4; i < len(host); i++ {
 		if r := host[i]; r < '0' || '9' < r {
 			return "www" + host[i:]
 		}
 	}
+
 	return host
 }
 
-var (
-	spHostData, pathDepthData string
-)
+var spHostData, pathDepthData string
 
 func init() {
 	var err error
+
 	spHostData = string(assets.MustAsset("norm_host_sp.csv"))
 	pathDepthData = string(assets.MustAsset("norm_host_path.csv"))
 	spPCHostMap = makeStringStringMap(strings.Split(spHostData, "\n"), ",")
 	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
+
 	if err != nil {
 		panic(err)
 	}

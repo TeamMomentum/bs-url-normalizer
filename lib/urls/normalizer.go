@@ -15,7 +15,7 @@ const (
 	defaultScheme = "http"
 )
 
-// Normalizer normalizes the URL into the crawlable URL and the key for KVS use
+// Normalizer normalizes the URL into the crawlable URL and the key for KVS use.
 type Normalizer struct {
 	cURL  string
 	n1URL string
@@ -23,17 +23,21 @@ type Normalizer struct {
 	url   *url.URL
 }
 
+var ErrInvalidScheme = fmt.Errorf("invalid scheme")
+
 // NewNormalizer generate a new Normalizer structure when the input URL is supported.
 func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 	if !isValidScheme(ul) {
 		n = nil
-		err = fmt.Errorf("invalid scheme %v", ul.Scheme)
+		err = fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
+
 		return
 	}
 
 	url1 := ""
 	url2 := ""
 	url3 := ""
+
 	if isStaticURL(ul) {
 		url1 = ul.String()
 		url2 = url1
@@ -50,13 +54,14 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 	return
 }
 
-// CrawlingURL returns the preferred URL for crawling
+// CrawlingURL returns the preferred URL for crawling.
 func (n *Normalizer) CrawlingURL() string {
 	if n.cURL == "" {
 		normalizeHost(n.url)
 		n.url = optimizeURL(n.url)
 		n.cURL = n.url.String()
 	}
+
 	return n.cURL
 }
 
@@ -73,6 +78,7 @@ func (n *Normalizer) FirstNormalizedURL() string {
 	if mu := normalizeMobileAppURL(ul); mu != "" {
 		n.n1URL = mu
 		n.n2URL = mu
+
 		return mu
 	}
 
@@ -89,6 +95,7 @@ func (n *Normalizer) FirstNormalizedURL() string {
 // shrinks the URL by website as much as possible.
 func (n *Normalizer) SecondNormalizedURL() string {
 	n.FirstNormalizedURL()
+
 	if n.n2URL != "" {
 		return n.n2URL
 	}
@@ -98,14 +105,16 @@ func (n *Normalizer) SecondNormalizedURL() string {
 	} else {
 		n.n2URL = n.url.Scheme + "://" + n.url.Host
 	}
+
 	return n.n2URL
 }
 
-// normalizeScheme replaces all schemes into http
+// normalizeScheme replaces all schemes into http.
 func normalizeScheme(ul *url.URL) {
 	if isStaticURL(ul) {
 		return
 	}
+
 	ul.Scheme = defaultScheme
 }
 
@@ -128,6 +137,7 @@ func isValidScheme(ul *url.URL) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -135,24 +145,31 @@ func isStaticURL(ul *url.URL) bool {
 	return ul.Scheme == "mobileapp"
 }
 
-// 指定したPathを第N階層で区切って返します
+// 指定したPathを第N階層で区切って返します.
 func splitNPath(ul *url.URL, n int) string {
 	vs := strings.Split(ul.Path, "/")
 	if len(vs) <= 1 || vs[1] == "" {
 		return ""
 	}
-	parts := []string{}
+
 	size := len(vs)
 	if vs[size-1] == "" {
 		size--
+
 		vs = vs[:size]
 	}
+
 	if vs[0] == "" {
 		size--
+
 		vs = vs[1:]
 	}
+
+	parts := []string{}
+
 	for i := 0; i < size && i < n; i++ {
 		parts = append(parts, vs[i])
 	}
+
 	return strings.Join(parts, "/")
 }

@@ -7,6 +7,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -31,12 +32,19 @@ type testData struct {
 }
 
 func TestNormalization(t *testing.T) {
+	t.Parallel()
+
 	files, err := filepath.Glob(testDir + "/*.json")
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, fn := range files {
+
+	for _, fn := range files { //nolint: paralleltest
+		fn := fn
+
 		t.Run(fn, func(t *testing.T) {
+			t.Parallel()
+
 			tf, err := parseTestFile(fn)
 			if err != nil {
 				t.Fatalf("%s: %s", fn, err)
@@ -49,27 +57,33 @@ func TestNormalization(t *testing.T) {
 func parseTestFile(fn string) (*testFile, error) {
 	f, err := os.Open(fn)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("os.Open: %w", err)
 	}
 
-	tf := testFile{}
+	var tf testFile
 	if err := json.NewDecoder(f).Decode(&tf); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("(*json.Decoder).Decode: %w", err)
 	}
 
 	return &tf, nil
 }
 
+//nolint:gocognit, cyclop
 func testNormalize(t *testing.T, tests []testData) {
+	t.Helper()
+
 	for _, tt := range tests {
 		if tt.CURL == "" && tt.N1URL == "" && tt.N2URL == "" && tt.R1URL == "" && tt.R2URL == "" {
 			t.Errorf("%s: curl, n1url or n2url is required", tt.In)
+
 			continue
 		}
+
 		ul, err := url.Parse(tt.In)
 		if err != nil {
 			t.Errorf("%v : %v", tt.In, err)
 		}
+
 		t.Run(ul.Host+ul.Path, func(t *testing.T) {
 			if tt.CURL != "" {
 				result := urls.CrawlingURL(ul)

@@ -22,6 +22,7 @@ func removeQueryParameters(ul *url.URL) {
 		for _, key := range paths {
 			if strings.HasPrefix(ul.Path, key) {
 				ul.RawQuery = ""
+
 				return
 			}
 		}
@@ -29,6 +30,7 @@ func removeQueryParameters(ul *url.URL) {
 
 	query := ul.Query()
 	hostKey, isDisusedHost := disusedHostParameterMap[ul.Host]
+
 	for key := range ul.Query() {
 		if strings.HasPrefix(key, "utm_") {
 			query.Del(key)
@@ -38,6 +40,7 @@ func removeQueryParameters(ul *url.URL) {
 			query.Del(key)
 		}
 	}
+
 	ul.RawQuery = query.Encode()
 }
 
@@ -46,6 +49,7 @@ func makeStringBoolMap(lines []string) map[string]bool {
 	for _, line := range lines {
 		m[line] = true
 	}
+
 	return m
 }
 

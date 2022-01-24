@@ -6,7 +6,7 @@
   "module": "url-normalizer.js",
   "scripts": {
     "fmt": "prettier --write '**/*'",
-    "postinstall": "rollup -c --input url-normalizer.js --output build/url-normalizer.js",
+    "postinstall": "rollup -c --input url-normalizer.js --output.file build/url-normalizer.js",
     "test": "mocha"
   },
   "keywords": [
@@ -24,21 +24,20 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "devDependencies": {
-    "csv": "^3.1.0",
-    "eslint": "^5.5.0",
+    "csv": "^6.0.5",
+    "eslint": "^7.32.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-standard": "^5.0.0",
     "esm": "^3.2.25",
     "flow": "^0.2.3",
-    "flow-bin": "^0.102.0",
-    "flow-typed": "^2.5.2",
+    "flow-bin": "^0.169.0",
+    "flow-typed": "^3.6.1",
     "mocha": "^5.2.0",
     "prettier": "^1.18.2",
     "punycode": "^2.1.1",
-    "rollup-watch": "^4.3.1",
-    "url-parse": "^1.4.3"
+    "url-parse": "^1.5.4"
   }
 }

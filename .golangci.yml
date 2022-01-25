@@ -9,6 +9,8 @@ linters:
     - gochecknoglobals
     - gochecknoinits
     - lll
+    - testpackage
+    - varnamelen
 
 issues:
   exclude-rules:

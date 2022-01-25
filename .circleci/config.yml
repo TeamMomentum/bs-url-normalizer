@@ -4,7 +4,7 @@ goenv: &go_env
   working_directory: &go_wd /go/src/github.com/TeamMomentum/bs-url-normalizer
   chache: &go_cache /go/src/github.com/TeamMomentum/bs-url-normalizer/vendor
   docker:
-    - image: dictav/golang-tools:1.12.9
+    - image: dictav/golang-tools:1.17.5
   step_attach: &go_step_attach
     attach_workspace:
       at: *go_wd

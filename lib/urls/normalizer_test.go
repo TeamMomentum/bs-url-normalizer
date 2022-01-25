@@ -11,8 +11,10 @@ import (
 	"testing"
 )
 
-// 不要なパラメータを除去できているかのtest
+// 不要なパラメータを除去できているかのtest.
 func TestRemoveQueryParameters(t *testing.T) {
+	t.Parallel()
+
 	var (
 		ul *url.URL
 		nu string
@@ -32,26 +34,35 @@ http://example.com/tihoukoumu?d=1&a=2&c=3&b=4
 http://example.com/tihoukoumu?a=2&b=4&c=3&d=1
 */
 func TestQueryOrder(t *testing.T) {
+	t.Parallel()
+
 	testURL := "http://example.com/tihoukoumu?d=1&a=2&c=3&b=4"
 	results := make(map[string]bool)
+
 	for i := 0; i < 100; i++ {
 		nu := FirstNormalizeURL(mustURL(testURL))
 		results[nu] = true
 	}
+
 	if len(results) != 1 {
 		t.Error("URL query order should be stable.")
 	}
+
 	testURL = "http://example.com/tihoukoumu?a=2&c=3&b=4&d=1&utm_query=1"
+
 	for i := 0; i < 100; i++ {
 		nu := FirstNormalizeURL(mustURL(testURL))
 		results[nu] = true
 	}
+
 	if len(results) != 1 {
 		t.Error("URL query order should be stable.")
 	}
 }
 
 func stringCheck(t *testing.T, key, correct, other string) {
+	t.Helper()
+
 	if correct != other {
 		t.Errorf("%v should be '%v', not '%v'.", key, correct, other)
 	}
@@ -62,13 +73,17 @@ func mustURL(rawURL string) *url.URL {
 	if err != nil {
 		panic(err)
 	}
+
 	return u
 }
 
 func TestNewNormalizer(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		ul *url.URL
 	}
+
 	hogehoge, _ := url.Parse("hogehoge:://test")
 	tests := []struct {
 		name    string
@@ -83,11 +98,17 @@ func TestNewNormalizer(t *testing.T) {
 			wantErr: true,
 		},
 	}
+
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			gotN, err := NewNormalizer(tt.args.ul)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewNormalizer() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 			if !reflect.DeepEqual(gotN, tt.wantN) {
@@ -98,6 +119,8 @@ func TestNewNormalizer(t *testing.T) {
 }
 
 func TestNormalizer_CrawlingURL(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name string
 		raw  string
@@ -110,7 +133,11 @@ func TestNormalizer_CrawlingURL(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			ul, _ := url.Parse(tt.raw)
 			n, err := NewNormalizer(ul)
 			if err != nil {
@@ -124,6 +151,8 @@ func TestNormalizer_CrawlingURL(t *testing.T) {
 }
 
 func TestNormalizer_Punyclde(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name string
 		raw  string
@@ -153,7 +182,11 @@ func TestNormalizer_Punyclde(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			ul, _ := url.Parse(tt.raw)
 			n, err := NewNormalizer(ul)
 			if err != nil {

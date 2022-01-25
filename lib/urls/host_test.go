@@ -8,7 +8,10 @@ import (
 	"testing"
 )
 
+//nolint: funlen
 func Test_normalizePath(t *testing.T) {
+	t.Parallel()
+
 	testPaths := []string{
 		"example1.com,1,",
 		"example2.com,2,",
@@ -17,6 +20,7 @@ func Test_normalizePath(t *testing.T) {
 	}
 
 	var err error
+
 	normalizePathMap, err = makeNormalizePathMap(testPaths, ",")
 	if err != nil {
 		t.Fatal(err)
@@ -53,7 +57,11 @@ func Test_normalizePath(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.in, func(t *testing.T) {
+			t.Parallel()
+
 			ul := mustURL(tt.in)
 			shouldNormalize := tt.in != tt.want
 			isNormalized := normalizePath(ul)
@@ -68,12 +76,15 @@ func Test_normalizePath(t *testing.T) {
 }
 
 func Test_normalizeSPHost(t *testing.T) {
+	// initialize spPCHostMap before calling t.Parallel() to avoid data race.
 	testHosts := []string{
 		"sp.example1.com,www.example1.com",
 		"sp.example2.com,example2.com",
 	}
 
 	spPCHostMap = makeStringStringMap(testHosts, ",")
+
+	t.Parallel()
 
 	tests := []struct {
 		in   string
@@ -93,7 +104,11 @@ func Test_normalizeSPHost(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
+
 		t.Run(tt.in, func(t *testing.T) {
+			t.Parallel()
+
 			ul := mustURL(tt.in)
 			normalizeSPHost(ul)
 			if nURL := ul.String(); nURL != tt.want {

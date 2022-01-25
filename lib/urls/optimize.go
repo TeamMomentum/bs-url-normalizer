@@ -7,12 +7,13 @@ package urls
 
 import (
 	"errors"
+	"fmt"
 	"net"
 	"net/url"
 	"regexp"
 	"strings"
 
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 )
 
 const (
@@ -66,10 +67,11 @@ func optimizeURL(ul *url.URL) *url.URL {
 			normalizeHost(ul)
 		}
 	}
+
 	return ul
 }
 
-//Normalize Adframe URLs
+// Normalize Adframe URLs.
 func parseAdframeURL(key string) func(*url.URL) *url.URL {
 	return func(original *url.URL) *url.URL {
 		if raw, ok := original.Query()[key]; ok {
@@ -78,45 +80,52 @@ func parseAdframeURL(key string) func(*url.URL) *url.URL {
 				return u
 			}
 		}
+
 		return original
 	}
 }
 
-//Normalize 401 URLs
+// Normalize 401 URLs.
 func optimizeRestrictedURL(prefixes ...string) func(*url.URL) *url.URL {
 	return func(ul *url.URL) *url.URL {
 		for _, prefix := range prefixes {
 			if strings.HasPrefix(ul.Path, prefix) {
 				ul.Path = prefix
 				ul.RawQuery = ""
+
 				return ul
 			}
 		}
+
 		return ul
 	}
 }
 
-// 意味空間でURLを切り上げ、crawling対象のURLに変換する関数を返します
+// 意味空間でURLを切り上げ、crawling対象のURLに変換する関数を返します.
 func createOptimizeURLCallBack(re *regexp.Regexp) func(*url.URL) *url.URL {
 	return func(ul *url.URL) *url.URL {
 		groups := re.FindStringSubmatch(ul.Path)
 		if len(groups) == 0 {
 			return ul
 		}
+
 		ul.Path = groups[0]
+
 		return ul
 	}
 }
 
 /*
-dokuha.jp用正規化関数
+dokuha.jp用正規化関数.
 */
 func optimizeDokuhaURL(ul *url.URL) *url.URL {
 	groups := dokuhaPattern.FindStringSubmatch(ul.Path)
 	if len(groups) == 0 {
 		return ul
 	}
+
 	ul.Path = "/comicweb/contents/comic/" + groups[1]
+
 	return ul
 }
 
@@ -126,21 +135,25 @@ func optimizeDokuhaURL(ul *url.URL) *url.URL {
 func optimizeLiveNicovideoURL(ul *url.URL) *url.URL {
 	if strings.HasPrefix(ul.Path, "/watch/") {
 		ul.RawQuery = ""
+
 		return ul
 	}
+
 	return ul
 }
 
 /*
 	d.socdm.com用正規化関数
 */
+//nolint: cyclop
 func optimizeSocdmURL(ul *url.URL) *url.URL {
 	raw, ok := ul.Query()["sdktype"]
 	if !ok {
 		return ul
 	}
 
-	var src = ""
+	src := ""
+
 	switch raw[0] {
 	case "0":
 		if raw, ok := ul.Query()["tp"]; ok {
@@ -204,16 +217,20 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 	if !strings.HasPrefix(ul.Host, itest5chDomain+".") { // URL is not target
 		return ul
 	}
+
 	groups := redirect5chPattern.FindStringSubmatch(ul.Path)
-	if len(groups) < 3 { // unmatched pattern (unable to optimize)
+	if len(groups) < 3 { //nolint: gomnd // unmatched pattern (unable to optimize)
 		return ul
 	}
+
 	xul, err := url.Parse(ul.String()) // duplicate URL to preserve original one
 	if err != nil {                    // unexpected error at this point
 		return ul
 	}
+
 	xul.Host = strings.Replace(ul.Host, itest5chDomain, groups[1], 1)
 	xul.Path = groups[2]
+
 	if err := validate.Var(xul.String(), "url"); err != nil { // optimized URL is invalid
 		return ul
 	}
@@ -221,6 +238,7 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 	return xul
 }
 
+//nolint: cyclop
 func parsePotentialURL(rawurl string) (*url.URL, error) {
 	if rawurl == "" {
 		return nil, errEmptyURLString
@@ -229,9 +247,10 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	parsed, parseErr := url.Parse(rawurl)
 	if parseErr != nil { // assumed case: `hello.世界.com:8080/page.html` (multibyte hostname with port number)
 		if host, tail, err := net.SplitHostPort(rawurl); err == nil && host != "" && tail != "" {
-			return url.Parse("http://" + rawurl) // retry with http scheme
+			return url.Parse("http://" + rawurl) //nolint: wrapcheck // retry with http scheme
 		}
-		return nil, parseErr
+
+		return nil, fmt.Errorf("url.Parse: %w", parseErr)
 	}
 
 	// Scheme in the result of url.Parse would be lower case.
@@ -242,7 +261,7 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	}
 
 	if scheme == "" { // missing any scheme in rawurl
-		return url.Parse("http://" + rawurl) // re-parse with `http://` scheme prefix
+		return url.Parse("http://" + rawurl) //nolint: wrapcheck // re-parse with `http://` scheme prefix
 	}
 
 	if parsed.Host == "" { // case: scheme exists but missing authority part

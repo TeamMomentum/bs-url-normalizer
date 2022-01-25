@@ -1,6 +1,7 @@
 package assets
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -15,20 +16,29 @@ import (
 func Asset(name string) ([]byte, error) {
 	stk, err := fs.New() // stl: http.FileSystem
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fs.New: %w", err)
 	}
+
 	if !strings.HasPrefix(name, string(filepath.Separator)) {
 		// https://golang.org/pkg/net/http/#FileSystem
 		// > A FileSystem implements access to a collection of named files.
 		// > The elements in a file path are separated by slash ('/', U+002F) characters, regardless of host operating system convention.
 		name = "/" + name
 	}
+
 	f, err := stk.Open(name)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("(http.FileSystem).Open: %w", err)
 	}
-	defer f.Close() // nolint
-	return ioutil.ReadAll(f)
+
+	defer f.Close()
+
+	b, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, fmt.Errorf("ioutil.ReadAll: %w", err)
+	}
+
+	return b, nil
 }
 
 // MustAsset is like Asset but panics when Asset would return an error.
@@ -39,5 +49,6 @@ func MustAsset(name string) []byte {
 	if err != nil {
 		panic(err)
 	}
+
 	return a
 }

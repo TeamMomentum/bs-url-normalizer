@@ -11,7 +11,7 @@ import (
 )
 
 // NormalizerR normalizes the URL into the crawlable URL and the key for KVS use
-// Most behavior is as same as `Normalizer`, except `normalizeSPHost` in `FirstNormalizedURL()`
+// Most behavior is as same as `Normalizer`, except `normalizeSPHost` in `FirstNormalizedURL()`.
 type NormalizerR struct {
 	cURL  string
 	n1URL string
@@ -24,13 +24,15 @@ type NormalizerR struct {
 func NewNormalizerR(ul *url.URL) (n *NormalizerR, err error) {
 	if !isValidScheme(ul) {
 		n = nil
-		err = fmt.Errorf("invalid scheme %v", ul.Scheme)
+		err = fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
+
 		return
 	}
 
 	url1 := ""
 	url2 := ""
 	url3 := ""
+
 	if isStaticURL(ul) {
 		url1 = ul.String()
 		url2 = url1
@@ -50,13 +52,14 @@ func NewNormalizerR(ul *url.URL) (n *NormalizerR, err error) {
 	return
 }
 
-// CrawlingURL returns the preferred URL for crawling
+// CrawlingURL returns the preferred URL for crawling.
 func (n *NormalizerR) CrawlingURL() string {
 	if n.cURL == "" {
 		normalizeHost(n.url)
 		n.url = optimizeURL(n.url)
 		n.cURL = n.url.String()
 	}
+
 	return n.cURL
 }
 
@@ -73,6 +76,7 @@ func (n *NormalizerR) FirstNormalizedURL() string {
 	if mu := normalizeMobileAppURL(ul); mu != "" {
 		n.n1URL = mu
 		n.n2URL = mu
+
 		return mu
 	}
 
@@ -98,6 +102,7 @@ func (n *NormalizerR) FirstNormalizedURL() string {
 // shrinks the URL by website as much as possible.
 func (n *NormalizerR) SecondNormalizedURL() string {
 	n.FirstNormalizedURL()
+
 	if n.n2URL != "" {
 		return n.n2URL
 	}
@@ -107,5 +112,6 @@ func (n *NormalizerR) SecondNormalizedURL() string {
 	} else {
 		n.n2URL = n.url.Scheme + "://" + n.url.Host
 	}
+
 	return n.n2URL
 }

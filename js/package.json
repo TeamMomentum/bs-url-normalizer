@@ -38,6 +38,6 @@
     "mocha": "^5.2.0",
     "prettier": "^1.18.2",
     "punycode": "^2.1.1",
-    "url-parse": "^1.5.4"
+    "url-parse": "^1.5.10"
   }
 }

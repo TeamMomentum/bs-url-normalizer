@@ -35,7 +35,7 @@
     "flow": "^0.2.3",
     "flow-bin": "^0.169.0",
     "flow-typed": "^3.6.1",
-    "mocha": "^5.2.0",
+    "mocha": "^8.4.0",
     "prettier": "^1.18.2",
     "punycode": "^2.1.1",
     "url-parse": "^1.5.10"

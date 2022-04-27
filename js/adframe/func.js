@@ -8,10 +8,11 @@ type Result = {
   type: Type,
   value: string
 }
+
 */
 
-export var adFrameFunc = {
-  'd.socdm.com': function (query /*: Query */) /*: ?Result */ {
+export var adFrameFunc /*: { [string]: (Query) => ?Result } */ = {
+  'd.socdm.com': function (query) {
     var tp = query['sdktype'];
     if (typeof tp === 'undefined' || typeof tp[0] === 'undefined') {
       return null;

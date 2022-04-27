@@ -1,6 +1,47 @@
 // @flow
 // refer ../../lib/urls/optimize.go
-export var adFrameParams = {
+/*::
+type AdFrameParam =
+  | {|
+      url: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+      ref: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+      content_url: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+      content_url: string,
+    |};
+*/
+
+export var adFrameParams /*: { [string]: AdFrameParam } */ = {
   // for verification
   'm0mentum-tags.s3.amazonaws.com': {
     domain: 'domain',

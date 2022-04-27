@@ -1,7 +1,9 @@
 // @flow
 /*:: import type { URLInterface } from './url' */
 
+// $FlowIgnore
 import _URL from 'url-parse';
+// $FlowIgnore
 import { toASCII } from 'tr46';
 import { setURLParser, parseQuery } from './url.js';
 

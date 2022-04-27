@@ -1,18 +1,16 @@
 // @flow
 /*::
-type PathDepth = {
-  [string]: {
-    depth: number,
-    paths?: Array<string>,
-    query?: Array<string>,
-    replace?: {
-      pattern: string,
-      with: string
-    }
+export type PathDepth = {
+  depth: number,
+  paths?: Array<string> | 'ALL',
+  query?: Array<string>,
+  replace?: {
+    pattern: string,
+    with: string
   }
 }
 */
-export var N1URLPathDepthData = {
+export var N1URLPathDepthData /*: { [string]: PathDepth } */ = {
   'amigo.gesoten.com': {
     depth: 0,
   },
@@ -61,7 +59,7 @@ export var N1URLPathDepthData = {
   },
 };
 
-export var N2URLPathDepthData = {
+export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {
   'am-our.com': {
     depth: 1,
   },

@@ -3,6 +3,7 @@ import { strict as assert } from 'assert';
 import fs from 'fs';
 import path from 'path';
 
+// $FlowIgnore
 import { before, describe, it } from 'mocha';
 import { FirstNormalizedURL, SecondNormalizedURL } from '../url-normalizer.js';
 

@@ -1,6 +1,7 @@
 // @flow
 import _assert from 'assert';
 
+// $FlowIgnore
 import { describe, it } from 'mocha';
 import { parseURL } from '../url.js';
 

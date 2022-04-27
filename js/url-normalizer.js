@@ -121,6 +121,7 @@ function deleteIgnoreQuery(url /*: URLInterface */) {
       if (ignore.keys === 'ALL') {
         keys = 'ALL';
       } else {
+        // $FlowIgnore
         keys = keys.concat(ignore.keys);
       }
     }

@@ -2,8 +2,7 @@
 /*:: import type { URLInterface } from './url' */
 
 import _URL from 'url-parse';
-import { toASCII } from './node_modules/punycode';
-import { setURLParser, parseQuery } from './url';
+import { toASCII } from 'tr46';
 
 export function parseURL(url /*: string */) /*: URLInterface */ {
   var a = new _URL(url);

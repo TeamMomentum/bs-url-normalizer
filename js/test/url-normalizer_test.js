@@ -10,10 +10,12 @@ const assert = (_assert /*: any */).strict;
 
 describe('normalizer', () => {
   const dir = path.join(__dirname, '../../testdata');
-  const ignores = process.argv
-    .filter(a => a.startsWith('--ignore='))
-    .map(a => a.substring(9).split(','))
-    .flat();
+  const ignores = (a => {
+    if (a === undefined) {
+      return [];
+    }
+    return a.split(',');
+  })(process.env.TESTDATA_IGNORE);
   const files = fs.readdirSync(dir).filter(f => !ignores.includes(f));
 
   console.log('ignores', ignores);

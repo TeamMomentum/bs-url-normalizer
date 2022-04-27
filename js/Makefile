@@ -9,19 +9,19 @@ assets/path_depth.js: ../resources/norm_host_path.csv
 assets/sp_host.js: ../resources/norm_host_sp.csv
 	node tools/create_data_sp_host.js > assets/sp_host.js
 
-.PHONY: test
+node_modules: package.json
+	npm install
+
+.PHONY: test test_node test_bq
 test: assets test_node test_bq
 
 test_node: node_modules 
-	npx mocha test --ignore=norm_ipv6.json
+	npm test
 
 test_bq: node_modules
-	npx mocha -r ./bq.js test
+	npm run test:bq
 
 .PHONY: lint 
 lint: node_modules
-	npx prettier --check '**/*'
-	npx eslint --fix *.js adframe assets test tools
+	npm run lint
 
-node_modules: package.json
-	npm install

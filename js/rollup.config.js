@@ -1,5 +1,7 @@
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
+import { terser } from 'rollup-plugin-terser';
 
 export default {
   output: {
@@ -7,5 +9,10 @@ export default {
     name: 'urlnorm',
   },
 
-  plugins: [nodeResolve(), commonjs()],
+  plugins: [
+    nodeResolve({ preferBuiltins: false }),
+    commonjs(),
+    json(),
+    terser(),
+  ],
 };

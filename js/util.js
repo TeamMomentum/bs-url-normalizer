@@ -1,7 +1,7 @@
 // @flow
 /*:: import type { URLInterface } from './url' */
-import { parseURL } from './url';
-import { adFrameFunc, adFrameParams } from './adframe';
+import { parseURL } from './url.js';
+import { adFrameFunc, adFrameParams } from './adframe/index.js';
 
 export function createAppURL(
   type /*: 'android' | 'ios' */,

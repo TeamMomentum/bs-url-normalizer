@@ -1,2 +1,2 @@
-export * from './func';
-export * from './params';
+export * from './func.js';
+export * from './params.js';

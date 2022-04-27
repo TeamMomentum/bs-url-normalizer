@@ -7,10 +7,10 @@ import {
   N1URLPathDepthData,
   N2URLPathDepthData,
   IgnoreQueryData,
-} from './assets';
-import { createAppURL, getActualPage } from './util';
-import { parseURL, URLToString } from './url';
-import { convertUrl } from './convert';
+} from './assets/index.js';
+import { createAppURL, getActualPage } from './util.js';
+import { parseURL, URLToString } from './url.js';
+import { convertUrl } from './convert.js';
 
 // eslint-disable-next-line max-statements
 export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {

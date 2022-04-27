@@ -3,6 +3,7 @@
 
 import _URL from 'url-parse';
 import { toASCII } from 'tr46';
+import { setURLParser, parseQuery } from './url.js';
 
 export function parseURL(url /*: string */) /*: URLInterface */ {
   var a = new _URL(url);

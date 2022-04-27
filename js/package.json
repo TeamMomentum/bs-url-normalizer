@@ -4,6 +4,7 @@
   "description": "BigQueryのUDFとして使える第２正規化モジュール",
   "main": "build/url-normalizer.js",
   "module": "url-normalizer.js",
+  "type": "module",
   "scripts": {
     "desc": "echo PLEASE SEE ALSO Makefile and bigquery-udf.mk",
     "postinstall": "npm run build",
@@ -14,7 +15,7 @@
     "lint:eslint": "eslint .",
     "lint:flow": "flow",
     "lint:prettier": "prettier --check '**/*'",
-    "test": "mocha",
+    "test": "mocha --ignore=norm_ipv6.json",
     "test:bq": "mocha -r ./bq.js test"
   },
   "keywords": [

@@ -2,7 +2,7 @@
 import _assert from 'assert';
 
 import { describe, it } from 'mocha';
-import { parseURL } from '../url';
+import { parseURL } from '../url.js';
 
 const assert = (_assert /*: any */).strict;
 

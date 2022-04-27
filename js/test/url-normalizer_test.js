@@ -1,15 +1,16 @@
 // @flow
-import _assert from 'assert';
+import { strict as assert } from 'assert';
 import fs from 'fs';
 import path from 'path';
 
 import { before, describe, it } from 'mocha';
 import { FirstNormalizedURL, SecondNormalizedURL } from '../url-normalizer.js';
 
-const assert = (_assert /*: any */).strict;
+// $FlowIgnore
+const dirname = path.dirname(new URL(import.meta.url).pathname);
 
 describe('normalizer', () => {
-  const dir = path.join(__dirname, '../../testdata');
+  const dir = path.join(dirname, '../../testdata');
   const ignores = process.argv
     .filter((a) => a.startsWith('--ignore='))
     .map((a) => a.substring(9).split(','))

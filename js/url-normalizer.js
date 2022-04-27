@@ -6,7 +6,7 @@ import {
   SPHostData,
   N1URLPathDepthData,
   N2URLPathDepthData,
-  IgnoreQueryData
+  IgnoreQueryData,
 } from './assets';
 import { createAppURL, getActualPage } from './util';
 import { parseURL, URLToString } from './url';
@@ -148,7 +148,7 @@ function convertToN2URL(
     port: url.port,
     pathname: path || '',
     query: query || {},
-    hash: ''
+    hash: '',
   };
 }
 

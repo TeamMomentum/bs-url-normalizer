@@ -4,8 +4,8 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 export default {
   output: {
     format: 'umd',
-    name: 'urlnorm'
+    name: 'urlnorm',
   },
 
-  plugins: [nodeResolve(), commonjs()]
+  plugins: [nodeResolve(), commonjs()],
 };

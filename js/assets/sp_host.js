@@ -20,5 +20,5 @@ export const SPHostData = {
   'm.diodeo.jp': 'www.diodeo.jp',
   'm.pideo.net': 'www.pideo.net',
   'm.cinematoday.jp': 'www.cinematoday.jp',
-  'm.sponichi.co.jp': 'www.sponichi.co.jp'
+  'm.sponichi.co.jp': 'www.sponichi.co.jp',
 };

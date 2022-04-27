@@ -21,7 +21,7 @@ export function createAppURL(
     port: '',
     pathname: pathname,
     query: query,
-    hash: ''
+    hash: '',
   };
 }
 
@@ -80,7 +80,7 @@ export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
       port: '',
       pathname: '',
       query: {},
-      hash: ''
+      hash: '',
     };
   }
 

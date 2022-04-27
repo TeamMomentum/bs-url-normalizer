@@ -32,7 +32,7 @@ export function parseURL(url /*: string */) /*: URLInterface */ {
     port: a.port,
     pathname: encodeURI(path),
     query: parseQuery(a.query),
-    hash: encodeURI(hash)
+    hash: encodeURI(hash),
   };
 }
 

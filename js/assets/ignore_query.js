@@ -20,49 +20,49 @@ export var IgnoreQueryData /*: IgnoreQuery */ = {
       'cb',
       'fbclid',
       'mr',
-      '_gl'
+      '_gl',
     ],
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'amigo.gesoten.com': {
     keys: 'ALL',
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'gaingame.gesoten.com': {
     keys: 'ALL',
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'uranai.nosv.org': {
     keys: 'ALL',
-    paths: ['/favorite.php']
+    paths: ['/favorite.php'],
   },
 
   'live.nicovideo.jp': {
     keys: 'ALL',
-    paths: ['/watch']
+    paths: ['/watch'],
   },
 
   'enjoy.point.auone.jp': {
     keys: 'ALL',
-    paths: ['/gacha', '/reward', '/enquete']
+    paths: ['/gacha', '/reward', '/enquete'],
   },
 
   'd.pixiv.org': {
     keys: ['num'],
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'enq.nstk-4.com': {
     keys: ['time'],
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'tabelog.com': {
     keys: 'ALL',
-    paths: 'ALL'
+    paths: 'ALL',
   },
 
   'www.pixiv.net': {
@@ -72,22 +72,22 @@ export var IgnoreQueryData /*: IgnoreQuery */ = {
       '/bookmark',
       '/recommend.php',
       '/novel/recommend.php',
-      '/novel/member.php'
-    ]
+      '/novel/member.php',
+    ],
   },
 
   'www.nicovideo.jp': {
     keys: 'ALL',
-    paths: ['/watch/sm']
+    paths: ['/watch/sm'],
   },
 
   'itest.5ch.net': {
     keys: ['url'],
-    paths: ['/jump/to']
+    paths: ['/jump/to'],
   },
 
   'itest.bbspink.com': {
     keys: ['url'],
-    paths: ['/jump/to']
-  }
+    paths: ['/jump/to'],
+  },
 };

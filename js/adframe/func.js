@@ -11,7 +11,7 @@ type Result = {
 */
 
 export var adFrameFunc = {
-  'd.socdm.com': function(query /*: Query */) /*: ?Result */ {
+  'd.socdm.com': function (query /*: Query */) /*: ?Result */ {
     var tp = query['sdktype'];
     if (typeof tp === 'undefined' || typeof tp[0] === 'undefined') {
       return null;
@@ -25,7 +25,7 @@ export var adFrameFunc = {
         }
         return {
           type: 'web',
-          value: v0[0]
+          value: v0[0],
         };
       case '1':
         var v1 = query['appbundle'];
@@ -34,7 +34,7 @@ export var adFrameFunc = {
         }
         return {
           type: 'android',
-          value: v1[0]
+          value: v1[0],
         };
       case '2':
         var v2 = query['appbundle'];
@@ -43,10 +43,10 @@ export var adFrameFunc = {
         }
         return {
           type: 'ios',
-          value: v2[0]
+          value: v2[0],
         };
     }
 
     return null;
-  }
+  },
 };

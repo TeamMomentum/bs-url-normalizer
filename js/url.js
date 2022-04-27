@@ -35,7 +35,7 @@ export function DefaultURLParser(s /*: string */) /*: URLInterface */ {
     port: a.port,
     pathname: a.pathname,
     query: parseQuery(a.search),
-    hash: a.hash
+    hash: a.hash,
   };
 }
 

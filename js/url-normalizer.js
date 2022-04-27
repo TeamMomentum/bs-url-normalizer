@@ -6,11 +6,11 @@ import {
   SPHostData,
   N1URLPathDepthData,
   N2URLPathDepthData,
-  IgnoreQueryData
-} from './assets';
-import { createAppURL, getActualPage } from './util';
-import { parseURL, URLToString } from './url';
-import { convertUrl } from './convert';
+  IgnoreQueryData,
+} from './assets/index.js';
+import { createAppURL, getActualPage } from './util.js';
+import { parseURL, URLToString } from './url.js';
+import { convertUrl } from './convert.js';
 
 // eslint-disable-next-line max-statements
 export function FirstNormalizedURL(urlStr /*: string */) /*: string */ {
@@ -90,7 +90,7 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
 
   if (url.hostname === 'play.google.com') {
     var query = url.query;
-    var v = query['id'];
+    var v = query.id;
     if (v && v[0]) {
       return createAppURL('android', v[0]);
     }
@@ -109,7 +109,7 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
 }
 
 function deleteIgnoreQuery(url /*: URLInterface */) {
-  var keys = IgnoreQueryData['ALL'].keys;
+  var keys = IgnoreQueryData.ALL.keys;
   var ignore = IgnoreQueryData[url.hostname];
   if (ignore) {
     var paths = ignore.paths;
@@ -121,6 +121,7 @@ function deleteIgnoreQuery(url /*: URLInterface */) {
       if (ignore.keys === 'ALL') {
         keys = 'ALL';
       } else {
+        // $FlowIgnore
         keys = keys.concat(ignore.keys);
       }
     }
@@ -148,7 +149,7 @@ function convertToN2URL(
     port: url.port,
     pathname: path || '',
     query: query || {},
-    hash: ''
+    hash: '',
   };
 }
 

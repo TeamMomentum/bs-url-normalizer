@@ -2,6 +2,7 @@
 .flowconfig
 .gitignore
 .prettierignore
+.eslintignore
 
 Makefile
 bigquery-udf.mk

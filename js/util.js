@@ -1,7 +1,7 @@
 // @flow
 /*:: import type { URLInterface } from './url' */
-import { parseURL } from './url';
-import { adFrameFunc, adFrameParams } from './adframe';
+import { parseURL } from './url.js';
+import { adFrameFunc, adFrameParams } from './adframe/index.js';
 
 export function createAppURL(
   type /*: 'android' | 'ios' */,
@@ -12,7 +12,7 @@ export function createAppURL(
   var pathname = prefix + bundle;
   var query = {};
   if (contentUrl) {
-    query['content_url'] = [encodeURIComponent(contentUrl)];
+    query.content_url = [encodeURIComponent(contentUrl)];
   }
 
   return {
@@ -21,7 +21,7 @@ export function createAppURL(
     port: '',
     pathname: pathname,
     query: query,
-    hash: ''
+    hash: '',
   };
 }
 
@@ -80,7 +80,7 @@ export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
       port: '',
       pathname: '',
       query: {},
-      hash: ''
+      hash: '',
     };
   }
 

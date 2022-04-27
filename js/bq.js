@@ -1,9 +1,11 @@
 // @flow
 /*:: import type { URLInterface } from './url' */
 
+// $FlowIgnore
 import _URL from 'url-parse';
-import { toASCII } from './node_modules/punycode';
-import { setURLParser, parseQuery } from './url';
+// $FlowIgnore
+import { toASCII } from 'tr46';
+import { setURLParser, parseQuery } from './url.js';
 
 export function parseURL(url /*: string */) /*: URLInterface */ {
   var a = new _URL(url);
@@ -33,7 +35,7 @@ export function parseURL(url /*: string */) /*: URLInterface */ {
     port: a.port,
     pathname: encodeURI(path),
     query: parseQuery(a.query),
-    hash: encodeURI(hash)
+    hash: encodeURI(hash),
   };
 }
 

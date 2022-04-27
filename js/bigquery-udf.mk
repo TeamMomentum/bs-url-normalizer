@@ -34,8 +34,8 @@ deploy: build/$(FILENAME)
 	$(BQ_QUERY) "$$(echo $$SecondNormalizedURL)"
 
 build/$(FILENAME): *.js test/*.js
-	npx mocha -r ./bq.js test
-	npx rollup -c --input bq.js --output build/$(FILENAME)
+	npm run test:bq
+	npm run build:bq
 
 bq_test: bq_test_n1url bq_test_n2url
 bq_test_n1url:

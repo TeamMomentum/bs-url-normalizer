@@ -1,18 +1,17 @@
-let fs = require('fs');
-let csv = require('csv');
-let path = require('path');
-let columns = ['host', 'depth', 'query'];
+const fs = require('fs');
+const csv = require('csv');
+const path = require('path');
+const columns = ['host', 'depth', 'query'];
 
-let parser = csv.parse({ columns });
-let csvfile = path.join(__dirname, '/../../resources/norm_host_path.csv');
-let rs = fs.createReadStream(csvfile, { encoding: 'utf-8' });
+const parser = csv.parse({ columns });
+const csvfile = path.join(__dirname, '/../../resources/norm_host_path.csv');
+const rs = fs.createReadStream(csvfile, { encoding: 'utf-8' });
 
 console.log('export const pathDepthData = {');
 parser.on('readable', () => {
   let data;
   while ((data = parser.read())) {
-    // eslint-disable-line no-cond-assign
-    let query = data.query;
+    const query = data.query;
     if (query === undefined) {
       continue;
     }
@@ -23,7 +22,7 @@ parser.on('readable', () => {
     }
 
     console.log(`    "depth": ${data.depth}`);
-    console.log(`  },`);
+    console.log('  },');
   }
 });
 

@@ -1,6 +1,47 @@
 // @flow
 // refer ../../lib/urls/optimize.go
-export var adFrameParams = {
+/*::
+type AdFrameParam =
+  | {|
+      url: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+      ref: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+    |}
+  | {|
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+      content_url: string,
+    |}
+  | {|
+      domain: string,
+      url: string,
+      ref: string,
+      android: string,
+      ios: string,
+      content_url: string,
+    |};
+*/
+
+export var adFrameParams /*: { [string]: AdFrameParam } */ = {
   // for verification
   'm0mentum-tags.s3.amazonaws.com': {
     domain: 'domain',
@@ -8,12 +49,12 @@ export var adFrameParams = {
     ref: 'ref',
     android: 'an',
     ios: 'ios',
-    content_url: 'content_url'
+    content_url: 'content_url',
   },
 
   'adm.shinobi.jp': {
     url: 'url',
-    ref: 'referrer'
+    ref: 'referrer',
   },
 
   'googleads.g.doubleclick.net': {
@@ -21,7 +62,7 @@ export var adFrameParams = {
     ref: 'ref',
     android: 'msid',
     ios: '_package_name',
-    content_url: 'content_url'
+    content_url: 'content_url',
   },
 
   'pubads.g.doubleclick.net': {
@@ -29,7 +70,7 @@ export var adFrameParams = {
     ref: 'ref',
     android: 'msid',
     ios: '_package_name',
-    content_url: 'content_url'
+    content_url: 'content_url',
   },
 
   'securepubads.g.doubleclick.net': {
@@ -37,68 +78,68 @@ export var adFrameParams = {
     ref: 'ref',
     android: 'msid',
     ios: '_package_name',
-    content_url: 'content_url'
+    content_url: 'content_url',
   },
 
   'd.socdm.com': {
     url: 'tp',
     ref: 'ref',
     android: 'appbundle',
-    ios: 'appbundle'
+    ios: 'appbundle',
   },
 
   'jbbs.shitaraba.net': {
-    url: 'url'
+    url: 'url',
   },
 
   'a.t.webtracker.jp': {
-    url: 'url'
+    url: 'url',
   },
 
   'ssl.webtracker.jp': {
-    url: 'url'
+    url: 'url',
   },
 
   'megalodon.jp': {
-    url: 'url'
+    url: 'url',
   },
 
   'adw.addlv.smt.docomo.ne.jp': {
     url: '_url',
-    ref: '_ref'
+    ref: '_ref',
   },
 
   's.yimg.jp': {
     url: 'u',
-    ref: 'ref'
+    ref: 'ref',
   },
 
   'i.yimg.jp': {
     url: 'u',
-    ref: 'ref'
+    ref: 'ref',
   },
 
   'showads.pubmatic.com': {
     url: 'pageURL',
-    ref: 'refurl'
+    ref: 'refurl',
   },
 
   'optimized-by.rubiconproject.com': {
-    url: 'rf'
+    url: 'rf',
   },
 
   'ad.deqwas-dsp.net': {
     url: 'url',
     ref: 'ref',
-    domain: 'domain'
+    domain: 'domain',
   },
 
   'krad20.deqwas.net': {
     url: 'u',
-    domain: 'domain'
+    domain: 'domain',
   },
 
   'bidresult-dsp.ad-m.asia': {
-    url: 'rf'
-  }
+    url: 'rf',
+  },
 };

@@ -1,8 +1,9 @@
 // @flow
 import _assert from 'assert';
 
+// $FlowIgnore
 import { describe, it } from 'mocha';
-import { parseURL } from '../url';
+import { parseURL } from '../url.js';
 
 const assert = (_assert /*: any */).strict;
 
@@ -24,11 +25,10 @@ describe('url.parseURL', () => {
       q: ['query'],
       クエリ: ['日本語', '日本'],
       url: [
-        'http://日本語.com:8080/path/日本語/%E6%97%A5%E6%9C%AC?&empty&empty2=&q=query&クエリ=日本語&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC'
-      ]
+        'http://日本語.com:8080/path/日本語/%E6%97%A5%E6%9C%AC?&empty&empty2=&q=query&クエリ=日本語&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC',
+      ],
     },
-    hash:
-      '#&empty&empty2=&q=query&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC%E8%AA%9E&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC'
+    hash: '#&empty&empty2=&q=query&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC%E8%AA%9E&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC',
   };
   const got = (parseURL(src) /*: any */);
 

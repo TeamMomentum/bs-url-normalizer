@@ -13,14 +13,14 @@ type Result = {
 
 export var adFrameFunc /*: { [string]: (Query) => ?Result } */ = {
   'd.socdm.com': function (query) {
-    var tp = query['sdktype'];
+    var tp = query.sdktype;
     if (typeof tp === 'undefined' || typeof tp[0] === 'undefined') {
       return null;
     }
 
     switch (tp[0]) {
       case '0':
-        var v0 = query['url'];
+        var v0 = query.url;
         if (!v0 || !v0[0]) {
           return null;
         }
@@ -29,7 +29,7 @@ export var adFrameFunc /*: { [string]: (Query) => ?Result } */ = {
           value: v0[0],
         };
       case '1':
-        var v1 = query['appbundle'];
+        var v1 = query.appbundle;
         if (!v1 || !v1[0]) {
           return null;
         }
@@ -38,7 +38,7 @@ export var adFrameFunc /*: { [string]: (Query) => ?Result } */ = {
           value: v1[0],
         };
       case '2':
-        var v2 = query['appbundle'];
+        var v2 = query.appbundle;
         if (!v2 || !v2[0]) {
           return null;
         }

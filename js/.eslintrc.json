@@ -14,8 +14,11 @@
     "max-nested-callbacks": "error",
     "max-statements": ["error", 25],
 
+    "comma-dangle": "off",
+    "indent": "off",
+    "no-var": "off",
+    "object-shorthand": "off",
     "semi": "off",
-    "space-before-function-paren": "off",
-    "indent": "off"
+    "space-before-function-paren": "off"
   }
 }

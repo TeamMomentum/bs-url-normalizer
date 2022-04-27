@@ -12,7 +12,7 @@ export function createAppURL(
   var pathname = prefix + bundle;
   var query = {};
   if (contentUrl) {
-    query['content_url'] = [encodeURIComponent(contentUrl)];
+    query.content_url = [encodeURIComponent(contentUrl)];
   }
 
   return {

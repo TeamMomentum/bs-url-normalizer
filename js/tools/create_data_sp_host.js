@@ -1,11 +1,11 @@
-let fs = require('fs');
-let csv = require('csv');
-let path = require('path');
-let columns = ['key', 'value'];
+const fs = require('fs');
+const csv = require('csv');
+const path = require('path');
+const columns = ['key', 'value'];
 
-let parser = csv.parse({ columns });
-let csvfile = path.join(__dirname, '/../../resources/norm_host_sp.csv');
-let rs = fs.createReadStream(csvfile, { encoding: 'utf-8' });
+const parser = csv.parse({ columns });
+const csvfile = path.join(__dirname, '/../../resources/norm_host_sp.csv');
+const rs = fs.createReadStream(csvfile, { encoding: 'utf-8' });
 
 console.log('export const spHostData = {');
 parser.on('readable', () => {

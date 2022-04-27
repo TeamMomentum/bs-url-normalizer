@@ -90,7 +90,7 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
 
   if (url.hostname === 'play.google.com') {
     var query = url.query;
-    var v = query['id'];
+    var v = query.id;
     if (v && v[0]) {
       return createAppURL('android', v[0]);
     }
@@ -109,7 +109,7 @@ function createURL(urlStr /*: string */) /*: URLInterface */ {
 }
 
 function deleteIgnoreQuery(url /*: URLInterface */) {
-  var keys = IgnoreQueryData['ALL'].keys;
+  var keys = IgnoreQueryData.ALL.keys;
   var ignore = IgnoreQueryData[url.hostname];
   if (ignore) {
     var paths = ignore.paths;

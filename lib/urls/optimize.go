@@ -274,3 +274,73 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 
 	return parsed, nil // non-http scheme URL (e.g. ftp://example.com/bar, data:,Hello%2C%20World!, etc)
 }
+
+// optimizeAMPCacheURL gets original URL from AMP Cache URL
+//
+// AMP Cache URL Format:
+// https://amp.dev/documentation/guides-and-tutorials/learn/amp-caches-and-cors/amp-cache-urls/
+func optimizeAMPCacheURL(u *url.URL) *url.URL {
+	rawPath := u.Path
+
+	hostPos := -1
+	scheme := "http"
+	host := ""
+	path := ""
+
+LOOP:
+	// skip first "/"
+	for pos := 1; pos < len(rawPath); {
+		next := strings.Index(rawPath[pos:], "/") + pos
+		if next < pos {
+			// it looks final part of path
+			hostPos = pos
+			break LOOP
+		}
+
+		part := rawPath[pos:next]
+
+		switch part {
+		case "c": // Content
+		case "v": // Viewer
+		case "wp": // Web Package
+			// nothing to do
+
+		case "cert": // Certificate
+		case "i": // Image
+		case "ii": // Image
+			// As I think, we will never receive above ones
+
+		case "":
+			// empty
+		case "s":
+			// Original URL is HTTPS
+			scheme = "https"
+		default:
+			// not AMP prefix directory, beginning of original URL
+			hostPos = pos
+			break LOOP
+		}
+
+		pos = next + 1 // skip "/" char
+	}
+
+	if hostPos < 0 {
+		// host part not found in path
+		return u
+	}
+
+	pathPos := strings.Index(rawPath[hostPos:], "/") + hostPos
+	if pathPos > hostPos {
+		host = rawPath[hostPos:pathPos]
+		path = rawPath[pathPos:]
+	} else {
+		host = rawPath[hostPos:]
+	}
+
+	realURL := cloneURL(u)
+	realURL.Scheme = scheme
+	realURL.Host = host
+	realURL.Path = path
+
+	return realURL
+}

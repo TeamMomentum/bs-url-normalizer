@@ -196,7 +196,7 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
     }
   }
 
-  var q = {};
+  var q /*: { [key: string]: any } */ = {};
   var keys = pathDepth.query;
   if (keys && keys.length > 0) {
     for (var k in url.query) {

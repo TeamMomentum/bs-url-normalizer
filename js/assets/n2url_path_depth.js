@@ -1,63 +1,5 @@
 // @flow
-/*::
-export type PathDepth = {
-  depth: number,
-  paths?: Array<string> | 'ALL',
-  query?: Array<string>,
-  replace?: {
-    pattern: string,
-    with: string
-  }
-}
-*/
-export var N1URLPathDepthData /*: { [string]: PathDepth } */ = {
-  'amigo.gesoten.com': {
-    depth: 0,
-  },
-
-  'gaingame.gesoten.com': {
-    depth: 0,
-  },
-
-  'uranai.nosv.org': {
-    depth: 1,
-    paths: ['/favorite.php'],
-  },
-
-  'enjoy.point.auone.jp': {
-    depth: 1,
-    paths: ['/gacha', '/reward', '/enquete'],
-  },
-
-  's.maho.jp': {
-    depth: 3,
-    paths: ['/book'],
-  },
-
-  'ncode.syosetu.com': {
-    depth: 2,
-    paths: 'ALL',
-  },
-
-  'syosetu.org': {
-    depth: 3,
-    paths: ['/novel'],
-  },
-
-  'novel.syosetu.org': {
-    depth: 2,
-    paths: 'ALL',
-  },
-
-  'dokuha.jp': {
-    depth: 4,
-    paths: ['/comicweb'],
-    replace: {
-      pattern: '/comicweb/viewer',
-      with: '/comicweb/contents',
-    },
-  },
-};
+/*:: import type { PathDepth } from './path_depth.js.flow'; */
 
 export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {
   'am-our.com': {
@@ -135,6 +77,15 @@ export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {
   'nanos.jp': {
     depth: 1,
   },
+  'ncode.syosetu.com': {
+    depth: 1,
+  },
+  'novel.syosetu.org': {
+    depth: 1,
+  },
+  'novel18.syosetu.com': {
+    depth: 1,
+  },
   'plaza.rakuten.co.jp': {
     depth: 1,
   },
@@ -158,11 +109,14 @@ export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {
   'spora.jp': {
     depth: 1,
   },
-  'woman.excite.co.jp': {
+  'syosetu.org': {
     depth: 2,
   },
   'w.atwiki.jp': {
     depth: 1,
+  },
+  'woman.excite.co.jp': {
+    depth: 2,
   },
   'www.atwiki.jp': {
     depth: 1,
@@ -260,20 +214,5 @@ export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {
   },
   'www.geocities.jp': {
     depth: 1,
-  },
-
-  'ncode.syosetu.com': {
-    depth: 1,
-    paths: 'ALL',
-  },
-
-  'syosetu.org': {
-    depth: 2,
-    paths: ['/novel'],
-  },
-
-  'novel.syosetu.org': {
-    depth: 1,
-    paths: 'ALL',
   },
 };

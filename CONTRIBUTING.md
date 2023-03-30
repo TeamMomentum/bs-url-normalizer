@@ -4,7 +4,6 @@
 
 - [GNU Make](https://www.gnu.org/software/make/)
 - [Go](https://golang.org)
-- [statick](https://github.com/rakyll/statik): To embed asset files into Go codes
 
 ### Building Shared Library
 

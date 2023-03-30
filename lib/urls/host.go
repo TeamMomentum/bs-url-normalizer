@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/TeamMomentum/bs-url-normalizer/lib/assets"
+	"github.com/TeamMomentum/bs-url-normalizer/resources"
 	"golang.org/x/net/http/httpguts"
 )
 
@@ -193,8 +193,8 @@ var spHostData, pathDepthData string
 func init() {
 	var err error
 
-	spHostData = string(assets.MustAsset("norm_host_sp.csv"))
-	pathDepthData = string(assets.MustAsset("norm_host_path.csv"))
+	spHostData = string(resources.MustAsset("norm_host_sp.csv"))
+	pathDepthData = string(resources.MustAsset("norm_host_path.csv"))
 	spPCHostMap = makeStringStringMap(strings.Split(spHostData, "\n"), ",")
 	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
 

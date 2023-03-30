@@ -4,7 +4,6 @@ go 1.20
 
 require (
 	github.com/go-playground/validator/v10 v10.11.2
-	github.com/rakyll/statik v0.1.7
 	golang.org/x/net v0.7.0
 )
 

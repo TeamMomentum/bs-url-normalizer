@@ -26,12 +26,9 @@ type Normalizer struct {
 var ErrInvalidScheme = fmt.Errorf("invalid scheme")
 
 // NewNormalizer generate a new Normalizer structure when the input URL is supported.
-func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
+func NewNormalizer(ul *url.URL) (*Normalizer, error) {
 	if !isValidScheme(ul) {
-		n = nil
-		err = fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
-
-		return
+		return nil, fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
 	}
 
 	url1 := ""
@@ -44,14 +41,12 @@ func NewNormalizer(ul *url.URL) (n *Normalizer, err error) {
 		url3 = url1
 	}
 
-	n = &Normalizer{
+	return &Normalizer{
 		url:   ul,
 		n1URL: url1,
 		n2URL: url2,
 		cURL:  url3,
-	}
-
-	return
+	}, nil
 }
 
 // CrawlingURL returns the preferred URL for crawling.

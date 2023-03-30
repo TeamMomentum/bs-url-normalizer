@@ -130,7 +130,7 @@ func optimizeDokuhaURL(ul *url.URL) *url.URL {
 }
 
 /*
-	live.nicovideo.jp用正規化関数
+live.nicovideo.jp用正規化関数.
 */
 func optimizeLiveNicovideoURL(ul *url.URL) *url.URL {
 	if strings.HasPrefix(ul.Path, "/watch/") {
@@ -184,7 +184,7 @@ func optimizeSocdmURL(ul *url.URL) *url.URL {
 }
 
 /*
-	g.doubleclick.net用正規化関数
+g.doubleclick.net用正規化関数.
 */
 func optimizeDoubleClickURL(ul *url.URL) *url.URL {
 	if raw, ok := ul.Query()["msid"]; ok {
@@ -238,7 +238,7 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 	return xul
 }
 
-//nolint: cyclop
+//nolint:cyclop
 func parsePotentialURL(rawurl string) (*url.URL, error) {
 	if rawurl == "" {
 		return nil, errEmptyURLString

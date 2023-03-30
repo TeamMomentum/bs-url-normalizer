@@ -39,7 +39,7 @@ func TestNormalization(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for _, fn := range files { //nolint: paralleltest
+	for _, fn := range files {
 		fn := fn
 
 		t.Run(fn, func(t *testing.T) {

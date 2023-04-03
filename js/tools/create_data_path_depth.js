@@ -1,13 +1,22 @@
-const fs = require('fs');
-const csv = require('csv');
-const path = require('path');
+import fs from 'fs';
+import * as csv from 'csv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 const columns = ['host', 'depth', 'query'];
 
 const parser = csv.parse({ columns });
-const csvfile = path.join(__dirname, '/../../resources/norm_host_path.csv');
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const csvfile = path.join(dirname, '/../../resources/norm_host_path.csv');
 const rs = fs.createReadStream(csvfile, { encoding: 'utf-8' });
 
-console.log('export const pathDepthData = {');
+console.log(
+  `
+// @flow
+/*:: import type { PathDepth } from './path_depth.js.flow'; */
+`.substr(1)
+);
+
+console.log('export var N2URLPathDepthData /*: { [string]: PathDepth } */ = {');
 parser.on('readable', () => {
   let data;
   while ((data = parser.read())) {
@@ -15,19 +24,19 @@ parser.on('readable', () => {
     if (query === undefined) {
       continue;
     }
-    console.log(`  "${data.host}": {`);
+    console.log(`  '${data.host}': {`);
 
     if (query.length > 0) {
-      console.log(`    "query": ["${data.query}"],`);
+      console.log(`    query: ['${query}'],`);
     }
 
-    console.log(`    "depth": ${data.depth}`);
+    console.log(`    depth: ${data.depth},`);
     console.log('  },');
   }
 });
 
 parser.on('end', () => {
-  console.log('}');
+  console.log('};');
 });
 
 rs.pipe(parser);

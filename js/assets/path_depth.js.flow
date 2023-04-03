@@ -1,0 +1,10 @@
+// @flow
+export type PathDepth = {
+  depth: number,
+  paths?: Array<string> | 'ALL',
+  query?: Array<string>,
+  replace?: {
+    pattern: string,
+    with: string,
+  },
+};

@@ -1,4 +1,14 @@
 // @flow
+/*::
+type Test = {
+  in: string;
+  n1url?: string;
+  n2url?: string;
+  r1url?: string;
+  r2url?: string;
+};
+*/
+
 import { strict as assert } from 'assert';
 import fs from 'fs';
 import path from 'path';
@@ -23,7 +33,7 @@ describe('normalizer', () => {
   it('has some file', () => assert.ok(files.length > 0));
   files.forEach((f) =>
     describe(f, () => {
-      let tests = [];
+      let tests /*: Array<Test> */ = [];
       before(() => {
         const data = fs.readFileSync(path.join(dir, f), { encoding: 'utf-8' });
         tests = JSON.parse(data).tests;
@@ -35,7 +45,7 @@ describe('normalizer', () => {
   );
 });
 
-function testNorm(tests) {
+function testNorm(tests /*: Array<Test> */) {
   tests.forEach((t) =>
     describe(t.in, () => {
       it('needs a input', () => assert(t.in));

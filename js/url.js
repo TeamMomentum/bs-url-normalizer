@@ -104,7 +104,7 @@ function orderedQueryString(query /*: Query */) /*: string */ {
 }
 
 export function parseQuery(queryString /*: string */) /*: Query */ {
-  var query = {};
+  var query /*: { [key: string]: any } */ = {};
   if (typeof queryString !== 'string' || queryString.length === 0) {
     return query;
   }

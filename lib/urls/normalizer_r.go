@@ -21,12 +21,9 @@ type NormalizerR struct {
 
 // NewNormalizerR generate a new NormalizerR structure when the input URL is supported.
 // Unlike `NewNormalizer`, argument `ul` will not be destroyed.
-func NewNormalizerR(ul *url.URL) (n *NormalizerR, err error) {
+func NewNormalizerR(ul *url.URL) (*NormalizerR, error) {
 	if !isValidScheme(ul) {
-		n = nil
-		err = fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
-
-		return
+		return nil, fmt.Errorf("%w: %v", ErrInvalidScheme, ul.Scheme)
 	}
 
 	url1 := ""
@@ -42,14 +39,12 @@ func NewNormalizerR(ul *url.URL) (n *NormalizerR, err error) {
 	// allocate and copy
 	newUl := *ul
 
-	n = &NormalizerR{
+	return &NormalizerR{
 		url:   &newUl,
 		n1URL: url1,
 		n2URL: url2,
 		cURL:  url3,
-	}
-
-	return
+	}, nil
 }
 
 // CrawlingURL returns the preferred URL for crawling.

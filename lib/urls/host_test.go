@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-//nolint: funlen
+//nolint:funlen
 func Test_normalizePath(t *testing.T) {
 	t.Parallel()
 

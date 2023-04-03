@@ -12,7 +12,8 @@ import (
 )
 
 // See also: https://golang.org/src/net/url/url_test.go
-// nolint:funlen, exhaustivestruct
+//
+//nolint:funlen, exhaustivestruct
 func Test_parsePotentialURL(t *testing.T) {
 	t.Parallel()
 

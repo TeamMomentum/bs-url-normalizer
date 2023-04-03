@@ -10,7 +10,7 @@ export function createAppURL(
 ) /*: URLInterface */ {
   var prefix = type === 'android' ? ':2-' : ':1-';
   var pathname = prefix + bundle;
-  var query = {};
+  var query /*: { [key: string]: any } */ = {};
   if (contentUrl) {
     query.content_url = [encodeURIComponent(contentUrl)];
   }

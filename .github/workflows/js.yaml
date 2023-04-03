@@ -1,0 +1,17 @@
+name: JavaScript
+on:
+  pull_request:
+    paths:
+      - 'js/**'
+      - 'resources/**'
+      - 'testdata/**'
+defaults:
+  run:
+    working-directory: js
+jobs:
+  lint_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make lint
+      - run: make test

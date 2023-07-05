@@ -12,15 +12,29 @@ type IgnoreValue = 'ALL' | Array<string>
 export var IgnoreQueryData /*: IgnoreQuery */ = {
   ALL: {
     keys: [
-      'fb_action_types',
-      'fb_source',
-      'action_object_map',
-      'action_type_map',
-      'action_ref_map',
       'cb',
+      // Facebook
       'fbclid',
-      'mr',
+      // Google
       '_gl',
+      'gclid',
+      // 'utm_xxxx', // parameters with 'utm_' prefix are removed without using this array
+      'dclid',
+      'wbraid',
+      'gbraid',
+      // HubSpot
+      '_hsenc',
+      '_hsmi',
+      // Marketo
+      'mkt_tok',
+      // Microsoft
+      'cvid',
+      'ocid',
+      'msclkid',
+      // Twitter
+      'twclid',
+      // Yahoo! JAPAN
+      'yclid',
     ],
     paths: 'ALL',
   },

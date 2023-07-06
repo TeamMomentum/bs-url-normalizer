@@ -55,15 +55,29 @@ func makeStringBoolMap(lines []string) map[string]bool {
 
 func init() {
 	disusedParametersMap = makeStringBoolMap([]string{
-		"fb_action_ids",
-		"fb_action_types",
-		"fb_source",
-		"action_object_map",
-		"action_type_map",
-		"action_ref_map",
 		"cb",
+		// Facebook
 		"fbclid",
+		// Google
 		"_gl", // https://github.com/TeamMomentum/bs-url-normalizer/issues/71
+		"gclid",
+		// "utm_xxxx", // parameters with "utm_" prefix are removed without using this map
+		"dclid",
+		"wbraid",
+		"gbraid",
+		// HubSpot
+		"_hsenc",
+		"_hsmi",
+		// Marketo
+		"mkt_tok",
+		// Microsoft
+		"cvid",
+		"ocid",
+		"msclkid",
+		// Twitter
+		"twclid",
+		// Yahoo! JAPAN
+		"yclid",
 	})
 
 	disusedHostParameterMap = map[string]string{

@@ -8,11 +8,13 @@ package urls
 import (
 	"net/url"
 	"strings"
+
+	"golang.org/x/exp/slices"
 )
 
 var (
 	disusedParametersMap    map[string]bool
-	disusedHostParameterMap map[string]string
+	disusedHostParameterMap map[string][]string
 	noQueryHostPathsMap     map[string][]string
 )
 
@@ -29,12 +31,12 @@ func removeQueryParameters(ul *url.URL) {
 	}
 
 	query := ul.Query()
-	hostKey, isDisusedHost := disusedHostParameterMap[ul.Host]
+	hostKeys, isDisusedHost := disusedHostParameterMap[ul.Host]
 
 	for key := range ul.Query() {
 		if strings.HasPrefix(key, "utm_") {
 			query.Del(key)
-		} else if isDisusedHost && key == hostKey {
+		} else if isDisusedHost && slices.Contains(hostKeys, key) {
 			query.Del(key)
 		} else if _, ok := disusedParametersMap[key]; ok {
 			query.Del(key)
@@ -80,9 +82,10 @@ func init() {
 		"yclid",
 	})
 
-	disusedHostParameterMap = map[string]string{
-		"d.pixiv.org":    "num",
-		"enq.nstk-4.com": "time",
+	disusedHostParameterMap = map[string][]string{
+		"d.pixiv.org":    {"num"},
+		"enq.nstk-4.com": {"time"},
+		"www.msn.com":    {"ei", "pc"},
 	}
 
 	noQueryHostPathsMap = map[string][]string{

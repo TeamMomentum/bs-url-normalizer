@@ -10,8 +10,12 @@
       "n1url": "http://d.pixiv.org/show/?ab_test_digits_first=8&ab_test_digits_second=6&format=js&kw=3162bcf9da3e097&kw=403d9da10783284&l=ja&ng=w&ngt=w&os=and&pla_referer_page_name=pixiv_novel&s=0&segments=android&up=0&zone_id=t_header"
     },
     {
-      "in": "http://test.com/a?num=1",
-      "n1url": "http://test.com/a/?num=1"
+      "in": "https://www.msn.com/ja-jp/news/opinion/%E3%83%86%E3%82%B9%E3%83%88?ocid=msedgdhp&pc=U531&cvid=c0cf8143acc34e4fb8d693046e6d2d33&ei=42",
+      "n1url": "http://www.msn.com/ja-jp/news/opinion/%E3%83%86%E3%82%B9%E3%83%88/"
+    },
+    {
+      "in": "http://test.com/a?ei=2&num=1&pc=3",
+      "n1url": "http://test.com/a/?ei=2&num=1&pc=3"
     },
     {
       "in": "http://www.nicovideo.jp/search/Trinity%20Field%20MASTER?f_range=0&l_range=0&opt_md=&start=&end=",

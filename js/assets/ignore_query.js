@@ -74,6 +74,11 @@ export var IgnoreQueryData /*: IgnoreQuery */ = {
     paths: 'ALL',
   },
 
+  'www.msn.com': {
+    keys: ['ei', 'pc'],
+    paths: 'ALL',
+  },
+
   'tabelog.com': {
     keys: 'ALL',
     paths: 'ALL',

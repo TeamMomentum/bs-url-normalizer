@@ -253,12 +253,10 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 		return nil, errDigitsURLString
 	}
 
-	returnURLSchema := "http://"
-
 	parsed, parseErr := url.Parse(rawurl)
 	if parseErr != nil { // assumed case: `hello.世界.com:8080/page.html` (multibyte hostname with port number)
 		if host, tail, err := net.SplitHostPort(rawurl); err == nil && host != "" && tail != "" {
-			return url.Parse(returnURLSchema + rawurl) //nolint: wrapcheck // retry with http scheme
+			return url.Parse("http://" + rawurl) //nolint: wrapcheck // retry with http scheme
 		}
 
 		return nil, fmt.Errorf("url.Parse: %w", parseErr)
@@ -272,13 +270,13 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	}
 
 	if scheme == "" { // missing any scheme in rawurl
-		return url.Parse(returnURLSchema + rawurl) //nolint: wrapcheck // re-parse with `http://` scheme prefix
+		return url.Parse("http://" + rawurl) //nolint: wrapcheck // re-parse with `http://` scheme prefix
 	}
 
 	if parsed.Host == "" { // case: scheme exists but missing authority part
 		// Check if hostname was considered as the URL scheme
 		// See also: https://github.com/golang/go/issues/12585
-		if alt, err := url.Parse(returnURLSchema + rawurl); err == nil && parsed.Scheme == alt.Hostname() && alt.Port() != "" {
+		if alt, err := url.Parse("http://" + rawurl); err == nil && parsed.Scheme == alt.Hostname() && alt.Port() != "" {
 			return alt, nil
 		}
 	}

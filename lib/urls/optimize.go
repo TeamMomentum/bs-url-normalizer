@@ -19,6 +19,9 @@ import (
 
 const (
 	itest5chDomain = "itest"
+
+	mobileapp1 = "mobileapp::1-"
+	mobileapp2 = "mobileapp::2-"
 )
 
 var (
@@ -163,11 +166,11 @@ func optimizeSocdmURL(ul *url.URL) *url.URL {
 		}
 	case "1":
 		if raw, ok := ul.Query()["appbundle"]; ok {
-			src = "mobileapp::2-" + raw[0]
+			src = mobileapp2 + raw[0]
 		}
 	case "2":
 		if raw, ok := ul.Query()["appbundle"]; ok {
-			src = "mobileapp::1-" + raw[0]
+			src = mobileapp1 + raw[0]
 		}
 	default:
 		return ul
@@ -190,14 +193,14 @@ g.doubleclick.net用正規化関数.
 */
 func optimizeDoubleClickURL(ul *url.URL) *url.URL {
 	if raw, ok := ul.Query()["msid"]; ok {
-		u, err := url.Parse("mobileapp::2-" + raw[0])
+		u, err := url.Parse(mobileapp2 + raw[0])
 		if err == nil {
 			return u
 		}
 	}
 
 	if raw, ok := ul.Query()["_package_name"]; ok {
-		u, err := url.Parse("mobileapp::1-" + raw[0])
+		u, err := url.Parse(mobileapp1 + raw[0])
 		if err == nil {
 			return u
 		}

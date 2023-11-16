@@ -142,6 +142,12 @@ func Test_parsePotentialURL(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"digits",
+			"68167",
+			nil,
+			true,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt

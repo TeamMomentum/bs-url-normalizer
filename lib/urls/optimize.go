@@ -11,6 +11,7 @@ import (
 	"net"
 	"net/url"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -56,7 +57,8 @@ var (
 		"itest.bbspink.com":               optimizeItest5chURL,
 	}
 
-	errEmptyURLString = errors.New("parse target URL is empty")
+	errEmptyURLString  = errors.New("parse target URL is empty")
+	errDigitsURLString = errors.New("parse target URL is digits")
 )
 
 func optimizeURL(ul *url.URL) *url.URL {
@@ -242,6 +244,10 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 func parsePotentialURL(rawurl string) (*url.URL, error) {
 	if rawurl == "" {
 		return nil, errEmptyURLString
+	}
+
+	if _, err := strconv.Atoi(rawurl); err == nil {
+		return nil, errDigitsURLString
 	}
 
 	parsed, parseErr := url.Parse(rawurl)

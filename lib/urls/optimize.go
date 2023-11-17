@@ -11,7 +11,6 @@ import (
 	"net"
 	"net/url"
 	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -57,8 +56,8 @@ var (
 		"itest.bbspink.com":               optimizeItest5chURL,
 	}
 
-	errEmptyURLString  = errors.New("parse target URL is empty")
-	errDigitsURLString = errors.New("parse target URL is digits")
+	errEmptyURLString        = errors.New("parse target URL is empty")
+	errSeemsToBeNonURLString = errors.New("parse target URL seems to be non URL")
 )
 
 func optimizeURL(ul *url.URL) *url.URL {
@@ -246,10 +245,6 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 		return nil, errEmptyURLString
 	}
 
-	if _, err := strconv.Atoi(rawurl); err == nil {
-		return nil, errDigitsURLString
-	}
-
 	parsed, parseErr := url.Parse(rawurl)
 	if parseErr != nil { // assumed case: `hello.世界.com:8080/page.html` (multibyte hostname with port number)
 		if host, tail, err := net.SplitHostPort(rawurl); err == nil && host != "" && tail != "" {
@@ -266,8 +261,21 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 		return parsed, nil
 	}
 
-	if scheme == "" { // missing any scheme in rawurl
-		return url.Parse("http://" + rawurl) //nolint: wrapcheck // re-parse with `http://` scheme prefix
+	if scheme == "" { // check if rawurl without scheme is url
+		reparsed, err := url.Parse("http://" + rawurl)
+		if err != nil {
+			return nil, fmt.Errorf("url.Parse: %w", err)
+		}
+
+		if reparsed.Path != "" {
+			return reparsed, nil
+		}
+
+		if strings.Contains(strings.Trim(reparsed.Hostname(), "."), ".") {
+			return reparsed, nil
+		}
+
+		return nil, errSeemsToBeNonURLString
 	}
 
 	if parsed.Host == "" { // case: scheme exists but missing authority part

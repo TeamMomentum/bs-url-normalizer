@@ -143,8 +143,8 @@ func Test_parsePotentialURL(t *testing.T) {
 			false,
 		},
 		{
-			"digits",
-			"68167",
+			"string",
+			".example.",
 			nil,
 			true,
 		},

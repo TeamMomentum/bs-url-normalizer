@@ -262,20 +262,7 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	}
 
 	if scheme == "" { // check if rawurl without scheme is url
-		reparsed, err := url.Parse("http://" + rawurl)
-		if err != nil {
-			return nil, fmt.Errorf("url.Parse: %w", err)
-		}
-
-		if reparsed.Path != "" {
-			return reparsed, nil
-		}
-
-		if strings.Contains(strings.Trim(reparsed.Hostname(), "."), ".") {
-			return reparsed, nil
-		}
-
-		return nil, errSeemsToBeNonURLString
+		return parsePotentialURLWithSchemeAdded(rawurl)
 	}
 
 	if parsed.Host == "" { // case: scheme exists but missing authority part
@@ -287,4 +274,21 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	}
 
 	return parsed, nil // non-http scheme URL (e.g. ftp://example.com/bar, data:,Hello%2C%20World!, etc)
+}
+
+func parsePotentialURLWithSchemeAdded(rawurl string) (*url.URL, error) {
+	parsed, err := url.Parse("http://" + rawurl)
+	if err != nil {
+		return nil, fmt.Errorf("url.Parse: %w", err)
+	}
+
+	if parsed.Path != "" {
+		return parsed, nil
+	}
+
+	if strings.Contains(strings.Trim(parsed.Hostname(), "."), ".") {
+		return parsed, nil
+	}
+
+	return nil, errSeemsToBeNonURLString
 }

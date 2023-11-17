@@ -56,7 +56,8 @@ var (
 		"itest.bbspink.com":               optimizeItest5chURL,
 	}
 
-	errEmptyURLString = errors.New("parse target URL is empty")
+	errEmptyURLString        = errors.New("parse target URL is empty")
+	errSeemsToBeNonURLString = errors.New("parse target URL seems to be non URL")
 )
 
 func optimizeURL(ul *url.URL) *url.URL {
@@ -260,8 +261,8 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 		return parsed, nil
 	}
 
-	if scheme == "" { // missing any scheme in rawurl
-		return url.Parse("http://" + rawurl) //nolint: wrapcheck // re-parse with `http://` scheme prefix
+	if scheme == "" { // check if rawurl without scheme is url
+		return parsePotentialURLWithSchemeAdded(rawurl)
 	}
 
 	if parsed.Host == "" { // case: scheme exists but missing authority part
@@ -273,4 +274,21 @@ func parsePotentialURL(rawurl string) (*url.URL, error) {
 	}
 
 	return parsed, nil // non-http scheme URL (e.g. ftp://example.com/bar, data:,Hello%2C%20World!, etc)
+}
+
+func parsePotentialURLWithSchemeAdded(rawurl string) (*url.URL, error) {
+	parsed, err := url.Parse("http://" + rawurl)
+	if err != nil {
+		return nil, fmt.Errorf("url.Parse: %w", err)
+	}
+
+	if parsed.Path != "" {
+		return parsed, nil
+	}
+
+	if strings.Contains(strings.Trim(parsed.Hostname(), "."), ".") {
+		return parsed, nil
+	}
+
+	return nil, errSeemsToBeNonURLString
 }

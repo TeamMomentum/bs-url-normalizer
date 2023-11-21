@@ -117,6 +117,11 @@
       "n1url": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rrf=blog.foo.jp%2Fxyz&s=0&tpsid=0000000000&w=320"
     },
     {
+      "description": "non optimizable AdMind URL (`rf` query param value is non URL)",
+      "in": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rf=.example.&s=0&tpsid=0000000000&w=320",
+      "n1url": "http://bidresult-dsp.ad-m.asia/dsp/api/sbid/b/?a=XXXX&adtype=0&afe=YYYY&at=0&b=0&bd=ZZZZZZ8&ds=0&h=50&id=0000000000&kt=0&mp=0&ot=0&pi=0000&pos=0&pr=00&rbs=1&rd=https%3A%2F%2Fad.example.com&rf=.example.&s=0&tpsid=0000000000&w=320"
+    },
+    {
       "in": "https://itest.5ch.net/foo/test/read.cgi/abc/00000000",
       "curl": "https://foo.5ch.net/test/read.cgi/abc/00000000",
       "n1url": "http://foo.5ch.net/test/read.cgi/abc/00000000/"

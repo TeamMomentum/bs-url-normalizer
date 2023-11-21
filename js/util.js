@@ -25,7 +25,7 @@ export function createAppURL(
   };
 }
 
-// eslint-disable-next-line max-statements, max-lines-per-function
+// eslint-disable-next-line max-statements, max-lines-per-function, complexity
 export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
   if (url.protocol !== 'http:' && url.protocol !== 'https:') {
     return url;
@@ -67,7 +67,7 @@ export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
   }
 
   var uval = query[adframe.url];
-  if (uval && uval[0]) {
+  if (uval && uval[0] && isAdframeURL(uval[0])) {
     url = parseURL(uval[0]);
     return getActualPage(url);
   }
@@ -85,6 +85,19 @@ export function getActualPage(url /*: URLInterface */) /*: URLInterface */ {
   }
 
   return url;
+}
+
+function isAdframeURL(v /*: string */) /* :boolean */ {
+  const url = parseURL(v);
+  if (url.pathname.replace('/', '') !== '') {
+    return true;
+  }
+
+  if (url.hostname.split('.').filter((s) => s).length >= 2) {
+    return true;
+  }
+
+  return false;
 }
 
 export function getActualRef(url /*: URLInterface */) /*: URLInterface */ {

@@ -29,3 +29,13 @@ issues:
       linters:
         - scopelint
         - exhaustruct
+
+linters-settings:
+  depguard:
+    rules:
+      main:
+        list-mode: strict
+        allow:
+          - $gostd
+          - github.com/TeamMomentum/bs-url-normalizer
+          - github.com/go-playground/validator/v10

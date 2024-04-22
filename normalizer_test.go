@@ -49,6 +49,7 @@ func TestNormalization(t *testing.T) {
 			if err != nil {
 				t.Fatalf("%s: %s", fn, err)
 			}
+
 			testNormalize(t, tf.Tests)
 		})
 	}

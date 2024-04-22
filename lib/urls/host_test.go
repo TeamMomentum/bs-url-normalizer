@@ -65,9 +65,11 @@ func Test_normalizePath(t *testing.T) {
 			ul := mustURL(tt.in)
 			shouldNormalize := tt.in != tt.want
 			isNormalized := normalizePath(ul)
+
 			if isNormalized != shouldNormalize {
 				t.Errorf("normalizePath() returns %v, want %v", isNormalized, shouldNormalize)
 			}
+
 			if nURL := ul.String(); nURL != tt.want {
 				t.Errorf("normalized URL = %v, want %v", nURL, tt.want)
 			}
@@ -111,6 +113,7 @@ func Test_normalizeSPHost(t *testing.T) {
 
 			ul := mustURL(tt.in)
 			normalizeSPHost(ul)
+
 			if nURL := ul.String(); nURL != tt.want {
 				t.Errorf("normalized URL = %v, want %v", nURL, tt.want)
 			}

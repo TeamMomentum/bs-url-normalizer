@@ -156,6 +156,7 @@ func applyNormPath(ul *url.URL, num int, param string) bool {
 				query.Del(key)
 			}
 		}
+
 		ul.RawQuery = query.Encode()
 	}
 
@@ -196,8 +197,8 @@ func init() {
 	spHostData = string(resources.MustAsset("norm_host_sp.csv"))
 	pathDepthData = string(resources.MustAsset("norm_host_path.csv"))
 	spPCHostMap = makeStringStringMap(strings.Split(spHostData, "\n"), ",")
-	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
 
+	normalizePathMap, err = makeNormalizePathMap(strings.Split(pathDepthData, "\n"), ",")
 	if err != nil {
 		panic(err)
 	}

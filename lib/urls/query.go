@@ -7,9 +7,8 @@ package urls
 
 import (
 	"net/url"
+	"slices"
 	"strings"
-
-	"golang.org/x/exp/slices"
 )
 
 var (

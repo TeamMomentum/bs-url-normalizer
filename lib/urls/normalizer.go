@@ -6,6 +6,7 @@
 package urls
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"strings"
@@ -23,7 +24,7 @@ type Normalizer struct {
 	url   *url.URL
 }
 
-var ErrInvalidScheme = fmt.Errorf("invalid scheme")
+var ErrInvalidScheme = errors.New("invalid scheme")
 
 // NewNormalizer generate a new Normalizer structure when the input URL is supported.
 func NewNormalizer(ul *url.URL) (*Normalizer, error) {

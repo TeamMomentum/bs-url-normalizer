@@ -111,6 +111,7 @@ func TestNewNormalizer(t *testing.T) {
 
 				return
 			}
+
 			if !reflect.DeepEqual(gotN, tt.wantN) {
 				t.Errorf("NewNormalizer() = %v, want %v", gotN, tt.wantN)
 			}
@@ -139,10 +140,12 @@ func TestNormalizer_CrawlingURL(t *testing.T) {
 			t.Parallel()
 
 			ul, _ := url.Parse(tt.raw)
+
 			n, err := NewNormalizer(ul)
 			if err != nil {
 				t.Errorf("Unsupported URL %v", ul.String())
 			}
+
 			if got := n.CrawlingURL(); got != tt.want {
 				t.Errorf("Normalizer.CrawlingURL() = %v, want %v", got, tt.want)
 			}
@@ -188,10 +191,12 @@ func TestNormalizer_Punyclde(t *testing.T) {
 			t.Parallel()
 
 			ul, _ := url.Parse(tt.raw)
+
 			n, err := NewNormalizer(ul)
 			if err != nil {
 				t.Errorf("Unsupported URL %v", ul.String())
 			}
+
 			if got := n.CrawlingURL(); got != tt.want {
 				t.Errorf("Normalizer.CrawlingURL() = %v, want %v", got, tt.want)
 			}

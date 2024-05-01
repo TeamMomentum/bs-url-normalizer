@@ -161,6 +161,7 @@ func Test_parsePotentialURL(t *testing.T) {
 
 				return
 			}
+
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("parsePotentialURL() = %v, want %v", got, tt.want)
 			}

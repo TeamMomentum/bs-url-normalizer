@@ -33,19 +33,23 @@ func normalizeHost(ul *url.URL) {
 		return
 	}
 
+	if strings.HasPrefix(rawHost, "[") {
+		normalizeIPv6Host(ul) // host is IPv6 address
+
+		return
+	}
+
 	if punycode, err := httpguts.PunycodeHostPort(rawHost); err == nil {
 		ul.Host = punycode
 	}
 
-	host := ul.Hostname() // '[]' for raw IPv6 address would be stripped
-	if host == "" {       // nothing to normalize
+	host := ul.Hostname()
+	if host == "" { // nothing to normalize
 		return
 	}
 
 	if n := len(host); n > 1 && host[n-1] == '.' && host[n-2] != '.' { // host ends with dot except the case dots are two or more consecutive
-		if !strings.HasPrefix(rawHost, "[") { // except IPv6 address host, Discussion: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#pullrequestreview-486689000
-			host = strings.TrimSuffix(host, ".") // trimming tailing single dot
-		}
+		host = strings.TrimSuffix(host, ".") // trimming tailing single dot
 	}
 
 	host = strings.ToLower(host) // converting to lowercase
@@ -53,6 +57,23 @@ func normalizeHost(ul *url.URL) {
 	// Re-Join normalized host and original port
 	// with trimming tailing ':' because net.JoinHostPort() does not take care of empty port
 	ul.Host = strings.TrimSuffix(net.JoinHostPort(host, ul.Port()), ":")
+}
+
+// normalizeIPv6Host normalizes IPv6 address in host part of URL.
+//
+// - correct the address text representation to the RFC 5952 recommended one.
+// - if the address is IPv4-mapped IPv6 address, treat as an IPv4 address.
+func normalizeIPv6Host(ul *url.URL) {
+	host := ul.Hostname()
+
+	parsed := net.ParseIP(host)
+	if parsed == nil || len(parsed) == 0 {
+		return
+	}
+
+	normalized := parsed.String()
+
+	ul.Host = strings.TrimSuffix(net.JoinHostPort(normalized, ul.Port()), ":")
 }
 
 // normalizePath reduces known URLs to the top page of the website.

@@ -39,7 +39,7 @@ func TestQueryOrder(t *testing.T) {
 	testURL := "http://example.com/tihoukoumu?d=1&a=2&c=3&b=4"
 	results := make(map[string]bool)
 
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		nu := FirstNormalizeURL(mustURL(testURL))
 		results[nu] = true
 	}
@@ -50,7 +50,7 @@ func TestQueryOrder(t *testing.T) {
 
 	testURL = "http://example.com/tihoukoumu?a=2&c=3&b=4&d=1&utm_query=1"
 
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		nu := FirstNormalizeURL(mustURL(testURL))
 		results[nu] = true
 	}
@@ -100,8 +100,6 @@ func TestNewNormalizer(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
-
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -134,8 +132,6 @@ func TestNormalizer_CrawlingURL(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
-
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -185,8 +181,6 @@ func TestNormalizer_Punyclde(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
-
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 

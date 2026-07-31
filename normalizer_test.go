@@ -40,8 +40,6 @@ func TestNormalization(t *testing.T) {
 	}
 
 	for _, fn := range files {
-		fn := fn
-
 		t.Run(fn, func(t *testing.T) {
 			t.Parallel()
 

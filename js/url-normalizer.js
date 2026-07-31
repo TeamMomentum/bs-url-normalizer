@@ -121,7 +121,7 @@ function deleteIgnoreQuery(url /*: URLInterface */) {
       if (ignore.keys === 'ALL') {
         keys = 'ALL';
       } else {
-        // $FlowIgnore
+        // $FlowFixMe[incompatible-type]
         keys = keys.concat(ignore.keys);
       }
     }
@@ -180,9 +180,9 @@ function secondNormalizedURL(urlStr /*: string */) /*: URLInterface */ {
   var pathDepth = N2URLPathDepthData[host];
   if (pathDepth === undefined) {
     if (url.pathname.indexOf('/~') === 0) {
-      pathDepth = ({ depth: 1 } /*: PathDepth */);
+      pathDepth = { depth: 1 };
     } else {
-      pathDepth = ({ depth: 0 } /*: PathDepth */);
+      pathDepth = { depth: 0 };
     }
   } else if (host === 'www.atwiki.jp') {
     console.log('here', pathDepth, url);

@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+      timezone: Asia/Tokyo
+    groups:
+      go-minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: npm
+    directory: /js
+    schedule:
+      interval: weekly
+      timezone: Asia/Tokyo
+    groups:
+      npm-minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # prettier 3 dropped support for Flow comment syntax (/*:: */) and
+      # rewrites it into real Flow syntax, which breaks untranspiled execution.
+      - dependency-name: prettier
+        update-types:
+          - version-update:semver-major
+      # neostandard currently supports eslint ^9 only (peer dependency).
+      # Revisit when neostandard supports the next eslint major.
+      - dependency-name: eslint
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      timezone: Asia/Tokyo

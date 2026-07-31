@@ -39,6 +39,7 @@ linters:
       - third_party$
       - builtin$
       - ^examples/
+      - ^js/
 formatters:
   enable:
     - gci
@@ -50,4 +51,5 @@ formatters:
     paths:
       - third_party$
       - builtin$
-      - examples$
+      - ^examples/
+      - ^js/

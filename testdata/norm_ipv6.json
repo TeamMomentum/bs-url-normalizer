@@ -3,33 +3,57 @@
 	"tests": [
 		{
 			"description": "IPv6 host",
-			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]",
-			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
-			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+			"in": "https://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]",
+			"n1url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]/",
+			"n2url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]"
 		},
 		{
 			"description": "IPv6 host with tailing dot (not to be trimmed), See: https://github.com/TeamMomentum/bs-url-normalizer/pull/74#discussion_r486955428",
-			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]",
-			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]/",
-			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee.]"
+			"in": "https://[2001:db8:bd05:1d2:288a:1fc0:1:10ee.]",
+			"n1url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee.]/",
+			"n2url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee.]"
 		},
 		{
 			"description": "IPv6 host port",
-			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080",
-			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080/",
-			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]:8080"
+			"in": "https://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]:8080",
+			"n1url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]:8080/",
+			"n2url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]:8080"
 		},
 		{
 			"description": "case-insensitive IPv6 host",
-			"in": "https://[2001:0DB8:BD05:01D2:288A:1FC0:0001:10EE]",
-			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]/",
-			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee]"
+			"in": "https://[2001:DB8:BD05:1D2:288A:1FC0:1:10EE]",
+			"n1url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]/",
+			"n2url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee]"
 		},
 		{
 			"description": "Invalid IPv6 host",
-			"in": "https://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]",
-			"n1url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]/",
-			"n2url": "http://[2001:0db8:bd05:01d2:288a:1fc0:0001:10ee..]"
+			"in": "https://[2001:db8:bd05:1d2:288a:1fc0:1:10ee..]",
+			"n1url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee..]/",
+			"n2url": "http://[2001:db8:bd05:1d2:288a:1fc0:1:10ee..]"
+		},
+		{
+			"description": "IPv4-mapped IPv6 host",
+			"in": "https://[::ffff:192.0.2.123]",
+			"n1url": "http://192.0.2.123/",
+			"n2url": "http://192.0.2.123"
+		},
+		{
+			"description": "IPv4-mapped IPv6 host in hex format",
+			"in": "https://[::ffff:c000:27b]",
+			"n1url": "http://192.0.2.123/",
+			"n2url": "http://192.0.2.123"
+		},
+		{
+			"description": "IPv4-mapped IPv6 host with port",
+			"in": "https://[::ffff:192.0.2.123]:8080",
+			"n1url": "http://192.0.2.123:8080/",
+			"n2url": "http://192.0.2.123:8080"
+		},
+		{
+			"description": "RFC 5952 non-recommended formatted IPv6 host",
+			"in": "https://[2001:0db8:bd05:0000:0000:1fc0:0001:10ee]",
+			"n1url": "http://[2001:db8:bd05::1fc0:1:10ee]/",
+			"n2url": "http://[2001:db8:bd05::1fc0:1:10ee]"
 		}
 	]
 }

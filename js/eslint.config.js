@@ -2,8 +2,7 @@ import neostandard from 'neostandard';
 
 export default [
   ...neostandard({
-    // Formatting is handled by Prettier; disable style rules
-    // (successor of the old comma-dangle/indent/semi/... "off" settings).
+    // Formatting is handled by Prettier; disable style rules.
     noStyle: true,
     env: ['browser', 'node'],
   }),

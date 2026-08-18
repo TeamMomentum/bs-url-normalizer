@@ -1,11 +1,10 @@
 // @flow
 import _assert from 'assert';
 
-// $FlowIgnore
 import { describe, it } from 'mocha';
 import { parseURL } from '../url.js';
 
-const assert = (_assert /*: any */).strict;
+const assert = _assert.strict;
 
 describe('url.parseURL', () => {
   const q =
@@ -30,9 +29,11 @@ describe('url.parseURL', () => {
     },
     hash: '#&empty&empty2=&q=query&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC%E8%AA%9E&%E3%82%AF%E3%82%A8%E3%83%AA=%E6%97%A5%E6%9C%AC',
   };
-  const got = (parseURL(src) /*: any */);
+  const got = parseURL(src);
 
   for (const key in want) {
+    // $FlowFixMe[invalid-computed-prop]
+    // $FlowFixMe[prop-missing]
     it(`has valid ${key}`, () => assert.deepEqual(want[key], got[key]));
   }
 });

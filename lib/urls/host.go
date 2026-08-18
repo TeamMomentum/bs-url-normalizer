@@ -89,7 +89,7 @@ func makeStringStringMap(lines []string, sep string) map[string]string {
 
 		rows := strings.Split(trimmed, sep)
 
-		if len(rows) < 2 { //nolint: gomnd
+		if len(rows) < 2 { //nolint: mnd
 			continue
 		}
 
@@ -113,7 +113,7 @@ func makeNormalizePathMap(lines []string, sep string) (map[string]func(*url.URL)
 		}
 
 		rows := strings.Split(trimmed, sep)
-		if len(rows) < 3 { //nolint: gomnd
+		if len(rows) < 3 { //nolint: mnd
 			continue
 		}
 
@@ -172,7 +172,7 @@ func trimWWW(host string) string {
 		return host
 	}
 
-	if len(host) < 4 { //nolint: gomnd
+	if len(host) < 4 { //nolint: mnd
 		return host
 	}
 

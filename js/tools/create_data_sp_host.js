@@ -13,7 +13,6 @@ console.log('export const SPHostData = {');
 parser.on('readable', () => {
   let data;
   while ((data = parser.read())) {
-    // eslint-disable-line no-cond-assign
     console.log(`  '${data.key}': '${data.value}',`);
   }
 });

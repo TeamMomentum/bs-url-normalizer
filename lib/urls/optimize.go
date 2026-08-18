@@ -220,7 +220,7 @@ func optimizeItest5chURL(ul *url.URL) *url.URL {
 	}
 
 	groups := redirect5chPattern.FindStringSubmatch(ul.Path)
-	if len(groups) < 3 { //nolint: gomnd // unmatched pattern (unable to optimize)
+	if len(groups) < 3 { //nolint: mnd // unmatched pattern (unable to optimize)
 		return ul
 	}
 

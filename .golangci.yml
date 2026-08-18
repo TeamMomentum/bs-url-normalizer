@@ -1,41 +1,55 @@
-run:
-  skip-dirs:
-
-  skip-files:
-
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
     - gochecknoglobals
     - gochecknoinits
+    - goconst
+    - godoclint
+    - gomodguard # deprecated: replaced by gomodguard_v2
+    - gosmopolitan
     - lll
+    - noinlineerr
     - testpackage
     - varnamelen
-    #DEPRECATED
-    - deadcode
-    - exhaustivestruct
-    - golint
-    - ifshort
-    - interfacer
-    - maligned
-    - nosnakecase
-    - scopelint
-    - structcheck
-    - varcheck
-
-issues:
-  exclude-rules:
-    - path: ".*_test.go$"
-      linters:
-        - scopelint
-        - exhaustruct
-
-linters-settings:
-  depguard:
+    - wsl # deprecated: replaced by wsl_v5
+  settings:
+    depguard:
+      rules:
+        main:
+          list-mode: strict
+          allow:
+            - $gostd
+            - github.com/TeamMomentum/bs-url-normalizer
+            - github.com/go-playground/validator/v10
+            - golang.org/x/net
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
     rules:
-      main:
-        list-mode: strict
-        allow:
-          - $gostd
-          - github.com/TeamMomentum/bs-url-normalizer
-          - github.com/go-playground/validator/v10
+      - linters:
+          - exhaustruct
+          - scopelint
+        path: .*_test.go$
+    paths:
+      - third_party$
+      - builtin$
+      - ^examples/
+      - ^js/
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - ^examples/
+      - ^js/

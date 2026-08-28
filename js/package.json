@@ -32,12 +32,12 @@
     "@rollup/plugin-terser": "^1.0.0",
     "csv": "^6.6.3",
     "eslint": "^9.39.5",
-    "flow-bin": "^0.328.0",
+    "flow-bin": "^0.329.0",
     "mocha": "^11.8.0",
     "neostandard": "^0.13.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
-    "rollup": "^4.62.4",
+    "rollup": "^4.62.5",
     "tr46": "^6.0.0",
     "url-parse": "^1.5.10"
   }

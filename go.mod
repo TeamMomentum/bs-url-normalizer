@@ -3,7 +3,7 @@ module github.com/TeamMomentum/bs-url-normalizer
 go 1.25.0
 
 require (
-	github.com/go-playground/validator/v10 v10.30.3
+	github.com/go-playground/validator/v10 v10.30.4
 	golang.org/x/net v0.58.0
 )
 
